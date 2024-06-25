@@ -1,9 +1,8 @@
 :root {
-  --primary-color: #191D32;
-  --secondary-color: #282F44;
-  --accent-color: #453A49;
-  --background-color: #F0F7EE;
-  --alternate-light: #C4D7F2;
+  --primary-color: #130E01;
+  --secondary-color: #292D3D;
+  --tertiary-color: #9FA4A9;
+  --background-color: #FFFFFF;
 }
 
 body {
@@ -16,10 +15,9 @@ body {
 }
 
 header {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  color: var(--background-color);
 }
 
 .header-content {
@@ -35,6 +33,7 @@ h1 {
   margin: 0;
   flex: 1;
   font-weight: 700;
+  color: var(--background-color);
 }
 
 .logo-container {
@@ -54,8 +53,8 @@ h1 {
 
 .cta-button {
   display: inline-block;
-  background-color: var(--accent-color);
-  color: var(--background-color);
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
   padding: 0.75rem 1.5rem;
   text-decoration: none;
   border-radius: 4px;
@@ -65,7 +64,8 @@ h1 {
 }
 
 .cta-button:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }
 
 main {
@@ -76,7 +76,7 @@ main {
 
 section {
   margin-bottom: 3rem;
-  background-color: var(--alternate-light);
+  background-color: var(--tertiary-color);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -84,11 +84,11 @@ section {
 
 h2 {
   font-size: 2rem;
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: 2px solid var(--secondary-color);
   padding-bottom: 0.5rem;
   margin-top: 0;
   font-weight: 700;
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 ul {
@@ -104,7 +104,7 @@ li {
 
 li::before {
   content: '•';
-  color: var(--accent-color);
+  color: var(--secondary-color);
   font-size: 1.5rem;
   position: absolute;
   left: 0;
@@ -118,7 +118,7 @@ li::before {
 
 #contact h2 {
   color: var(--background-color);
-  border-bottom-color: var(--background-color);
+  border-bottom-color: var(--tertiary-color);
 }
 
 footer {
