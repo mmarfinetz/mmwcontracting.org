@@ -1,7 +1,7 @@
 :root {
   --primary-color: #130E01;
   --secondary-color: #292D3D;
-  --tertiary-color: #9FA4A9;
+  --tertiary-color: #C0C0C0;  /* Changed to a more silvery color */
   --background-color: #FFFFFF;
 }
 
@@ -134,15 +134,15 @@ footer {
     flex-direction: column;
     text-align: center;
   }
-
+  
   .logo-container {
     margin-top: 1rem;
   }
-
+  
   .cta-buttons {
     flex-direction: column;
   }
-
+  
   .cta-button {
     margin: 0.5rem 0;
   }
