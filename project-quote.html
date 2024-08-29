@@ -23,7 +23,7 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
-        input[type="number"], select, textarea {
+        input[type="number"], input[type="email"], select, textarea {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #ccc;
@@ -81,6 +81,10 @@
                     <input type="number" id="drainLength" min="0">
                 </div>
                 <div class="form-group">
+                    <label for="emailInput">Email Address:</label>
+                    <input type="email" id="emailInput" required>
+                </div>
+                <div class="form-group">
                     <label for="projectDescription">Project Description:</label>
                     <textarea id="projectDescription" rows="4" required></textarea>
                 </div>
@@ -92,6 +96,69 @@
     <footer>
         <p>&copy; 2023 MMW Contracting. All rights reserved.</p>
     </footer>
-    <script src="js/project-quote.js"></script>
+    <script>
+        document.getElementById('projectQuoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const projectType = document.getElementById('projectType').value;
+            const email = document.getElementById('emailInput').value;
+            const description = document.getElementById('projectDescription').value;
+            let quote = 0;
+
+            // Basic quote calculation logic (to be refined based on actual pricing)
+            switch (projectType) {
+                case 'remodeling':
+                case 'renovation':
+                    const roomSize = document.getElementById('roomSize').value;
+                    quote = roomSize * 50; // $50 per sq ft (example rate)
+                    break;
+                case 'sewer':
+                    const sewerLength = document.getElementById('sewerLength').value;
+                    quote = sewerLength * 100; // $100 per ft (example rate)
+                    break;
+                case 'drains':
+                    const drainType = document.getElementById('drainType').value;
+                    const drainLength = document.getElementById('drainLength').value;
+                    quote = drainLength * (drainType === 'french' ? 75 : 50); // $75 per ft for French, $50 for Yard (example rates)
+                    break;
+                default:
+                    quote = 'Custom quote needed';
+            }
+
+            let resultHTML = `<h3>Project Quote</h3>`;
+            resultHTML += `<p>Estimated Cost: $${typeof quote === 'number' ? quote.toFixed(2) : quote}</p>`;
+            resultHTML += `<p>Project Type: ${projectType}</p>`;
+            resultHTML += `<p>Description: ${description}</p>`;
+            resultHTML += `<p>We will contact you at ${email} with more details about your project quote.</p>`;
+
+            document.getElementById('quoteResult').innerHTML = resultHTML;
+
+            // Here you would typically send this data to a server for processing and storage
+            console.log('Quote request:', { projectType, email, description, quote });
+        });
+
+        document.getElementById('projectType').addEventListener('change', function() {
+            const renodelingSectionsize = document.getElementById('renodelingSectionsize');
+            const sewerSection = document.getElementById('sewerSection');
+            const drainSection = document.getElementById('drainSection');
+
+            renodelingSectionsize.classList.add('hidden');
+            sewerSection.classList.add('hidden');
+            drainSection.classList.add('hidden');
+
+            switch (this.value) {
+                case 'remodeling':
+                case 'renovation':
+                    renodelingSectionsize.classList.remove('hidden');
+                    break;
+                case 'sewer':
+                    sewerSection.classList.remove('hidden');
+                    break;
+                case 'drains':
+                    drainSection.classList.remove('hidden');
+                    break;
+            }
+        });
+    </script>
 </body>
 </html>
