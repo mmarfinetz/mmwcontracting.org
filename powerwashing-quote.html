@@ -74,11 +74,19 @@
                 <button type="submit" class="cta-button">Generate Quote</button>
             </form>
             <div id="quoteResult"></div>
+            <button id="open-form" style="display:none;" class="cta-button">Proceed with Quote</button>
         </section>
     </main>
     <footer>
         <p>&copy; 2023 MMW Contracting. All rights reserved.</p>
     </footer>
     <script src="js/powerwashing-quote.js"></script>
+    <script>
+        document.getElementById('open-form').addEventListener('click', openGoogleForm);
+
+        function openGoogleForm() {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
+        }
+    </script>
 </body>
 </html>
