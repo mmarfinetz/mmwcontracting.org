@@ -1,21 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded. Initializing quote generator.');
+
     const form = document.getElementById('powerwashingQuoteForm');
     const quoteResult = document.getElementById('quoteResult');
+    const openFormButton = document.getElementById('open-form');
+
+    if (!form || !quoteResult || !openFormButton) {
+        console.error('One or more required elements not found. Please check the HTML.');
+        return;
+    }
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        const squareFootage = parseFloat(document.getElementById('squareFootage').value);
-        const surfaceType = document.getElementById('surfaceType').value;
-        const dirtLevel = document.getElementById('dirtLevel').value;
+        console.log('Form submitted. Calculating quote.');
 
-        const quote = calculateQuote(squareFootage, surfaceType, dirtLevel);
-        displayQuote(quote);
-        document.getElementById('open-form').addEventListener('click', function() {
+        try {
+            const squareFootage = parseFloat(document.getElementById('squareFootage').value);
+            const surfaceType = document.getElementById('surfaceType').value;
+            const dirtLevel = document.getElementById('dirtLevel').value;
+
+            if (isNaN(squareFootage) || squareFootage <= 0) {
+                throw new Error('Invalid square footage');
+            }
+
+            const quote = calculateQuote(squareFootage, surfaceType, dirtLevel);
+            displayQuote(quote);
+            
+            // Show the "Proceed with Quote" button
+            openFormButton.style.display = 'block';
+            console.log('Quote calculated and displayed. "Proceed with Quote" button shown.');
+        } catch (error) {
+            console.error('Error in quote calculation:', error);
+            quoteResult.innerHTML = 'An error occurred while calculating the quote. Please try again.';
+        }
+    });
+
+    openFormButton.addEventListener('click', function() {
+        console.log('Opening Google Form.');
         window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
     });
-});
 
     function calculateQuote(squareFootage, surfaceType, dirtLevel) {
+        console.log('Calculating quote for:', { squareFootage, surfaceType, dirtLevel });
         let baseRate = 0.10; // $0.10 per square foot base rate
 
         // Adjust rate based on surface type
@@ -60,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayQuote(quote) {
         quoteResult.innerHTML = `Estimated Quote: $${quote}`;
     }
-    document.getElementById('open-form').addEventListener('click', function() {
-        window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
-    });
+
+    console.log('Quote generator initialization complete.');
 });
