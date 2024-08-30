@@ -10,7 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const quote = calculateQuote(squareFootage, surfaceType, dirtLevel);
         displayQuote(quote);
+        document.getElementById('open-form').addEventListener('click', function() {
+        window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
     });
+});
 
     function calculateQuote(squareFootage, surfaceType, dirtLevel) {
         let baseRate = 0.10; // $0.10 per square foot base rate
@@ -57,4 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayQuote(quote) {
         quoteResult.innerHTML = `Estimated Quote: $${quote}`;
     }
+    document.getElementById('open-form').addEventListener('click', function() {
+        window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
+    });
 });
