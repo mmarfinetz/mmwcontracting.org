@@ -91,6 +91,7 @@
                 <button type="submit" class="cta-button">Generate Quote</button>
             </form>
             <div id="quoteResult"></div>
+            <button id="open-form" style="display:none;" class="cta-button">Proceed with Quote</button>
         </section>
     </main>
     <footer>
@@ -132,9 +133,16 @@
             resultHTML += `<p>We will contact you at ${email} with more details about your project quote.</p>`;
 
             document.getElementById('quoteResult').innerHTML = resultHTML;
+            
+            // Show the "Proceed with Quote" button
+            document.getElementById('open-form').style.display = 'block';
 
             // Here you would typically send this data to a server for processing and storage
             console.log('Quote request:', { projectType, email, description, quote });
+        });
+
+        document.getElementById('open-form').addEventListener('click', function() {
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform', '_blank');
         });
 
         document.getElementById('projectType').addEventListener('change', function() {
