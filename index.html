@@ -275,45 +275,80 @@
       let isDragging = false;
       let startX;
       let startY;
+      let initialTouchX;
+      let initialTouchY;
 
+      // Mouse events
       icon.addEventListener('mousedown', (e) => {
         if (e.button === 0) { // Left click only
-          isDragging = true;
-          icon.classList.add('dragging');
-          
-          const rect = icon.getBoundingClientRect();
-          startX = e.clientX - rect.left;
-          startY = e.clientY - rect.top;
-          
-          // Select icon
-          document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
-          icon.classList.add('selected');
+          startDrag(e.clientX, e.clientY);
         }
       });
 
       document.addEventListener('mousemove', (e) => {
         if (isDragging) {
-          e.preventDefault();
-          const left = e.clientX - startX;
-          const top = e.clientY - startY;
-          
-          // Keep icons within viewport bounds
-          const maxX = window.innerWidth - icon.offsetWidth;
-          const maxY = window.innerHeight - icon.offsetHeight;
-          
-          icon.style.left = `${Math.max(0, Math.min(maxX, left))}px`;
-          icon.style.top = `${Math.max(0, Math.min(maxY, top))}px`;
+          moveDrag(e.clientX, e.clientY);
         }
       });
 
       document.addEventListener('mouseup', () => {
+        endDrag();
+      });
+
+      // Touch events
+      icon.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        startDrag(touch.clientX, touch.clientY);
+        initialTouchX = touch.clientX;
+        initialTouchY = touch.clientY;
+      });
+
+      icon.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // Prevent scrolling while dragging
+        const touch = e.touches[0];
+        if (isDragging) {
+          moveDrag(touch.clientX, touch.clientY);
+        }
+      });
+
+      icon.addEventListener('touchend', () => {
+        endDrag();
+      });
+
+      // Helper functions
+      function startDrag(clientX, clientY) {
+        isDragging = true;
+        icon.classList.add('dragging');
+        
+        const rect = icon.getBoundingClientRect();
+        startX = clientX - rect.left;
+        startY = clientY - rect.top;
+        
+        // Select icon
+        document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+        icon.classList.add('selected');
+      }
+
+      function moveDrag(clientX, clientY) {
+        const left = clientX - startX;
+        const top = clientY - startY;
+        
+        // Keep icons within viewport bounds
+        const maxX = window.innerWidth - icon.offsetWidth;
+        const maxY = window.innerHeight - icon.offsetHeight;
+        
+        icon.style.left = `${Math.max(0, Math.min(maxX, left))}px`;
+        icon.style.top = `${Math.max(0, Math.min(maxY, top))}px`;
+      }
+
+      function endDrag() {
         if (isDragging) {
           isDragging = false;
           icon.classList.remove('dragging');
         }
-      });
+      }
 
-      // Prevent drag ghost image
+      // Prevent default drag ghost image
       icon.addEventListener('dragstart', (e) => {
         e.preventDefault();
       });

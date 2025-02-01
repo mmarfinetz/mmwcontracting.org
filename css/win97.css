@@ -376,6 +376,14 @@ body::after {
     height: auto;
   }
 
+  body::before {
+    background-size: 100% auto;
+    max-width: 400px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .desktop-icons {
     position: static;
     display: grid;
@@ -387,6 +395,15 @@ body::after {
   .desktop-icon {
     position: static;
     width: auto;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .desktop-icon.dragging {
+    opacity: 0.7;
+    position: fixed;
+    z-index: 1000;
   }
 
   .window {
