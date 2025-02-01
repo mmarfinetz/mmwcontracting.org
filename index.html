@@ -10,15 +10,15 @@
 </head>
 <body>
   <div class="desktop-icons">
-    <div class="desktop-icon" draggable="true" style="left: 20px; top: 20px;">
+    <div class="desktop-icon" style="left: 20px; top: 20px;">
       <img src="img/mycomputer.png" alt="My Computer">
       <span>My Computer</span>
     </div>
-    <div class="desktop-icon" draggable="true" style="left: 20px; top: 100px;">
+    <div class="desktop-icon" style="left: 20px; top: 100px;">
       <img src="img/services.png" alt="Services">
       <span>Services</span>
     </div>
-    <div class="desktop-icon" draggable="true" style="left: 20px; top: 180px;">
+    <div class="desktop-icon" style="left: 20px; top: 180px;">
       <img src="img/phone.png" alt="Contact Us">
       <span>Contact Us</span>
     </div>
@@ -270,87 +270,23 @@
       });
     });
 
-    // Desktop icons dragging
+    // Desktop icons click handling
     document.querySelectorAll('.desktop-icon').forEach(icon => {
-      let isDragging = false;
-      let startX;
-      let startY;
-      let initialTouchX;
-      let initialTouchY;
-
-      // Mouse events
-      icon.addEventListener('mousedown', (e) => {
-        if (e.button === 0) { // Left click only
-          startDrag(e.clientX, e.clientY);
-        }
-      });
-
-      document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          moveDrag(e.clientX, e.clientY);
-        }
-      });
-
-      document.addEventListener('mouseup', () => {
-        endDrag();
-      });
-
-      // Touch events
-      icon.addEventListener('touchstart', (e) => {
-        const touch = e.touches[0];
-        startDrag(touch.clientX, touch.clientY);
-        initialTouchX = touch.clientX;
-        initialTouchY = touch.clientY;
-      });
-
-      icon.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // Prevent scrolling while dragging
-        const touch = e.touches[0];
-        if (isDragging) {
-          moveDrag(touch.clientX, touch.clientY);
-        }
-      });
-
-      icon.addEventListener('touchend', () => {
-        endDrag();
-      });
-
-      // Helper functions
-      function startDrag(clientX, clientY) {
-        isDragging = true;
-        icon.classList.add('dragging');
-        
-        const rect = icon.getBoundingClientRect();
-        startX = clientX - rect.left;
-        startY = clientY - rect.top;
-        
-        // Select icon
+      icon.addEventListener('click', () => {
+        // Remove any existing selection
         document.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
+        // Add selection to clicked icon
         icon.classList.add('selected');
-      }
-
-      function moveDrag(clientX, clientY) {
-        const left = clientX - startX;
-        const top = clientY - startY;
         
-        // Keep icons within viewport bounds
-        const maxX = window.innerWidth - icon.offsetWidth;
-        const maxY = window.innerHeight - icon.offsetHeight;
-        
-        icon.style.left = `${Math.max(0, Math.min(maxX, left))}px`;
-        icon.style.top = `${Math.max(0, Math.min(maxY, top))}px`;
-      }
-
-      function endDrag() {
-        if (isDragging) {
-          isDragging = false;
-          icon.classList.remove('dragging');
+        // Handle icon actions
+        const iconText = icon.querySelector('span').textContent;
+        if (iconText === 'Contact Us') {
+          window.location.href = 'contact-form.html';
+        } else if (iconText === 'Services') {
+          // Show services window or handle services action
+          document.querySelector('.window[data-window="services"]').style.display = 'block';
+          document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
         }
-      }
-
-      // Prevent default drag ghost image
-      icon.addEventListener('dragstart', (e) => {
-        e.preventDefault();
       });
     });
 
@@ -409,63 +345,6 @@
       });
     });
 
-    // Double-click desktop icons to open windows
-    document.querySelectorAll('.desktop-icon').forEach(icon => {
-      icon.addEventListener('dblclick', () => {
-        const iconText = icon.querySelector('span').textContent;
-        if (iconText === 'Contact Us') {
-          showHelpWindow();
-        } else if (iconText === 'Services') {
-          showServicesWindow();
-        }
-      });
-    });
-
-    // Add Contact Us menu item click handler
-    document.getElementById('start-contact').addEventListener('click', () => {
-      showHelpWindow();
-      document.querySelector('.start-menu').classList.remove('active');
-      document.querySelector('.start-button').classList.remove('active');
-    });
-
-    // Function to create and show services window
-    function showServicesWindow() {
-      const servicesWindow = document.querySelector('.window[data-window="services"]');
-      const taskbarEntry = document.querySelector('.taskbar-entry[data-window="services"]');
-      
-      if (servicesWindow) {
-        servicesWindow.style.display = 'block';
-        document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-        servicesWindow.classList.add('active');
-        if (taskbarEntry) {
-          taskbarEntry.style.display = 'block';
-          taskbarEntry.classList.add('active');
-        }
-      }
-    }
-
-    // Help window functionality
-    function showHelpWindow() {
-      const helpWindow = document.getElementById('help-window');
-      const taskbarEntry = document.querySelector('.taskbar-entry[data-window="help"]');
-      
-      if (helpWindow) {
-        helpWindow.style.display = 'block';
-        document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-        helpWindow.classList.add('active');
-        if (taskbarEntry) {
-          taskbarEntry.style.display = 'block';
-          taskbarEntry.classList.add('active');
-        }
-      }
-    }
-
-    document.getElementById('start-help').addEventListener('click', () => {
-      showHelpWindow();
-      document.querySelector('.start-menu').classList.remove('active');
-      document.querySelector('.start-button').classList.remove('active');
-    });
-
     // Shutdown functionality
     document.getElementById('start-shutdown').addEventListener('click', () => {
       location.reload();
@@ -473,19 +352,22 @@
 
     // Start menu items click handlers
     document.getElementById('start-services').addEventListener('click', () => {
-      showServicesWindow();
+      document.querySelector('.window[data-window="services"]').style.display = 'block';
+      document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
       document.querySelector('.start-menu').classList.remove('active');
       document.querySelector('.start-button').classList.remove('active');
     });
 
     document.getElementById('start-contact').addEventListener('click', () => {
-      showHelpWindow();
+      document.querySelector('.window[data-window="help"]').style.display = 'block';
+      document.querySelector('.taskbar-entry[data-window="help"]').classList.add('active');
       document.querySelector('.start-menu').classList.remove('active');
       document.querySelector('.start-button').classList.remove('active');
     });
 
     document.getElementById('start-help').addEventListener('click', () => {
-      showHelpWindow();
+      document.querySelector('.window[data-window="help"]').style.display = 'block';
+      document.querySelector('.taskbar-entry[data-window="help"]').classList.add('active');
       document.querySelector('.start-menu').classList.remove('active');
       document.querySelector('.start-button').classList.remove('active');
     });
