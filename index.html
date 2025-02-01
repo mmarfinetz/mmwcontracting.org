@@ -42,19 +42,19 @@
           </div>
           <div class="window-content">
             <div class="service-item">
-              <img src="img/faucet.png" alt="Faucet" class="service-icon">
+              <img src="img/wxp_186.png" alt="Faucet" class="service-icon">
               <span>Faucets & Sinks Installation</span>
             </div>
             <div class="service-item">
-              <img src="img/shower.png" alt="Shower" class="service-icon">
+              <img src="img/wxp_220.png" alt="Shower" class="service-icon">
               <span>Showerheads & Toilets</span>
             </div>
             <div class="service-item">
-              <img src="img/wrench.png" alt="Disposal" class="service-icon">
+              <img src="img/w2k_old_dustbin.png" alt="Disposal" class="service-icon">
               <span>Garbage Disposals</span>
             </div>
             <div class="service-item">
-              <img src="img/filter.png" alt="Filter" class="service-icon">
+              <img src="img/w2k_search.png" alt="Filter" class="service-icon">
               <span>Water Filters & Hot Water Dispensers</span>
             </div>
           </div>
@@ -67,15 +67,15 @@
           </div>
           <div class="window-content">
             <div class="service-item">
-              <img src="img/pipe3.png" alt="Drain" class="service-icon">
+              <img src="img/wxp_317.png" alt="Drain" class="service-icon">
               <span>Drain Snaking & Sewer Cabling</span>
             </div>
             <div class="service-item">
-              <img src="img/wrench.png" alt="Pipe" class="service-icon">
+              <img src="img/wxp_180.png" alt="Pipe" class="service-icon">
               <span>P-traps & Pop-up Assemblies</span>
             </div>
             <div class="service-item">
-              <img src="img/warning.png" alt="Leak" class="service-icon">
+              <img src="img/wxp_154.png" alt="Leak" class="service-icon">
               <span>Minor Leak Repairs</span>
             </div>
           </div>
@@ -88,11 +88,11 @@
           </div>
           <div class="window-content">
             <div class="service-item">
-              <img src="img/heater3.png" alt="Heater" class="service-icon">
+              <img src="img/wxp_244.png" alt="Heater" class="service-icon">
               <span>Electric Water Heater Replacement</span>
             </div>
             <div class="service-item">
-              <img src="img/heater3.png" alt="Tankless" class="service-icon">
+              <img src="img/wxp_167.png" alt="Tankless" class="service-icon">
               <span>Tankless Water Heater Installation</span>
             </div>
           </div>
@@ -105,15 +105,15 @@
           </div>
           <div class="window-content">
             <div class="service-item">
-              <img src="img/cabinet.png" alt="Vanity" class="service-icon">
+              <img src="img/wxp_237.png" alt="Vanity" class="service-icon">
               <span>Vanities & Countertops</span>
             </div>
             <div class="service-item">
-              <img src="img/door.png" alt="Shower Door" class="service-icon">
+              <img src="img/wxp_299.png" alt="Shower Door" class="service-icon">
               <span>Shower Doors & Grab Bars</span>
             </div>
             <div class="service-item">
-              <img src="img/tile.png" alt="Tile" class="service-icon">
+              <img src="img/wxp_267.png" alt="Tile" class="service-icon">
               <span>Tile & Tub Enclosures</span>
             </div>
           </div>
@@ -123,20 +123,20 @@
   </div>
 
   <div class="start-menu">
-    <div class="start-menu-item">
+    <div class="start-menu-item" id="start-services">
       <img src="img/services.png" alt="Services">
       <span>Services</span>
     </div>
-    <div class="start-menu-item">
+    <div class="start-menu-item" id="start-contact">
       <img src="img/phone.png" alt="Contact">
       <span>Contact Us</span>
     </div>
     <div class="start-menu-divider"></div>
-    <div class="start-menu-item">
+    <div class="start-menu-item" id="start-help">
       <img src="img/help.png" alt="Help">
       <span>Help</span>
     </div>
-    <div class="start-menu-item">
+    <div class="start-menu-item" id="start-shutdown">
       <img src="img/shutdown.png" alt="Shut Down">
       <span>Shut Down...</span>
     </div>
@@ -147,7 +147,26 @@
       <img src="img/win-logo.png" alt="Start" style="width: 16px; height: 16px; margin-right: 5px;">
       Start
     </button>
+    <div class="taskbar-entries"></div>
     <div class="taskbar-time">4:20 PM</div>
+  </div>
+
+  <!-- Help Window Template -->
+  <div class="window" id="help-window" style="display: none; left: 250px; top: 100px; width: 400px; min-height: 200px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Help - Contact Information</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button">_</button>
+        <button class="title-bar-button">□</button>
+        <button class="title-bar-button">×</button>
+      </div>
+    </div>
+    <div class="window-content" style="font-family: 'Courier New', monospace; white-space: pre-line;">
+      MMW Contracting Contact Information:
+
+      Email: admin@mmwcontracting.org
+      Phone: 814-225-8389
+    </div>
   </div>
 
   <script>
@@ -160,7 +179,7 @@
     setInterval(updateTime, 1000);
     updateTime();
 
-    // Window dragging functionality
+    // Window management
     document.querySelectorAll('.window').forEach(window => {
       let isDragging = false;
       let currentX;
@@ -168,7 +187,54 @@
       let initialX;
       let initialY;
 
+      // Set data-window attribute for identification
+      if (window.id === 'help-window') {
+        window.setAttribute('data-window', 'help');
+      } else {
+        window.setAttribute('data-window', 'services');
+      }
+
       const titleBar = window.querySelector('.title-bar');
+      const minimizeButton = window.querySelector('.title-bar-button:nth-child(1)');
+      const maximizeButton = window.querySelector('.title-bar-button:nth-child(2)');
+      const closeButton = window.querySelector('.title-bar-button:nth-child(3)');
+
+      // Create taskbar entry for the window
+      const taskbarEntry = document.createElement('div');
+      taskbarEntry.className = 'taskbar-entry active';
+      taskbarEntry.setAttribute('data-window', window.getAttribute('data-window'));
+      taskbarEntry.innerHTML = `
+        <img src="${window.getAttribute('data-window') === 'help' ? 'img/phone.png' : 'img/services.png'}" alt="Window" style="width: 16px; height: 16px; margin-right: 5px;">
+        <span>${window.querySelector('.title-bar-text').textContent}</span>
+      `;
+      document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+
+      // Minimize button click handler
+      minimizeButton.addEventListener('click', () => {
+        window.style.display = 'none';
+        taskbarEntry.classList.remove('active');
+        taskbarEntry.style.display = 'block'; // Keep taskbar entry visible
+      });
+
+      // Taskbar entry click handler
+      taskbarEntry.addEventListener('click', () => {
+        if (window.style.display === 'none') {
+          window.style.display = 'block';
+          taskbarEntry.classList.add('active');
+          // Bring window to front
+          document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+          window.classList.add('active');
+        } else {
+          window.style.display = 'none';
+          taskbarEntry.classList.remove('active');
+        }
+      });
+
+      // Close button click handler
+      closeButton.addEventListener('click', () => {
+        window.style.display = 'none';
+        taskbarEntry.style.display = 'none';
+      });
 
       titleBar.addEventListener('mousedown', (e) => {
         if (!e.target.closest('.title-bar-controls')) {
@@ -275,10 +341,15 @@
       button.addEventListener('click', (e) => {
         const window = e.target.closest('.window');
         const buttonIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
+        const taskbarEntry = document.querySelector(`.taskbar-entry[data-window="${window.getAttribute('data-window')}"]`);
         
         switch(buttonIndex) {
           case 0: // Minimize
             window.style.display = 'none';
+            if (taskbarEntry) {
+              taskbarEntry.style.display = 'block';
+              taskbarEntry.classList.remove('active');
+            }
             break;
           case 1: // Maximize
             if (window.style.width === '100%') {
@@ -294,7 +365,10 @@
             }
             break;
           case 2: // Close
-            window.remove();
+            window.style.display = 'none';
+            if (taskbarEntry) {
+              taskbarEntry.style.display = 'none';
+            }
             break;
         }
       });
@@ -303,9 +377,82 @@
     // Double-click desktop icons to open windows
     document.querySelectorAll('.desktop-icon').forEach(icon => {
       icon.addEventListener('dblclick', () => {
-        // Add your window opening logic here
-        console.log('Opening window for:', icon.querySelector('span').textContent);
+        const iconText = icon.querySelector('span').textContent;
+        if (iconText === 'Contact Us') {
+          showHelpWindow();
+        } else if (iconText === 'Services') {
+          showServicesWindow();
+        }
       });
+    });
+
+    // Add Contact Us menu item click handler
+    document.getElementById('start-contact').addEventListener('click', () => {
+      showHelpWindow();
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+
+    // Function to create and show services window
+    function showServicesWindow() {
+      const servicesWindow = document.querySelector('.window[data-window="services"]');
+      const taskbarEntry = document.querySelector('.taskbar-entry[data-window="services"]');
+      
+      if (servicesWindow) {
+        servicesWindow.style.display = 'block';
+        document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+        servicesWindow.classList.add('active');
+        if (taskbarEntry) {
+          taskbarEntry.style.display = 'block';
+          taskbarEntry.classList.add('active');
+        }
+      }
+    }
+
+    // Help window functionality
+    function showHelpWindow() {
+      const helpWindow = document.getElementById('help-window');
+      const taskbarEntry = document.querySelector('.taskbar-entry[data-window="help"]');
+      
+      if (helpWindow) {
+        helpWindow.style.display = 'block';
+        document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+        helpWindow.classList.add('active');
+        if (taskbarEntry) {
+          taskbarEntry.style.display = 'block';
+          taskbarEntry.classList.add('active');
+        }
+      }
+    }
+
+    document.getElementById('start-help').addEventListener('click', () => {
+      showHelpWindow();
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+
+    // Shutdown functionality
+    document.getElementById('start-shutdown').addEventListener('click', () => {
+      location.reload();
+    });
+
+    // Start menu items click handlers
+    document.getElementById('start-services').addEventListener('click', () => {
+      showServicesWindow();
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+
+    document.getElementById('start-contact').addEventListener('click', () => {
+      showHelpWindow();
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+
+    document.getElementById('start-help').addEventListener('click', () => {
+      showHelpWindow();
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
     });
   </script>
 </body>
