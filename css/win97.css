@@ -328,4 +328,123 @@ body::after {
   height: 1px;
   background-color: var(--win97-darker);
   margin: 4px 0;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 10px;
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .desktop-icons {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .desktop-icon {
+    position: static;
+    width: auto;
+  }
+
+  .window {
+    position: static !important;
+    width: 100% !important;
+    min-width: unset;
+    margin: 0 0 20px 0;
+    resize: none;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .service-item {
+    padding: 12px;
+  }
+
+  .service-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+  }
+
+  .start-menu {
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .start-menu-item {
+    padding: 12px;
+  }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+  .desktop-icons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .title-bar {
+    padding: 6px;
+  }
+
+  .title-bar-button {
+    width: 24px;
+    height: 22px;
+  }
+
+  .service-item {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .service-icon {
+    margin: 0 0 8px 0;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .service-item,
+  .start-menu-item,
+  .desktop-icon {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
+  .service-item:active,
+  .start-menu-item:active {
+    background-color: var(--win97-blue);
+    color: white;
+  }
+
+  .desktop-icon:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px dotted var(--logo-light);
+  }
+
+  .title-bar-button {
+    min-width: 32px;
+    min-height: 32px;
+  }
 } 
