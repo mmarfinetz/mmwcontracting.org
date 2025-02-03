@@ -22,6 +22,10 @@
       <img src="img/phone.png" alt="Contact Us">
       <span>Contact Us</span>
     </div>
+    <div class="desktop-icon" style="left: 20px; top: 260px;">
+      <img src="img/wxp_186.png" alt="Video">
+      <span>Company Video</span>
+    </div>
   </div>
 
   <div class="window active" style="left: 200px; top: 50px;">
@@ -170,6 +174,28 @@
     </div>
   </div>
 
+  <!-- Video Window Template -->
+  <div class="window" id="video-window" style="display: none; left: 250px; top: 100px; width: 640px; min-height: 480px;">
+    <div class="title-bar">
+      <div class="title-bar-text">MMW Contracting - Company Video</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button">_</button>
+        <button class="title-bar-button">□</button>
+        <button class="title-bar-button">×</button>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 0;">
+      <iframe 
+        width="100%" 
+        height="480" 
+        src="https://www.youtube.com/embed/X4EWMFpXQYA" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
   <script>
     // Update taskbar time
     function updateTime() {
@@ -191,6 +217,8 @@
       // Set data-window attribute for identification
       if (window.id === 'help-window') {
         window.setAttribute('data-window', 'help');
+      } else if (window.id === 'video-window') {
+        window.setAttribute('data-window', 'video');
       } else {
         window.setAttribute('data-window', 'services');
       }
@@ -284,9 +312,11 @@
         if (iconText === 'Contact Us') {
           window.location.href = 'contact-form.html';
         } else if (iconText === 'Services') {
-          // Show services window or handle services action
           document.querySelector('.window[data-window="services"]').style.display = 'block';
           document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
+        } else if (iconText === 'Company Video') {
+          document.querySelector('#video-window').style.display = 'block';
+          document.querySelector('.taskbar-entry[data-window="video"]').classList.add('active');
         }
       });
     });
