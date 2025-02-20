@@ -22,10 +22,12 @@
       <img src="img/phone.png" alt="Contact Us">
       <span>Contact Us</span>
     </div>
+    <!-- Video icon removed
     <div class="desktop-icon" style="left: 20px; top: 260px;">
       <img src="img/wxp_186.png" alt="Video">
       <span>Company Video</span>
     </div>
+    -->
   </div>
 
   <div class="window active" style="left: 200px; top: 50px;">
@@ -174,7 +176,7 @@
     </div>
   </div>
 
-  <!-- Video Window Template -->
+  <!-- Video Window Template - Commented out
   <div class="window" id="video-window" style="display: none; left: 250px; top: 100px; width: 640px; min-height: 480px;">
     <div class="title-bar">
       <div class="title-bar-text">MMW Contracting - Company Video</div>
@@ -196,6 +198,7 @@
       </video>
     </div>
   </div>
+  -->
 
   <script>
     // Update taskbar time
@@ -218,8 +221,10 @@
       // Set data-window attribute for identification
       if (window.id === 'help-window') {
         window.setAttribute('data-window', 'help');
+      /* Video window identification removed
       } else if (window.id === 'video-window') {
         window.setAttribute('data-window', 'video');
+      */
       } else {
         window.setAttribute('data-window', 'services');
       }
@@ -254,19 +259,23 @@
           // Bring window to front
           document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
           window.classList.add('active');
+          /* Video autoplay removed
           // Auto-play video if it's the video window
           if (window.id === 'video-window') {
             const videoElement = window.querySelector('video');
             videoElement.play();
           }
+          */
         } else {
           window.style.display = 'none';
           taskbarEntry.classList.remove('active');
+          /* Video pause removed
           // Pause video if it's the video window
           if (window.id === 'video-window') {
             const videoElement = window.querySelector('video');
             videoElement.pause();
           }
+          */
         }
       });
 
@@ -325,6 +334,7 @@
         } else if (iconText === 'Services') {
           document.querySelector('.window[data-window="services"]').style.display = 'block';
           document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
+        /* Video click handler removed
         } else if (iconText === 'Company Video') {
           const videoWindow = document.querySelector('#video-window');
           const videoElement = videoWindow.querySelector('video');
@@ -332,6 +342,7 @@
           document.querySelector('.taskbar-entry[data-window="video"]').classList.add('active');
           // Auto-play the video
           videoElement.play();
+        */
         }
       });
     });
@@ -367,11 +378,13 @@
               taskbarEntry.style.display = 'block';
               taskbarEntry.classList.remove('active');
             }
+            /* Video pause removed
             // Pause video if it's the video window
             if (window.id === 'video-window') {
               const videoElement = window.querySelector('video');
               videoElement.pause();
             }
+            */
             break;
           case 1: // Maximize
             if (window.style.width === '100%') {
@@ -391,11 +404,13 @@
             if (taskbarEntry) {
               taskbarEntry.style.display = 'none';
             }
+            /* Video pause removed
             // Pause video if it's the video window
             if (window.id === 'video-window') {
               const videoElement = window.querySelector('video');
               videoElement.pause();
             }
+            */
             break;
         }
       });
