@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+    <title>Contact MMW Contracting - Plumbing Services</title>
+    <meta name="description" content="Contact MMW Contracting for professional plumbing services in Pennsylvania. Request a quote or emergency service.">
+    <meta name="theme-color" content="#008080">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/jpeg" href="img/logo_local.jpeg">
+    <style>
+        :root {
+            --win97-gray: #c0c0c0;
+            --win97-darker: #808080;
+            --win97-dark: #404040;
+            --win97-light: #ffffff;
+            --win97-blue: #000080;
+        }
+        
+        body {
+            font-family: "MS Sans Serif", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #008080;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: var(--win97-gray);
+            border-bottom: 1px solid var(--win97-darker);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .header-logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .form-container {
+            background-color: var(--win97-gray);
+            border: 2px solid;
+            border-color: var(--win97-light) var(--win97-darker) var(--win97-darker) var(--win97-light);
+            padding: 2px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .form-title-bar {
+            background-color: var(--win97-blue);
+            color: white;
+            padding: 3px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        
+        .form-title-bar img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        
+        .form-content {
+            background-color: white;
+            padding: 10px;
+            height: 600px;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .back-button {
+            background-color: var(--win97-gray);
+            border: 2px solid;
+            border-color: var(--win97-light) var(--win97-darker) var(--win97-darker) var(--win97-light);
+            padding: 5px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .back-button:active {
+            border-color: var(--win97-darker) var(--win97-light) var(--win97-light) var(--win97-darker);
+        }
+        
+        .back-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+        
+        .footer {
+            background-color: var(--win97-gray);
+            border-top: 1px solid var(--win97-darker);
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .form-container {
+                max-width: 100%;
+            }
+            
+            .form-content {
+                height: 500px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-logo span {
+                font-size: 14px;
+            }
+            
+            .form-content {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="header-logo">
+            <img src="img/logo_local.jpeg" alt="MMW Contracting">
+            <span>MMW Contracting</span>
+        </a>
+        <button class="back-button" onclick="window.location.href='index.html'">
+            <img src="img/wxp_180.png" alt="Back">
+            Back to Home
+        </button>
+    </div>
+    
+    <div class="container">
+        <div class="form-container">
+            <div class="form-title-bar">
+                <div>
+                    <img src="img/phone.png" alt="Contact">
+                    Contact Us
+                </div>
+                <div>
+                    <span>PA HIC #: PA198563</span>
+                </div>
+            </div>
+            <div class="form-content">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSehqD8aocZMKJeyBHpI7CK4lf4PXTRceu8arXhf3qZn34LrOA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>MMW Contracting &copy; 2023 | Phone: 814-273-6315 | Email: admin@mmwcontracting.org</p>
+    </div>
+</body>
+</html>

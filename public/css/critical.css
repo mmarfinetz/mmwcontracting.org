@@ -1,0 +1,95 @@
+/* Critical CSS for above-the-fold content */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'SF Pro Display', sans-serif;
+  overflow: hidden;
+  background-color: #008080;
+}
+
+.desktop-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 30px);
+  z-index: 1;
+}
+
+.desktop-icon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  margin: 10px;
+  text-decoration: none;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.desktop-icon img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 5px;
+}
+
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+}
+
+.start-button {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 5px;
+  margin-left: 2px;
+  background-color: #c0c0c0;
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+.taskbar-time {
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 0.8rem;
+  border: 1px inset #808080;
+  padding: 2px 5px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .desktop-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .desktop-icon {
+    margin: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .desktop-icon {
+    width: 60px;
+    font-size: 0.7rem;
+  }
+  
+  .start-button span {
+    display: none;
+  }
+}
