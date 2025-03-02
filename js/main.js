@@ -3,16 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // DOM Elements
   const desktopIcons = document.querySelectorAll('.desktop-icon');
   const startButton = document.querySelector('.start-button');
-  const startMenu = document.getElementById('start-menu');
+  const startMenu = document.querySelector('.start-menu');
   const windows = document.querySelectorAll('.window');
   const taskbar = document.querySelector('.taskbar');
-  const taskbarPrograms = document.querySelector('.taskbar-programs');
+  const taskbarEntries = document.querySelector('.taskbar-entries');
   const closeButtons = document.querySelectorAll('.close-button');
   const minimizeButtons = document.querySelectorAll('.minimize-button');
   const timeDisplay = document.querySelector('.taskbar-time');
   const testimonialWindows = document.querySelectorAll('.testimonial');
   const testimonialNextBtn = document.getElementById('testimonial-next');
   const testimonialPrevBtn = document.getElementById('testimonial-prev');
+  const ctaButton = document.getElementById('cta-button');
   
   // State
   let activeWindow = null;
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    taskbarPrograms.appendChild(taskbarEntry);
+    document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
   }
   
   // Initialize UI
@@ -266,6 +267,59 @@ document.addEventListener('DOMContentLoaded', function() {
     testimonialPrevBtn.addEventListener('click', handlePrevTestimonial);
   }
   
+  // CTA Button Click Handler
+  if (ctaButton) {
+    ctaButton.addEventListener('click', function() {
+      window.location.href = 'contact-form.html';
+    });
+  }
+  
+  // Start menu items click handlers
+  const startEmergency = document.getElementById('start-emergency');
+  if (startEmergency) {
+    startEmergency.addEventListener('click', () => {
+      openWindow('emergency-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startServices = document.getElementById('start-services');
+  if (startServices) {
+    startServices.addEventListener('click', () => {
+      openWindow('services-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startTestimonials = document.getElementById('start-testimonials');
+  if (startTestimonials) {
+    startTestimonials.addEventListener('click', () => {
+      openWindow('testimonials-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startContact = document.getElementById('start-contact');
+  if (startContact) {
+    startContact.addEventListener('click', () => {
+      openWindow('contact-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startHelp = document.getElementById('start-help');
+  if (startHelp) {
+    startHelp.addEventListener('click', () => {
+      openWindow('help-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
   // Mobile-specific optimizations
   function initMobileOptimizations() {
     const isMobile = window.innerWidth <= 768;
@@ -370,9 +424,9 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       // Adjust CTA button position
-      const ctaButton = document.querySelector('.cta-button-container');
-      if (ctaButton) {
-        ctaButton.style.bottom = '50px';
+      const ctaButtonContainer = document.querySelector('.cta-button-container');
+      if (ctaButtonContainer) {
+        ctaButtonContainer.style.bottom = '50px';
       }
     } else {
       // Reset for desktop
@@ -382,9 +436,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Reset CTA button position
-      const ctaButton = document.querySelector('.cta-button-container');
-      if (ctaButton) {
-        ctaButton.style.bottom = '60px';
+      const ctaButtonContainer = document.querySelector('.cta-button-container');
+      if (ctaButtonContainer) {
+        ctaButtonContainer.style.bottom = '60px';
       }
     }
   }
