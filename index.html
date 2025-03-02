@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MMW Contracting - Professional Plumbing Services</title>
+  <title>MMW Contracting - Professional Plumbing Services in Pennsylvania</title>
+  <meta name="description" content="MMW Contracting offers professional plumbing services including fixture replacements, drain services, water heater installation, and bathroom upgrades in Pennsylvania.">
+  <meta name="keywords" content="plumbing, contractor, Pennsylvania, fixture replacement, drain services, water heater, bathroom remodeling, MMW Contracting">
+  <meta name="author" content="MMW Contracting">
+  <meta property="og:title" content="MMW Contracting - Professional Plumbing Services">
+  <meta property="og:description" content="Reliable plumbing services for residential and commercial properties in Pennsylvania.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mmwcontracting.org">
   <link rel="icon" type="image/jpeg" href="img/logo_local.jpeg">
   <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/win97.css">
+  <script src="js/google-reviews.js" defer></script>
 </head>
 <body>
   <div class="desktop-icons">
     <a href="#" class="desktop-icon" id="my-computer">
-      <img src="img/my-computer.png" alt="My Computer">
+      <img src="img/mycomputer.png" alt="My Computer">
       <span>My Computer</span>
     </a>
     <a href="#" class="desktop-icon" id="services">
@@ -19,12 +27,16 @@
       <span>Services</span>
     </a>
     <a href="#" class="desktop-icon" id="contact">
-      <img src="img/contact.png" alt="Contact Us">
+      <img src="img/phone.png" alt="Contact Us">
       <span>Contact Us</span>
     </a>
-    <a href="/calculator/" class="desktop-icon" id="calculator">
-      <img src="img/w98_calculator.png" alt="Revenue Calculator">
-      <span>Revenue Calculator</span>
+    <a href="#" class="desktop-icon" id="testimonials">
+      <img src="img/wxp_244.png" alt="Reviews">
+      <span>Customer Reviews</span>
+    </a>
+    <a href="#" class="desktop-icon" id="emergency">
+      <img src="img/w98_msg_warning.png" alt="Emergency Services">
+      <span>Emergency Services</span>
     </a>
     <!-- Video icon removed
     <div class="desktop-icon" style="left: 20px; top: 260px;">
@@ -33,8 +45,15 @@
     </div>
     -->
   </div>
+  
+  <div class="cta-button-container">
+    <button class="cta-button">
+      <img src="img/wxp_299.png" alt="Request" style="width: 20px; height: 20px; margin-right: 5px;">
+      Request Plumbing Service
+    </button>
+  </div>
 
-  <div class="window active" style="left: 200px; top: 50px;">
+  <div class="window" style="left: 200px; top: 50px; display: none;">
     <div class="title-bar">
       <div class="title-bar-text">MMW Contracting - Plumbing Services</div>
       <div class="title-bar-controls">
@@ -133,6 +152,10 @@
   </div>
 
   <div class="start-menu">
+    <div class="start-menu-item" id="start-emergency" style="background-color: #cc0000; color: white;">
+      <img src="img/w98_msg_warning.png" alt="Emergency">
+      <span>Emergency Services</span>
+    </div>
     <div class="start-menu-item" id="start-services">
       <img src="img/services.png" alt="Services">
       <span>Services</span>
@@ -140,6 +163,10 @@
     <div class="start-menu-item" id="start-contact">
       <img src="img/phone.png" alt="Contact">
       <span>Contact Us</span>
+    </div>
+    <div class="start-menu-item" id="start-testimonials">
+      <img src="img/wxp_244.png" alt="Reviews">
+      <span>Customer Reviews</span>
     </div>
     <div class="start-menu-divider"></div>
     <div class="start-menu-item" id="start-help">
@@ -158,7 +185,71 @@
       Start
     </button>
     <div class="taskbar-entries"></div>
+    <div class="emergency-taskbar" onclick="document.getElementById('emergency-window').style.display='block'">
+      <img src="img/w98_msg_warning.png" alt="Emergency" style="width: 16px; height: 16px; margin-right: 5px;">
+      <span>24/7 Emergency: 814-273-6315</span>
+    </div>
     <div class="taskbar-time">4:20 PM</div>
+  </div>
+
+  <!-- Page Transition Element -->
+  <div class="page-transition">
+    <div class="page-transition-content">
+      <div class="hourglass"></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Emergency Services Window -->
+  <div class="window emergency-window" id="emergency-window" data-window="emergency" style="left: 50%; top: 50%; transform: translate(-50%, -50%); width: 500px; min-height: 300px; z-index: 999; display: none;">
+    <div class="title-bar" style="background-color: #cc0000;">
+      <div class="title-bar-text">EMERGENCY PLUMBING SERVICES</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button">_</button>
+        <button class="title-bar-button">□</button>
+        <button class="title-bar-button">×</button>
+      </div>
+    </div>
+    <div class="window-content emergency-content">
+      <div class="emergency-header">
+        <img src="img/w98_msg_warning.png" alt="Emergency" class="emergency-icon">
+        <h2 class="emergency-title">EMERGENCY 24/7 PLUMBING SERVICES</h2>
+      </div>
+      <div class="emergency-info">
+        <p class="emergency-text">Serving Erie County, Pennsylvania</p>
+        <p class="emergency-phone">Call Now: <a href="tel:8142736315" class="emergency-phone-link">814-273-6315</a></p>
+        <div class="emergency-services-list">
+          <div class="emergency-service-item">
+            <img src="img/pipe2.png" alt="Pipe" class="service-icon">
+            <span>Burst Pipes</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/faucet.png" alt="Leak" class="service-icon">
+            <span>Major Leaks</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/heater.png" alt="Heater" class="service-icon">
+            <span>No Hot Water</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_hardware.png" alt="Toilet" class="service-icon">
+            <span>Toilet Issues</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_gps.png" alt="Drain" class="service-icon">
+            <span>Sewer Backup</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/warning.png" alt="Flood" class="service-icon">
+            <span>Flooding</span>
+          </div>
+        </div>
+        <button class="emergency-call-button" onclick="window.location.href='tel:8142736315'">
+          <img src="img/phone.png" alt="Call" style="width: 24px; height: 24px; margin-right: 10px;">
+          CALL NOW
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Help Window Template -->
@@ -175,7 +266,7 @@
       MMW Contracting Contact Information:
 
       Email: admin@mmwcontracting.org
-      Phone: 814-225-8389
+      Phone: 814-273-6315
       PA HIC #: PA198563
     </div>
   </div>
@@ -204,6 +295,63 @@
   </div>
   -->
 
+  <!-- Calculator Window Template -->
+  <!-- Removed as per instructions -->
+
+  <!-- Testimonials Window Template -->
+  <div class="window" id="testimonials-window" data-window="testimonials" style="display: none; left: 300px; top: 100px; width: 500px; height: 400px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Customer Reviews</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button">_</button>
+        <button class="title-bar-button">□</button>
+        <button class="title-bar-button">×</button>
+      </div>
+    </div>
+    <div class="window-content testimonials-content">
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">John D.</div>
+            <div class="testimonial-rating">★★★★★</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Excellent service! Fixed my leaky faucet quickly and professionally. Would recommend to anyone needing plumbing work done."
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">Sarah M.</div>
+            <div class="testimonial-rating">★★★★★</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "MMW Contracting installed a new bathroom vanity for us. The work was done perfectly and they cleaned up everything afterward. Very satisfied!"
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">Robert T.</div>
+            <div class="testimonial-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Needed emergency plumbing repair and they responded quickly. Fair pricing and good workmanship. Would use again."
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="win95-button prev-testimonial">◄ Previous</button>
+        <button class="win95-button next-testimonial">Next ►</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Update taskbar time
     function updateTime() {
@@ -213,6 +361,75 @@
     }
     setInterval(updateTime, 1000);
     updateTime();
+
+    // Page Loading Simulation
+    window.addEventListener('DOMContentLoaded', function() {
+      const pageTransition = document.querySelector('.page-transition');
+      pageTransition.classList.add('active');
+      
+      setTimeout(function() {
+        pageTransition.classList.remove('active');
+        
+        // Show emergency window after page loads
+        setTimeout(function() {
+          const emergencyWindow = document.getElementById('emergency-window');
+          emergencyWindow.style.display = 'block';
+          
+          // Add taskbar entry for emergency window
+          let taskbarEntry = document.querySelector('.taskbar-entry[data-window="emergency"]');
+          if (!taskbarEntry) {
+            taskbarEntry = document.createElement('div');
+            taskbarEntry.className = 'taskbar-entry active';
+            taskbarEntry.setAttribute('data-window', 'emergency');
+            taskbarEntry.innerHTML = `
+              <img src="img/w98_msg_warning.png" alt="Emergency" style="width: 16px; height: 16px; margin-right: 5px;">
+              <span>Emergency Services</span>
+            `;
+            document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+          }
+          
+          // Bring window to front
+          document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+          emergencyWindow.classList.add('active');
+          
+          // Make sure all other windows are hidden
+          document.querySelectorAll('.window:not(#emergency-window)').forEach(w => {
+            w.style.display = 'none';
+          });
+          
+          // Make sure all other taskbar entries are not active
+          document.querySelectorAll('.taskbar-entry:not([data-window="emergency"])').forEach(entry => {
+            entry.classList.remove('active');
+          });
+        }, 500);
+      }, 1500);
+    });
+
+    // Testimonials Navigation
+    const testimonials = document.querySelectorAll('.testimonial');
+    let currentTestimonialIndex = 0;
+    
+    // Initially hide all but the first testimonial
+    for (let i = 1; i < testimonials.length; i++) {
+      testimonials[i].style.display = 'none';
+    }
+    
+    document.querySelector('.prev-testimonial').addEventListener('click', function() {
+      testimonials[currentTestimonialIndex].style.display = 'none';
+      currentTestimonialIndex = (currentTestimonialIndex - 1 + testimonials.length) % testimonials.length;
+      testimonials[currentTestimonialIndex].style.display = 'block';
+    });
+    
+    document.querySelector('.next-testimonial').addEventListener('click', function() {
+      testimonials[currentTestimonialIndex].style.display = 'none';
+      currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+      testimonials[currentTestimonialIndex].style.display = 'block';
+    });
+    
+    // CTA Button Click Handler
+    document.querySelector('.cta-button').addEventListener('click', function() {
+      window.location.href = 'contact-form.html';
+    });
 
     // Window management
     document.querySelectorAll('.window').forEach(window => {
@@ -229,6 +446,10 @@
       } else if (window.id === 'video-window') {
         window.setAttribute('data-window', 'video');
       */
+      } else if (window.id === 'testimonials-window') {
+        window.setAttribute('data-window', 'testimonials');
+      } else if (window.id === 'emergency-window') {
+        window.setAttribute('data-window', 'emergency');
       } else {
         window.setAttribute('data-window', 'services');
       }
@@ -238,15 +459,36 @@
       const maximizeButton = window.querySelector('.title-bar-button:nth-child(2)');
       const closeButton = window.querySelector('.title-bar-button:nth-child(3)');
 
-      // Create taskbar entry for the window
-      const taskbarEntry = document.createElement('div');
-      taskbarEntry.className = 'taskbar-entry active';
-      taskbarEntry.setAttribute('data-window', window.getAttribute('data-window'));
-      taskbarEntry.innerHTML = `
-        <img src="${window.getAttribute('data-window') === 'help' ? 'img/phone.png' : 'img/services.png'}" alt="Window" style="width: 16px; height: 16px; margin-right: 5px;">
-        <span>${window.querySelector('.title-bar-text').textContent}</span>
-      `;
-      document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+      // Only create taskbar entries for windows that should be visible initially
+      // Skip the main services window since we only want to show the emergency window
+      if (window.getAttribute('data-window') !== 'services') {
+        // Create taskbar entry for the window
+        const taskbarEntry = document.createElement('div');
+        taskbarEntry.className = 'taskbar-entry';
+        taskbarEntry.setAttribute('data-window', window.getAttribute('data-window'));
+        
+        // Set appropriate icon based on window type
+        let iconSrc = 'img/services.png';  // Default
+        let windowType = window.getAttribute('data-window');
+        
+        if (windowType === 'help') {
+          iconSrc = 'img/phone.png';
+        } else if (windowType === 'testimonials') {
+          iconSrc = 'img/wxp_244.png';
+        } else if (windowType === 'calculator') {
+          iconSrc = 'img/w98_calculator.png';
+        } else if (windowType === 'emergency') {
+          iconSrc = 'img/w98_msg_warning.png';
+        }
+        
+        taskbarEntry.innerHTML = `
+          <img src="${iconSrc}" alt="Window" style="width: 16px; height: 16px; margin-right: 5px;">
+          <span>${window.querySelector('.title-bar-text').textContent}</span>
+        `;
+        
+        // Only add to taskbar if it's not the main services window
+        document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+      }
 
       // Minimize button click handler
       minimizeButton.addEventListener('click', () => {
@@ -338,6 +580,37 @@
         } else if (iconText === 'Services') {
           document.querySelector('.window[data-window="services"]').style.display = 'block';
           document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
+        } else if (iconText === 'Customer Reviews') {
+          document.querySelector('#testimonials-window').style.display = 'block';
+          document.querySelector('.taskbar-entry[data-window="testimonials"]').classList.add('active');
+          // Reset to first testimonial
+          const testimonials = document.querySelectorAll('.testimonial');
+          testimonials.forEach((t, i) => {
+            t.style.display = i === 0 ? 'block' : 'none';
+          });
+        } else if (iconText === 'Emergency Services') {
+          // Show emergency window and bring to front
+          const emergencyWindow = document.getElementById('emergency-window');
+          emergencyWindow.style.display = 'block';
+          
+          // Bring window to front
+          document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+          emergencyWindow.classList.add('active');
+          
+          // Ensure taskbar entry exists and is active
+          let taskbarEntry = document.querySelector('.taskbar-entry[data-window="emergency"]');
+          if (!taskbarEntry) {
+            taskbarEntry = document.createElement('div');
+            taskbarEntry.className = 'taskbar-entry active';
+            taskbarEntry.setAttribute('data-window', 'emergency');
+            taskbarEntry.innerHTML = `
+              <img src="img/w98_msg_warning.png" alt="Emergency" style="width: 16px; height: 16px; margin-right: 5px;">
+              <span>Emergency Services</span>
+            `;
+            document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+          }
+          document.querySelectorAll('.taskbar-entry').forEach(entry => entry.classList.remove('active'));
+          taskbarEntry.classList.add('active');
         /* Video click handler removed
         } else if (iconText === 'Company Video') {
           const videoWindow = document.querySelector('#video-window');
@@ -426,6 +699,34 @@
     });
 
     // Start menu items click handlers
+    document.getElementById('start-emergency').addEventListener('click', () => {
+      // Show emergency window and bring to front
+      const emergencyWindow = document.getElementById('emergency-window');
+      emergencyWindow.style.display = 'block';
+      
+      // Bring window to front
+      document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
+      emergencyWindow.classList.add('active');
+      
+      // Ensure taskbar entry exists and is active
+      let taskbarEntry = document.querySelector('.taskbar-entry[data-window="emergency"]');
+      if (!taskbarEntry) {
+        taskbarEntry = document.createElement('div');
+        taskbarEntry.className = 'taskbar-entry active';
+        taskbarEntry.setAttribute('data-window', 'emergency');
+        taskbarEntry.innerHTML = `
+          <img src="img/w98_msg_warning.png" alt="Emergency" style="width: 16px; height: 16px; margin-right: 5px;">
+          <span>Emergency Services</span>
+        `;
+        document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+      }
+      document.querySelectorAll('.taskbar-entry').forEach(entry => entry.classList.remove('active'));
+      taskbarEntry.classList.add('active');
+      
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+    
     document.getElementById('start-services').addEventListener('click', () => {
       document.querySelector('.window[data-window="services"]').style.display = 'block';
       document.querySelector('.taskbar-entry[data-window="services"]').classList.add('active');
@@ -436,6 +737,13 @@
     document.getElementById('start-contact').addEventListener('click', () => {
       document.querySelector('.window[data-window="help"]').style.display = 'block';
       document.querySelector('.taskbar-entry[data-window="help"]').classList.add('active');
+      document.querySelector('.start-menu').classList.remove('active');
+      document.querySelector('.start-button').classList.remove('active');
+    });
+
+    document.getElementById('start-testimonials').addEventListener('click', () => {
+      document.querySelector('.window[data-window="testimonials"]').style.display = 'block';
+      document.querySelector('.taskbar-entry[data-window="testimonials"]').classList.add('active');
       document.querySelector('.start-menu').classList.remove('active');
       document.querySelector('.start-button').classList.remove('active');
     });
