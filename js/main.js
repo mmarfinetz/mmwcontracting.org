@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const windows = document.querySelectorAll('.window');
   const taskbar = document.querySelector('.taskbar');
   const taskbarEntries = document.querySelector('.taskbar-entries');
-  const closeButtons = document.querySelectorAll('.close-button');
-  const minimizeButtons = document.querySelectorAll('.minimize-button');
+  const closeButtons = document.querySelectorAll('.title-bar-button.close-button');
+  const minimizeButtons = document.querySelectorAll('.title-bar-button.minimize-button');
   const timeDisplay = document.querySelector('.taskbar-time');
   const testimonialWindows = document.querySelectorAll('.testimonial');
   const testimonialNextBtn = document.getElementById('testimonial-next');
@@ -451,5 +451,25 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', () => {
     // Update UI based on new screen size
     initMobileOptimizations();
+  });
+  
+  // Add a delegated event listener for any close buttons that might be added dynamically
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-button')) {
+      const window = event.target.closest('.window');
+      if (window) {
+        window.style.display = 'none';
+        
+        // Remove from taskbar
+        const taskbarEntry = document.querySelector(`.taskbar-program[data-window-id="${window.id}"]`);
+        if (taskbarEntry) {
+          taskbarEntry.remove();
+        }
+        
+        if (activeWindow === window) {
+          activeWindow = null;
+        }
+      }
+    }
   });
 });
