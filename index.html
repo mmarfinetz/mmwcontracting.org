@@ -145,7 +145,230 @@
     </div>
   </div>
   
-  <!-- Windows are preserved from the original HTML -->
+  <!-- Windows from the original HTML -->
+  <!-- Services Window -->
+  <div class="window" id="services-window" data-window="services" style="left: 200px; top: 50px; display: none;">
+    <div class="title-bar">
+      <div class="title-bar-text">MMW Contracting - Plumbing Services</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="services-grid">
+        <!-- Fixture Replacements -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Fixture Replacements</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_186.png" alt="Faucet" class="service-icon">
+              <span>Faucets & Sinks Installation</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_220.png" alt="Shower" class="service-icon">
+              <span>Showerheads & Toilets</span>
+            </div>
+            <div class="service-item">
+              <img src="img/w2k_old_dustbin.png" alt="Disposal" class="service-icon">
+              <span>Garbage Disposals</span>
+            </div>
+            <div class="service-item">
+              <img src="img/w2k_search.png" alt="Filter" class="service-icon">
+              <span>Water Filters & Hot Water Dispensers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drain & Sewer -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Drain & Sewer Services</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_317.png" alt="Drain" class="service-icon">
+              <span>Drain Snaking & Sewer Cabling</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_180.png" alt="Pipe" class="service-icon">
+              <span>P-traps & Pop-up Assemblies</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_154.png" alt="Leak" class="service-icon">
+              <span>Minor Leak Repairs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Water Heaters -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Water Heater Services</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_244.png" alt="Heater" class="service-icon">
+              <span>Electric Water Heater Replacement</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_167.png" alt="Tankless" class="service-icon">
+              <span>Tankless Water Heater Installation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Remodeling -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Bathroom Upgrades</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_237.png" alt="Vanity" class="service-icon">
+              <span>Vanities & Countertops</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_299.png" alt="Shower Door" class="service-icon">
+              <span>Shower Doors & Grab Bars</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_267.png" alt="Tile" class="service-icon">
+              <span>Tile & Tub Enclosures</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Services Window -->
+  <div class="window emergency-window" id="emergency-window" data-window="emergency" style="left: 50%; top: 50%; transform: translate(-50%, -50%); width: 500px; min-height: 300px; z-index: 999;">
+    <div class="title-bar" style="background-color: #cc0000;">
+      <div class="title-bar-text">EMERGENCY PLUMBING SERVICES</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content emergency-content">
+      <div class="emergency-header">
+        <img src="img/w98_msg_warning.png" alt="Emergency" class="emergency-icon">
+        <h2 class="emergency-title">EMERGENCY 24/7 PLUMBING SERVICES</h2>
+      </div>
+      <div class="emergency-info">
+        <p class="emergency-text">Serving Erie County, Pennsylvania</p>
+        <p class="emergency-phone">Call Now: <a href="tel:8142736315" class="emergency-phone-link">814-273-6315</a></p>
+        <div class="emergency-services-list">
+          <div class="emergency-service-item">
+            <img src="img/pipe2.png" alt="Pipe" class="service-icon">
+            <span>Burst Pipes</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/faucet.png" alt="Leak" class="service-icon">
+            <span>Major Leaks</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/heater.png" alt="Heater" class="service-icon">
+            <span>No Hot Water</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_hardware.png" alt="Toilet" class="service-icon">
+            <span>Toilet Issues</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_gps.png" alt="Drain" class="service-icon">
+            <span>Sewer Backup</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/warning.png" alt="Flood" class="service-icon">
+            <span>Flooding</span>
+          </div>
+        </div>
+        <button class="emergency-call-button" onclick="window.location.href='tel:8142736315'">
+          <img src="img/phone.png" alt="Call" style="width: 24px; height: 24px; margin-right: 10px;">
+          CALL NOW
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Window Template -->
+  <div class="window" id="help-window" data-window="help" style="display: none; left: 250px; top: 100px; width: 400px; min-height: 200px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Help - Contact Information</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content" style="font-family: 'Courier New', monospace; white-space: pre-line;">
+      MMW Contracting Contact Information:
+
+      Email: admin@mmwcontracting.org
+      Phone: 814-273-6315
+      PA HIC #: PA198563
+    </div>
+  </div>
+
+  <!-- Testimonials Window Template -->
+  <div class="window" id="testimonials-window" data-window="testimonials" style="display: none; left: 300px; top: 100px; width: 500px; height: 400px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Customer Reviews</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content testimonials-content">
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">John D.</div>
+            <div class="testimonial-rating">★★★★★</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Excellent service! Fixed my leaky faucet quickly and professionally. Would recommend to anyone needing plumbing work done."
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">Sarah M.</div>
+            <div class="testimonial-rating">★★★★★</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "MMW Contracting installed a new bathroom vanity for us. The work was done perfectly and they cleaned up everything afterward. Very satisfied!"
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+          <div class="testimonial-user">
+            <div class="testimonial-name">Robert T.</div>
+            <div class="testimonial-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Needed emergency plumbing repair and they responded quickly. Fair pricing and good workmanship. Would use again."
+        </div>
+      </div>
+      <div class="nav-buttons">
+        <button class="win95-button" id="testimonial-prev">◄ Previous</button>
+        <button class="win95-button" id="testimonial-next">Next ►</button>
+      </div>
+    </div>
+  </div>
   
   <!-- Main JavaScript is now loaded from external file js/main.js -->
 </body>
