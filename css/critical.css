@@ -72,14 +72,41 @@ html, body {
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+    height: auto;
+  }
+  
+  body {
+    padding-top: 60px; /* Space for mobile nav */
+  }
+  
   .desktop-icons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    height: auto;
+    position: relative;
   }
   
   .desktop-icon {
     margin: 5px;
+  }
+  
+  /* Ensure mobile nav is visible */
+  .mobile-nav {
+    display: flex;
+  }
+  
+  /* Ensure windows don't overlap */
+  .window {
+    position: fixed !important;
+    width: 94% !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    left: 3% !important;
+    top: 60px !important;
+    transform: none !important;
   }
 }
 
@@ -92,4 +119,11 @@ html, body {
   .start-button span {
     display: none;
   }
+  
+  .desktop-icons {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
+/* Ensure mobile CSS is loaded */
+@import url('mobile.css');

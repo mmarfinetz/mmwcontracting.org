@@ -268,15 +268,66 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Mobile-specific optimizations
   function initMobileOptimizations() {
-    if (window.innerWidth <= 768) {
-      // On mobile, show the emergency window in a modal
-      const emergencyWindow = document.getElementById('emergency-window');
-      if (emergencyWindow) {
-        emergencyWindow.classList.add('mobile-modal');
+    const isMobile = window.innerWidth <= 768;
+    
+    // Mobile navigation elements
+    const mobileNavToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+    
+    if (isMobile) {
+      // Show mobile nav
+      document.querySelector('.mobile-nav').style.display = 'flex';
+      
+      // Handle mobile menu toggle
+      if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+        });
       }
       
-      // Add touch event for window dragging
+      // Handle mobile menu item clicks
+      mobileMenuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Get the window ID from data attribute
+          const windowId = this.getAttribute('data-window');
+          if (windowId) {
+            // Hide all windows first
+            windows.forEach(window => {
+              window.style.display = 'none';
+              window.classList.remove('active-window');
+            });
+            
+            // Show the selected window
+            const targetWindow = document.getElementById(windowId);
+            if (targetWindow) {
+              targetWindow.style.display = 'block';
+              makeWindowActive(targetWindow);
+              
+              // Close the mobile menu
+              mobileMenu.classList.remove('active');
+              if (mobileNavToggle) {
+                mobileNavToggle.classList.remove('active');
+              }
+            }
+          }
+        });
+      });
+      
+      // On mobile, show only one window at a time
       windows.forEach(window => {
+        // Hide all windows initially except emergency
+        if (window.id !== 'emergency-window') {
+          window.style.display = 'none';
+        } else {
+          window.style.display = 'block';
+          makeWindowActive(window);
+        }
+        
+        // Add touch event for window dragging
         const titleBar = window.querySelector('.title-bar');
         if (titleBar) {
           titleBar.addEventListener('touchstart', (e) => {
@@ -285,24 +336,56 @@ document.addEventListener('DOMContentLoaded', function() {
             draggedWindow = window;
             dragOffsetX = touch.clientX - windowRect.left;
             dragOffsetY = touch.clientY - windowRect.top;
+            window.classList.add('dragging');
           });
           
           titleBar.addEventListener('touchmove', (e) => {
             if (draggedWindow) {
               e.preventDefault();
               const touch = e.touches[0];
-              const newX = touch.clientX - dragOffsetX;
-              const newY = touch.clientY - dragOffsetY;
+              const newX = Math.max(0, Math.min(window.innerWidth - draggedWindow.offsetWidth, touch.clientX - dragOffsetX));
+              const newY = Math.max(60, Math.min(window.innerHeight - draggedWindow.offsetHeight, touch.clientY - dragOffsetY));
               draggedWindow.style.left = newX + 'px';
               draggedWindow.style.top = newY + 'px';
             }
           });
           
           titleBar.addEventListener('touchend', () => {
-            draggedWindow = null;
+            if (draggedWindow) {
+              draggedWindow.classList.remove('dragging');
+              draggedWindow = null;
+            }
           });
         }
       });
+      
+      // Handle clicks outside the mobile menu to close it
+      document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('active') && 
+            !mobileMenu.contains(e.target) && 
+            !mobileNavToggle.contains(e.target)) {
+          mobileMenu.classList.remove('active');
+          mobileNavToggle.classList.remove('active');
+        }
+      });
+      
+      // Adjust CTA button position
+      const ctaButton = document.querySelector('.cta-button-container');
+      if (ctaButton) {
+        ctaButton.style.bottom = '50px';
+      }
+    } else {
+      // Reset for desktop
+      document.querySelector('.mobile-nav').style.display = 'none';
+      if (mobileMenu) {
+        mobileMenu.classList.remove('active');
+      }
+      
+      // Reset CTA button position
+      const ctaButton = document.querySelector('.cta-button-container');
+      if (ctaButton) {
+        ctaButton.style.bottom = '60px';
+      }
     }
   }
   
