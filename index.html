@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
   <title>MMW Contracting - Professional Plumbing Services in Pennsylvania</title>
   <meta name="description" content="MMW Contracting offers professional plumbing services including fixture replacements, drain services, water heater installation, and bathroom upgrades in Pennsylvania.">
   <meta name="keywords" content="plumbing, contractor, Pennsylvania, fixture replacement, drain services, water heater, bathroom remodeling, MMW Contracting">
@@ -12,9 +12,33 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mmwcontracting.org">
   <link rel="icon" type="image/jpeg" href="img/logo_local.jpeg">
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/win97.css">
+  
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="img/logo_local.jpeg" as="image">
+  <link rel="preload" href="img/mycomputer.png" as="image">
+  <link rel="preload" href="img/services.png" as="image">
+  <link rel="preload" href="img/phone.png" as="image">
+  
+  <!-- Critical CSS inlined -->
+  <style>
+    /* Inlined critical CSS */
+    @import url('css/critical.css');
+  </style>
+  
+  <!-- Non-critical CSS loaded asynchronously -->
+  <link rel="preload" href="css/win97.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/win97.css"></noscript>
+  
+  <!-- Google Fonts loaded asynchronously -->
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <!-- Deferred JavaScript -->
   <script src="js/google-reviews.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
   <div class="desktop-icons">

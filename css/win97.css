@@ -5,6 +5,8 @@
   --win97-light: #ffffff;
   --win97-blue: #000080;
   --win97-purple: #800080;
+  --win97-red: #cc0000;
+  --win97-yellow: #ffff00;
   --logo-dark: #1a1a1a;
   --logo-gray: #808080;
   --logo-light: #f5f5f5;
@@ -92,40 +94,29 @@ body::after {
   position: fixed;
   top: 20px;
   left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
   z-index: 1;
+  width: 100%;
+  height: 100%;
 }
 
 .desktop-icon {
+  position: absolute;
   text-align: center;
   color: var(--logo-light);
   width: 100px;
   cursor: pointer;
-  position: absolute;
   user-select: none;
   padding: 8px;
   border: 1px solid transparent;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
-}
-
-.desktop-icon.selected {
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px dotted var(--logo-light);
-  backdrop-filter: blur(2px);
-}
-
-.desktop-icon.dragging {
-  opacity: 0.7;
+  background: transparent;
 }
 
 .desktop-icon img {
   width: 48px;
   height: 48px;
-  margin-bottom: 8px;
-  display: block;
   margin: 0 auto 8px;
+  display: block;
   pointer-events: none;
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
 }
@@ -138,6 +129,39 @@ body::after {
   font-size: 12px;
   line-height: 1.2;
   color: var(--logo-light);
+  word-wrap: break-word;
+  padding: 0 4px;
+  background-color: transparent;
+}
+
+.desktop-icon:hover span {
+  background-color: var(--win97-blue);
+}
+
+.desktop-icon.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px dotted var(--logo-light);
+  backdrop-filter: blur(2px);
+}
+
+/* Position each icon with proper spacing */
+#my-computer {
+  top: 20px;
+  left: 20px;
+}
+
+#services {
+  top: 140px;
+  left: 20px;
+}
+
+#contact {
+  top: 260px;
+  left: 20px;
+}
+
+.desktop-icon.dragging {
+  opacity: 0.7;
 }
 
 .window {
@@ -411,6 +435,7 @@ body::after {
     gap: 15px;
     margin-bottom: 20px;
     z-index: 1;
+    padding: 10px;
   }
 
   .desktop-icon {
@@ -422,6 +447,25 @@ body::after {
     cursor: pointer;
     z-index: 2;
     background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .desktop-icon img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+
+  .desktop-icon span {
+    font-size: 12px;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .desktop-icon.dragging {
@@ -435,6 +479,9 @@ body::after {
     margin: 0 0 20px 0;
     resize: none;
     z-index: 3;
+    height: auto !important;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .services-grid {
@@ -458,6 +505,7 @@ body::after {
     left: 0;
     right: 0;
     padding: 8px;
+    z-index: 1000;
   }
 
   .start-menu {
@@ -469,8 +517,40 @@ body::after {
     overflow-y: auto;
   }
 
-  .start-menu-item {
-    padding: 12px;
+  .emergency-window {
+    position: static !important;
+    width: 100% !important;
+    margin: 0 0 20px 0;
+    z-index: 999;
+    transform: none !important;
+    left: 0 !important;
+    top: 0 !important;
+    box-shadow: none;
+    border-width: 1px;
+  }
+
+  .emergency-content {
+    padding: 15px;
+  }
+
+  .emergency-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .emergency-icon {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .emergency-phone {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .emergency-services-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -478,51 +558,555 @@ body::after {
 @media screen and (max-width: 480px) {
   .desktop-icons {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .desktop-icon img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .desktop-icon span {
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .title-bar {
-    padding: 6px;
+    padding: 4px 6px;
   }
 
   .title-bar-button {
-    width: 24px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
   }
 
   .service-item {
     flex-direction: column;
+    align-items: center;
     text-align: center;
     padding: 15px;
   }
 
   .service-icon {
-    margin: 0 0 8px 0;
+    margin-right: 0;
+    margin-bottom: 10px;
     width: 32px;
     height: 32px;
   }
+
+  .cta-button-container {
+    bottom: 50px;
+    right: 10px;
+  }
+
+  .cta-button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .win95-button {
+    width: 100%;
+  }
+
+  .emergency-window {
+    min-height: auto !important;
+  }
+
+  .emergency-title {
+    font-size: 18px;
+  }
+
+  .emergency-phone {
+    font-size: 18px;
+  }
+
+  .emergency-call-button {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .emergency-services-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
 
-/* Touch-friendly improvements */
+/* Touch improvements */
 @media (hover: none) and (pointer: coarse) {
   .service-item,
-  .start-menu-item,
-  .desktop-icon {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  .desktop-icon,
+  .title-bar-button,
+  .taskbar-entry {
+    cursor: pointer;
   }
 
   .service-item:active,
+  .taskbar-entry:active,
   .start-menu-item:active {
     background-color: var(--win97-blue);
     color: white;
   }
 
   .desktop-icon:active {
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px dotted var(--logo-light);
+    background-color: rgba(0, 0, 128, 0.3);
+    outline: 1px dotted white;
   }
 
   .title-bar-button {
-    min-width: 32px;
-    min-height: 32px;
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  .emergency-call-button {
+    min-height: 44px;
+  }
+
+  .cta-button {
+    min-height: 44px;
+  }
+
+  .win95-button {
+    min-height: 44px;
+  }
+}
+
+/* Testimonials Styling */
+.testimonials-content {
+  padding: 15px;
+  overflow-y: auto;
+  height: calc(100% - 30px);
+}
+
+.testimonial {
+  background-color: var(--win97-light);
+  border: 1px solid var(--win97-darker);
+  border-radius: 0;
+  padding: 12px;
+  margin-bottom: 15px;
+  box-shadow: inset 1px 1px 0px var(--win97-dark), 
+              inset -1px -1px 0px var(--win97-light);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.testimonial-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.testimonial-user {
+  flex: 1;
+}
+
+.testimonial-name {
+  font-weight: bold;
+}
+
+.testimonial-rating {
+  color: #FFD700;
+}
+
+.testimonial-text {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.win95-button {
+  background-color: var(--win97-gray);
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  padding: 4px 12px;
+  font-size: 12px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.win95-button:active {
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
+  padding: 5px 11px 3px 13px;
+}
+
+/* CTA Button Styling */
+.cta-button-container {
+  position: fixed;
+  right: 20px;
+  bottom: 50px;
+  z-index: 100;
+}
+
+.cta-button {
+  background-color: var(--win97-blue);
+  color: var(--win97-light);
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  animation: pulse 2s infinite;
+}
+
+.cta-button:hover {
+  background-color: var(--win97-purple);
+}
+
+.cta-button:active {
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+  transform: translate(2px, 2px);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Interactive Hover Effects for Better UX */
+.desktop-icon:hover img {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+.service-item:hover .service-icon {
+  transform: rotate(10deg);
+  transition: transform 0.3s ease;
+}
+
+/* Page Transition Animation */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--win97-blue);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.page-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.page-transition-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-text {
+  color: white;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.hourglass {
+  width: 50px;
+  height: 50px;
+  background-image: url('../img/hourglass.png');
+  background-size: contain;
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ID Styles for desktop icons position */
+#testimonials {
+  left: 20px;
+  top: 500px;
+}
+
+/* Testimonials additional styling */
+.testimonial-time {
+  font-size: 11px;
+  color: var(--win97-darker);
+  margin-top: 2px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  text-align: center;
+}
+
+.win95-loading {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 15px;
+  border: 4px solid var(--win97-gray);
+  border-radius: 50%;
+  border-top: 4px solid var(--win97-blue);
+  animation: spin 2s linear infinite;
+}
+
+.view-all-button {
+  background-color: var(--win97-blue);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.view-all-button:hover {
+  text-decoration: underline;
+}
+
+/* Ensures the testimonials window has a higher z-index when active */
+#testimonials-window.active {
+  z-index: 1000;
+}
+
+/* Emergency Styles */
+.emergency-window {
+  box-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
+  border: 2px solid #cc0000;
+}
+
+.emergency-window .title-bar {
+  background-color: #cc0000 !important;
+}
+
+.emergency-content {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.emergency-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background-color: #ffe0e0;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #cc0000;
+}
+
+.emergency-icon {
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+  animation: pulse-emergency 2s infinite;
+}
+
+.emergency-title {
+  color: #cc0000;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+}
+
+.emergency-info {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+}
+
+.emergency-text {
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.emergency-phone {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #cc0000;
+}
+
+.emergency-phone-link {
+  color: #cc0000;
+  text-decoration: none;
+}
+
+.emergency-phone-link:hover {
+  text-decoration: underline;
+}
+
+.emergency-services-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.emergency-service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.emergency-service-item:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.emergency-service-item img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.emergency-call-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px outset #ff3019;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: pulse-emergency 2s infinite;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.emergency-call-button:hover {
+  background: linear-gradient(to bottom, #ff4029 0%, #df0404 100%);
+}
+
+.emergency-call-button:active {
+  border: 2px inset #ff3019;
+  background: linear-gradient(to bottom, #cf0404 0%, #ff3019 100%);
+}
+
+@keyframes pulse-emergency {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.emergency-taskbar {
+  display: flex;
+  align-items: center;
+  background-color: var(--win97-red);
+  color: var(--win97-light);
+  font-weight: bold;
+  padding: 0 10px;
+  margin-right: 10px;
+  height: 22px;
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  cursor: pointer;
+  animation: blink 2s infinite;
+}
+
+.emergency-taskbar:hover {
+  background-color: #ff0000;
+}
+
+.emergency-taskbar:active {
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
+}
+
+@keyframes blink {
+  0% { background-color: var(--win97-red); }
+  50% { background-color: var(--win97-darker); }
+  100% { background-color: var(--win97-red); }
+}
+
+/* Position the emergency desktop icon */
+#emergency {
+  top: 380px;
+  left: 20px;
+}
+
+/* Error message styling */
+.win95-error {
+  background-color: var(--win97-gray);
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.error-title {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--win97-darker);
+}
+
+.error-message {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.error-message ol {
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+.error-message ol li {
+  margin-bottom: 5px;
 } 

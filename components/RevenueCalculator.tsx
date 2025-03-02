@@ -1,8 +1,50 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
+import React, { useState, useEffect, ReactNode } from 'react';
+
+// Define interfaces for component props
+interface ComponentProps {
+  className?: string;
+  children?: ReactNode;
+}
+
+// Check if we're in standalone or Next.js environment
+const isStandalone = typeof window !== 'undefined' && 
+                     process.env.STANDALONE_CALCULATOR === 'true';
+
+// Conditionally import components based on environment
+let Card, CardContent, CardHeader, CardTitle;
+try {
+  if (!isStandalone) {
+    // Next.js app imports
+    const ui = require('@/components/ui/card');
+    Card = ui.Card;
+    CardContent = ui.CardContent;
+    CardHeader = ui.CardHeader;
+    CardTitle = ui.CardTitle;
+  } else {
+    // Create simple stub components for standalone mode
+    Card = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
+    CardContent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
+    CardHeader = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
+    CardTitle = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+  }
+} catch (error) {
+  console.error('Error loading UI components:', error);
+  // Fallback components
+  Card = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
+  CardContent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
+  CardHeader = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
+  CardTitle = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+}
+
+// Import chart components
+import { 
+  LineChart, Line, XAxis, YAxis, CartesianGrid, 
+  Tooltip, Legend, ResponsiveContainer, BarChart, Bar, Cell 
+} from 'recharts';
+
+// Import CSS
 import '@/css/win95.css';
 
 interface ChartData {
@@ -184,7 +226,20 @@ const RevenueCalculator = () => {
     return value >= 0 ? '#22c55e' : '#ef4444';
   };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  interface TooltipProps {
+    active?: boolean;
+    payload?: Array<{
+      payload: {
+        breakdown?: Array<{
+          label: string;
+          value: number;
+        }>;
+      };
+    }>;
+    label?: string;
+  }
+
+  const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     if (!active || !payload || !payload[0]) return null;
     
     const data = payload[0].payload;
