@@ -223,3 +223,105 @@ footer {
 .desktop-icon:hover span {
   background-color: transparent;
 }
+
+/* Google Reviews Styles */
+#google-reviews {
+  width: 100%;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.google-review {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ececec;
+  border: 1px solid #c0c0c0;
+  border-radius: 0;
+  box-shadow: inset 1px 1px 0px #ffffff, 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #999;
+  margin-right: 10px;
+  background-color: #fff;
+}
+
+.review-user {
+  flex-grow: 1;
+}
+
+.review-name {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.review-rating {
+  color: #ffc107;
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+.review-time {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.review-text {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.reviews-footer {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.reviews-footer a {
+  color: #0000ff;
+  text-decoration: none;
+}
+
+.reviews-footer a:hover {
+  text-decoration: underline;
+}
+
+.reviews-rating {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.loading-reviews {
+  padding: 20px;
+  text-align: center;
+  font-style: italic;
+  color: #666;
+}
+
+.review-error {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
+
+#leave-review {
+  margin-left: 10px;
+  background-color: #008080;
+  color: white;
+}
+
+#leave-review:hover {
+  background-color: #006666;
+}

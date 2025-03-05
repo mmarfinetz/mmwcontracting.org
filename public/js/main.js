@@ -3,17 +3,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // DOM Elements
   const desktopIcons = document.querySelectorAll('.desktop-icon');
   const startButton = document.querySelector('.start-button');
-  const startMenu = document.querySelector('.start-menu');
+  const startMenu = document.getElementById('start-menu');
   const windows = document.querySelectorAll('.window');
   const taskbar = document.querySelector('.taskbar');
-  const taskbarEntries = document.querySelector('.taskbar-entries');
-  const closeButtons = document.querySelectorAll('.title-bar-button.close-button');
-  const minimizeButtons = document.querySelectorAll('.title-bar-button.minimize-button');
+  const taskbarPrograms = document.querySelector('.taskbar-programs');
+  const closeButtons = document.querySelectorAll('.close-button');
+  const minimizeButtons = document.querySelectorAll('.minimize-button');
   const timeDisplay = document.querySelector('.taskbar-time');
   const testimonialWindows = document.querySelectorAll('.testimonial');
   const testimonialNextBtn = document.getElementById('testimonial-next');
   const testimonialPrevBtn = document.getElementById('testimonial-prev');
-  const ctaButton = document.getElementById('cta-button');
   
   // State
   let activeWindow = null;
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
+    taskbarPrograms.appendChild(taskbarEntry);
   }
   
   // Initialize UI
@@ -105,22 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up testimonials
     if (testimonialWindows.length > 0) {
       showTestimonial(0);
-    }
-    
-    // Check if google reviews functionality exists
-    if (typeof loadGoogleReviews === 'function') {
-      // Hide static testimonials initially
-      const staticElement = document.querySelector('.testimonial-static');
-      if (staticElement) {
-        staticElement.style.display = 'none';
-      }
-      // Load Google reviews when they're needed, not on initial page load
-    } else {
-      // Show static testimonials if Google reviews script isn't available
-      const staticElement = document.querySelector('.testimonial-static');
-      if (staticElement) {
-        staticElement.style.display = 'block';
-      }
     }
   }
   
@@ -283,121 +266,17 @@ document.addEventListener('DOMContentLoaded', function() {
     testimonialPrevBtn.addEventListener('click', handlePrevTestimonial);
   }
   
-  // CTA Button Click Handler
-  if (ctaButton) {
-    ctaButton.addEventListener('click', function() {
-      window.location.href = 'contact-form.html';
-    });
-  }
-  
-  // Start menu items click handlers
-  const startEmergency = document.getElementById('start-emergency');
-  if (startEmergency) {
-    startEmergency.addEventListener('click', () => {
-      openWindow('emergency-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
-    });
-  }
-  
-  const startServices = document.getElementById('start-services');
-  if (startServices) {
-    startServices.addEventListener('click', () => {
-      openWindow('services-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
-    });
-  }
-  
-  const startTestimonials = document.getElementById('start-testimonials');
-  if (startTestimonials) {
-    startTestimonials.addEventListener('click', () => {
-      openWindow('testimonials-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
-    });
-  }
-  
-  const startContact = document.getElementById('start-contact');
-  if (startContact) {
-    startContact.addEventListener('click', () => {
-      openWindow('contact-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
-    });
-  }
-  
-  const startHelp = document.getElementById('start-help');
-  if (startHelp) {
-    startHelp.addEventListener('click', () => {
-      openWindow('help-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
-    });
-  }
-  
   // Mobile-specific optimizations
   function initMobileOptimizations() {
-    const isMobile = window.innerWidth <= 768;
-    
-    // Mobile navigation elements
-    const mobileNavToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
-    
-    if (isMobile) {
-      // Show mobile nav
-      document.querySelector('.mobile-nav').style.display = 'flex';
-      
-      // Handle mobile menu toggle
-      if (mobileNavToggle) {
-        mobileNavToggle.addEventListener('click', function() {
-          this.classList.toggle('active');
-          mobileMenu.classList.toggle('active');
-        });
+    if (window.innerWidth <= 768) {
+      // On mobile, show the emergency window in a modal
+      const emergencyWindow = document.getElementById('emergency-window');
+      if (emergencyWindow) {
+        emergencyWindow.classList.add('mobile-modal');
       }
       
-      // Handle mobile menu item clicks
-      mobileMenuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Get the window ID from data attribute
-          const windowId = this.getAttribute('data-window');
-          if (windowId) {
-            // Hide all windows first
-            windows.forEach(window => {
-              window.style.display = 'none';
-              window.classList.remove('active-window');
-            });
-            
-            // Show the selected window
-            const targetWindow = document.getElementById(windowId);
-            if (targetWindow) {
-              targetWindow.style.display = 'block';
-              makeWindowActive(targetWindow);
-              
-              // Close the mobile menu
-              mobileMenu.classList.remove('active');
-              if (mobileNavToggle) {
-                mobileNavToggle.classList.remove('active');
-              }
-            }
-          }
-        });
-      });
-      
-      // On mobile, show only one window at a time
+      // Add touch event for window dragging
       windows.forEach(window => {
-        // Hide all windows initially except emergency
-        if (window.id !== 'emergency-window') {
-          window.style.display = 'none';
-        } else {
-          window.style.display = 'block';
-          makeWindowActive(window);
-        }
-        
-        // Add touch event for window dragging
         const titleBar = window.querySelector('.title-bar');
         if (titleBar) {
           titleBar.addEventListener('touchstart', (e) => {
@@ -406,56 +285,24 @@ document.addEventListener('DOMContentLoaded', function() {
             draggedWindow = window;
             dragOffsetX = touch.clientX - windowRect.left;
             dragOffsetY = touch.clientY - windowRect.top;
-            window.classList.add('dragging');
           });
           
           titleBar.addEventListener('touchmove', (e) => {
             if (draggedWindow) {
               e.preventDefault();
               const touch = e.touches[0];
-              const newX = Math.max(0, Math.min(window.innerWidth - draggedWindow.offsetWidth, touch.clientX - dragOffsetX));
-              const newY = Math.max(60, Math.min(window.innerHeight - draggedWindow.offsetHeight, touch.clientY - dragOffsetY));
+              const newX = touch.clientX - dragOffsetX;
+              const newY = touch.clientY - dragOffsetY;
               draggedWindow.style.left = newX + 'px';
               draggedWindow.style.top = newY + 'px';
             }
           });
           
           titleBar.addEventListener('touchend', () => {
-            if (draggedWindow) {
-              draggedWindow.classList.remove('dragging');
-              draggedWindow = null;
-            }
+            draggedWindow = null;
           });
         }
       });
-      
-      // Handle clicks outside the mobile menu to close it
-      document.addEventListener('click', function(e) {
-        if (mobileMenu.classList.contains('active') && 
-            !mobileMenu.contains(e.target) && 
-            !mobileNavToggle.contains(e.target)) {
-          mobileMenu.classList.remove('active');
-          mobileNavToggle.classList.remove('active');
-        }
-      });
-      
-      // Adjust CTA button position
-      const ctaButtonContainer = document.querySelector('.cta-button-container');
-      if (ctaButtonContainer) {
-        ctaButtonContainer.style.bottom = '50px';
-      }
-    } else {
-      // Reset for desktop
-      document.querySelector('.mobile-nav').style.display = 'none';
-      if (mobileMenu) {
-        mobileMenu.classList.remove('active');
-      }
-      
-      // Reset CTA button position
-      const ctaButtonContainer = document.querySelector('.cta-button-container');
-      if (ctaButtonContainer) {
-        ctaButtonContainer.style.bottom = '60px';
-      }
     }
   }
   
@@ -467,25 +314,5 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', () => {
     // Update UI based on new screen size
     initMobileOptimizations();
-  });
-  
-  // Add a delegated event listener for any close buttons that might be added dynamically
-  document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('close-button')) {
-      const window = event.target.closest('.window');
-      if (window) {
-        window.style.display = 'none';
-        
-        // Remove from taskbar
-        const taskbarEntry = document.querySelector(`.taskbar-program[data-window-id="${window.id}"]`);
-        if (taskbarEntry) {
-          taskbarEntry.remove();
-        }
-        
-        if (activeWindow === window) {
-          activeWindow = null;
-        }
-      }
-    }
   });
 });
