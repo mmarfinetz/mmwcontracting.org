@@ -107,18 +107,20 @@ document.addEventListener('DOMContentLoaded', function() {
       showTestimonial(0);
     }
     
-    // Check if google reviews functionality exists
-    if (typeof loadGoogleReviews === 'function') {
-      // Hide static testimonials initially
-      const staticElement = document.querySelector('.testimonial-static');
-      if (staticElement) {
-        staticElement.style.display = 'none';
-      }
-      // Load Google reviews when they're needed, not on initial page load
-    } else {
-      // Show static testimonials if Google reviews script isn't available
-      const staticElement = document.querySelector('.testimonial-static');
-      if (staticElement) {
+    // Check for direct Google Reviews link (new approach)
+    const googleReviewsDirectLink = document.querySelector('.google-reviews-direct-link');
+    
+    // Handle testimonials display
+    const staticElement = document.querySelector('.testimonial-static');
+    if (staticElement) {
+      // Always hide static testimonials initially
+      staticElement.style.display = 'none';
+      
+      // If there's a Google Reviews direct link section, show it
+      if (googleReviewsDirectLink) {
+        googleReviewsDirectLink.style.display = 'block';
+      } else {
+        // Otherwise, fall back to static testimonials
         staticElement.style.display = 'block';
       }
     }
@@ -286,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // CTA Button Click Handler
   if (ctaButton) {
     ctaButton.addEventListener('click', function() {
-      window.location.href = 'contact-form.html';
+      openWindow('contact-window');
     });
   }
   
