@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (targetId === 'services') {
       openWindow('services-window');
     } else if (targetId === 'contact') {
-      openWindow('contact-window');
+      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
     } else if (targetId === 'testimonials') {
       openWindow('testimonials-window');
     } else if (targetId === 'emergency') {
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // CTA Button Click Handler
   if (ctaButton) {
     ctaButton.addEventListener('click', function() {
-      openWindow('contact-window');
+      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
     });
   }
   
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const startContact = document.getElementById('start-contact');
   if (startContact) {
     startContact.addEventListener('click', () => {
-      openWindow('contact-window');
+      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
       startMenu.style.display = 'none';
       isStartMenuOpen = false;
     });
@@ -362,28 +362,37 @@ document.addEventListener('DOMContentLoaded', function() {
       // Handle mobile menu item clicks
       mobileMenuItems.forEach(item => {
         item.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Get the window ID from data attribute
-          const windowId = this.getAttribute('data-window');
-          if (windowId) {
-            // Hide all windows first
-            windows.forEach(window => {
-              window.style.display = 'none';
-              window.classList.remove('active-window');
-            });
+          // Only prevent default for internal windows, not for external links
+          if (this.getAttribute('data-window')) {
+            e.preventDefault();
             
-            // Show the selected window
-            const targetWindow = document.getElementById(windowId);
-            if (targetWindow) {
-              targetWindow.style.display = 'block';
-              makeWindowActive(targetWindow);
+            // Get the window ID from data attribute
+            const windowId = this.getAttribute('data-window');
+            if (windowId) {
+              // Hide all windows first
+              windows.forEach(window => {
+                window.style.display = 'none';
+                window.classList.remove('active-window');
+              });
               
-              // Close the mobile menu
-              mobileMenu.classList.remove('active');
-              if (mobileNavToggle) {
-                mobileNavToggle.classList.remove('active');
+              // Show the selected window
+              const targetWindow = document.getElementById(windowId);
+              if (targetWindow) {
+                targetWindow.style.display = 'block';
+                makeWindowActive(targetWindow);
+                
+                // Close the mobile menu
+                mobileMenu.classList.remove('active');
+                if (mobileNavToggle) {
+                  mobileNavToggle.classList.remove('active');
+                }
               }
+            }
+          } else {
+            // For external links (like the Google Form), just close the menu
+            mobileMenu.classList.remove('active');
+            if (mobileNavToggle) {
+              mobileNavToggle.classList.remove('active');
             }
           }
         });
@@ -431,6 +440,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
+      // Improve emergency content layout for mobile
+      const emergencyWindow = document.getElementById('emergency-window');
+      if (emergencyWindow) {
+        const emergencyContent = emergencyWindow.querySelector('.emergency-content');
+        if (emergencyContent) {
+          emergencyContent.style.flexDirection = 'column';
+        }
+      }
+      
       // Handle clicks outside the mobile menu to close it
       document.addEventListener('click', function(e) {
         if (mobileMenu.classList.contains('active') && 
@@ -441,22 +459,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
-      // Adjust CTA button position
-      const ctaButtonContainer = document.querySelector('.cta-button-container');
-      if (ctaButtonContainer) {
-        ctaButtonContainer.style.bottom = '50px';
+      // Adjust CTA button
+      const ctaButton = document.getElementById('cta-button');
+      if (ctaButton) {
+        ctaButton.style.fontSize = window.innerWidth <= 480 ? '14px' : '16px';
       }
     } else {
       // Reset for desktop
       document.querySelector('.mobile-nav').style.display = 'none';
       if (mobileMenu) {
         mobileMenu.classList.remove('active');
-      }
-      
-      // Reset CTA button position
-      const ctaButtonContainer = document.querySelector('.cta-button-container');
-      if (ctaButtonContainer) {
-        ctaButtonContainer.style.bottom = '60px';
       }
     }
   }

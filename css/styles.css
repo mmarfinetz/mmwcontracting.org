@@ -228,8 +228,95 @@ footer {
 #google-reviews {
   width: 100%;
   padding: 10px;
-  overflow-y: auto;
-  max-height: 300px;
+  overflow: hidden;
+  max-height: none;
+  margin-bottom: 20px;
+}
+
+/* Google Reviews Direct Link */
+.google-reviews-direct-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: 2px inset #c0c0c0;
+  padding: 20px;
+  text-align: center;
+  min-height: 250px;
+}
+
+.reviews-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.reviews-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
+
+.reviews-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.reviews-message {
+  margin-bottom: 20px;
+  font-size: 1em;
+  max-width: 80%;
+}
+
+.reviews-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.reviews-buttons .win95-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  min-width: 150px;
+  text-decoration: none;
+}
+
+.view-button {
+  background-color: #eef;
+}
+
+/* Responsive iframe container */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.iframe-container iframe {
+  border: none;
+  width: 100%;
+  height: 500px;
+  max-width: 100%;
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .iframe-container iframe {
+    height: 400px;
+  }
+  
+  .reviews-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .reviews-message {
+    max-width: 100%;
+  }
 }
 
 .google-review {
