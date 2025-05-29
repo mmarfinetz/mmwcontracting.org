@@ -22,7 +22,7 @@ export default function SewerCameraInspection() {
             </div>
           </div>
           <div className="service-hero-image">
-            <img src="/img/sewer-camera-inspection-hero.jpg" alt="Sewer Camera Inspection Service" />
+            <img src="/img/pipeinspection.png" alt="Sewer Camera Inspection Service" />
           </div>
         </div>
       </section>
@@ -42,7 +42,7 @@ export default function SewerCameraInspection() {
                 <p>Our technicians insert a high-definition waterproof camera attached to a flexible rod into your sewer line or drain.</p>
               </div>
               <div className="step-image">
-                <img src="/img/camera-insertion.jpg" alt="Sewer Camera Insertion" />
+                <img src="/img/pipeinspection.png" alt="Sewer Camera Insertion" />
               </div>
             </div>
             <div className="process-step">
@@ -52,7 +52,7 @@ export default function SewerCameraInspection() {
                 <p>As the camera moves through the pipe, it transmits real-time video to a monitor, allowing our technicians to see exactly what's happening inside your pipes.</p>
               </div>
               <div className="step-image">
-                <img src="/img/real-time-video.jpg" alt="Real-Time Sewer Video" />
+                <img src="/img/pipe2.png" alt="Real-Time Sewer Video" />
               </div>
             </div>
             <div className="process-step">
@@ -62,7 +62,7 @@ export default function SewerCameraInspection() {
                 <p>We identify issues such as blockages, cracks, breaks, tree root intrusions, pipe collapses, or misalignments.</p>
               </div>
               <div className="step-image">
-                <img src="/img/problem-identification.jpg" alt="Sewer Problem Identification" />
+                <img src="/img/pipe3.png" alt="Sewer Problem Identification" />
               </div>
             </div>
             <div className="process-step">
@@ -72,7 +72,7 @@ export default function SewerCameraInspection() {
                 <p>Based on our findings, we recommend the most effective and cost-efficient solution for your specific situation.</p>
               </div>
               <div className="step-image">
-                <img src="/img/solution-recommendation.jpg" alt="Plumbing Solution Recommendation" />
+                <img src="/img/pipeinspection.png" alt="Plumbing Solution Recommendation" />
               </div>
             </div>
           </div>
