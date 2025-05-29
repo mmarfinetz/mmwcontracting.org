@@ -1,0 +1,108 @@
+# MMW Contracting Website - Backend Structure
+
+## Overview
+The MMW Contracting website currently operates primarily as a client-side application with minimal backend requirements. This document outlines the current backend structure and provides guidelines for future backend development.
+
+## Current Backend Structure
+
+### Static Site Hosting
+- Hosted on GitHub Pages 
+- Configured via GitHub Actions workflow in `.github/workflows/static.yml`
+- Custom domain configured via CNAME file
+
+### Next.js Static Export
+- The Next.js application (calculator) is built as a static export
+- Configuration in `next.config.js`
+- Output to the `out` directory
+- Deployed alongside static HTML files
+
+### Form Handling
+- Contact form integration with Google Forms
+- No server-side processing currently required
+
+### Google Reviews Integration
+- External API integration for displaying Google Reviews
+- API keys stored in `.env.local`
+- JavaScript-based fetching and rendering
+
+## Planned Backend Enhancements
+
+### API Integration
+- Create API endpoints for calculator data persistence
+- Implement server-side validation for forms
+- Develop endpoints for quote generation and storage
+
+### Data Storage
+- Implement database for storing quotes and user interactions
+- Options to consider:
+  - Firebase Firestore (serverless)
+  - MongoDB Atlas (cloud database)
+  - PostgreSQL (traditional relational database)
+
+### Authentication
+- Add user authentication for internal tools
+- Role-based access control for admin features
+- Secure storage of user credentials
+
+### Analytics
+- Server-side tracking of user interactions
+- Performance monitoring
+- Usage statistics for business intelligence
+
+## Backend Technology Recommendations
+
+### Serverless Functions
+- Utilize Vercel or Netlify serverless functions
+- Reduces infrastructure management
+- Scales automatically with traffic
+
+### Backend Framework Options
+- Next.js API Routes (integrated with existing Next.js app)
+- Express.js (Node.js framework)
+- FastAPI (Python framework)
+
+### Deployment Options
+- GitHub Pages (current, static only)
+- Vercel (Next.js optimized, includes serverless)
+- Netlify (similar to Vercel)
+- Traditional VPS (DigitalOcean, AWS EC2)
+
+## Security Considerations
+
+### API Security
+- Implement proper authentication and authorization
+- Rate limiting to prevent abuse
+- Input validation to prevent injection attacks
+
+### Data Protection
+- Encrypt sensitive data in transit and at rest
+- Implement proper backup procedures
+- Follow data privacy regulations (GDPR, CCPA)
+
+### Environment Variables
+- Use environment variables for all secrets
+- Never commit secrets to version control
+- Rotate API keys regularly
+
+## Backend Development Guidelines
+
+### API Design
+- Follow RESTful principles
+- Use consistent naming conventions
+- Implement proper error handling and status codes
+- Document all endpoints
+
+### Testing
+- Implement unit tests for backend functions
+- Create integration tests for API endpoints
+- Set up automated testing in CI/CD pipeline
+
+### Logging
+- Implement structured logging
+- Log important events and errors
+- Set up monitoring and alerting
+
+### Performance
+- Optimize database queries
+- Implement caching where appropriate
+- Monitor response times and optimize as needed 
