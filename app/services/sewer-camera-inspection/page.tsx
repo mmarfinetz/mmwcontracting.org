@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Sewer Camera Inspection in Erie County | MMW Contracting',
+  title: 'Sewer Camera Inspection in Erie County | Marfinetz Plumbing',
   description: 'Professional sewer camera inspection services in Erie County, Lake City PA, and Conneaut OH. Find pipe problems without destructive digging. Call (814) 273-6315.',
 }
 
@@ -15,7 +15,7 @@ export default function SewerCameraInspection() {
           <div className="service-hero-content">
             <h1>Professional Sewer Camera Inspection Services</h1>
             <p className="service-hero-subtitle">Find & Fix Sewer Problems Fast with Video Pipe Inspection</p>
-            <p className="service-hero-description">At MMW Contracting, we use state-of-the-art sewer camera technology to inspect your pipes and sewer lines without destructive digging or guesswork. Our professional sewer camera inspection services help homeowners and businesses in Erie County, Lake City, and Conneaut identify plumbing problems quickly and accurately.</p>
+            <p className="service-hero-description">At Marfinetz Plumbing, we use state-of-the-art sewer camera technology to inspect your pipes and sewer lines without destructive digging or guesswork. Our professional sewer camera inspection services help homeowners and businesses in Erie County, Lake City, and Conneaut identify plumbing problems quickly and accurately.</p>
             <div className="service-hero-cta">
               <a href="tel:8142736315" className="btn btn-primary">Call (814) 273-6315</a>
               <a href="/contact" className="btn btn-secondary">Request Service</a>
@@ -223,7 +223,7 @@ export default function SewerCameraInspection() {
       <section className="why-choose-us">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose MMW Contracting for Sewer Inspection</h2>
+            <h2>Why Choose Marfinetz Plumbing for Sewer Inspection</h2>
             <p>The trusted choice in Erie County, Lake City, and Conneaut</p>
           </div>
           <div className="reasons-grid">
@@ -344,7 +344,7 @@ export default function SewerCameraInspection() {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Schedule Your Sewer Camera Inspection?</h2>
-            <p>Contact MMW Contracting today for fast, professional service in Erie County, Lake City, and Conneaut.</p>
+            <p>Contact Marfinetz Plumbing today for fast, professional service in Erie County, Lake City, and Conneaut.</p>
             <div className="cta-buttons">
               <a href="tel:8142736315" className="btn btn-primary">Call (814) 273-6315</a>
               <a href="/contact" className="btn btn-secondary">Request Service Online</a>
