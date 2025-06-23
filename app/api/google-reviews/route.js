@@ -4,10 +4,10 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   try {
     // This is a server-side implementation to fetch Google reviews
-    // For MMW Contracting with place_id: ChIJ5SN41h5KzYkRo5dnBsiFcxM
+    // For Marfinetz Plumbing with place_id: ChIJ5SN41h5KzYkRo5dnBsiFcxM
     
     // Fetch from Google Places API
-    const placeId = 'ChIJ5SN41h5KzYkRo5dnBsiFcxM'; // MMW Contracting place ID
+    const placeId = 'ChIJ5SN41h5KzYkRo5dnBsiFcxM'; // Marfinetz Plumbing place ID
     const apiKey = process.env.GOOGLE_PLACES_API_KEY;
     
     // URL to fetch reviews through Google Places API
@@ -20,7 +20,7 @@ export async function GET() {
       console.warn("No Google Places API key found. Using sample data.");
       response = {
         result: {
-          name: "MMW Contracting",
+          name: "Marfinetz Plumbing",
           rating: 5.0,
           url: "https://g.page/r/CaM5Z6DIV3MTEAE/review",
           reviews: [
@@ -37,7 +37,7 @@ export async function GET() {
               profile_photo_url: "",
               rating: 5,
               relative_time_description: "3 months ago",
-              text: "MMW Contracting did an excellent job on our bathroom renovation. Highly recommend!",
+              text: "Marfinetz Plumbing did an excellent job on our bathroom renovation. Highly recommend!",
               time: Math.floor(Date.now() / 1000) - 7776000 // approx 90 days ago
             },
             {
@@ -45,7 +45,7 @@ export async function GET() {
               profile_photo_url: "",
               rating: 4,
               relative_time_description: "6 months ago", 
-              text: "Good work at a fair price. Would use again for future projects.",
+              text: "Marfinetz Plumbing did good work at a fair price. Would use again for future projects.",
               time: Math.floor(Date.now() / 1000) - 15552000 // approx 180 days ago
             }
           ]

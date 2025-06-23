@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Plumbing & Sewer Services in Conneaut, OH | MMW Contracting',
+  title: 'Plumbing & Sewer Services in Conneaut, OH | Marfinetz Plumbing',
   description: 'Professional plumbing and sewer camera inspection services in Conneaut, Ohio. Fast response times and quality service across state lines. Call (814) 273-6315.',
 }
 
@@ -15,7 +15,7 @@ export default function ConneautOH() {
           <div className="location-hero-content">
             <h1>Professional Plumbing Services in Conneaut, Ohio</h1>
             <p className="location-hero-subtitle">Quality Plumbing & Sewer Services Across State Lines</p>
-            <p className="location-hero-description">MMW Contracting proudly serves Conneaut, Ohio with the same high-quality plumbing services we provide in Pennsylvania. Our strategic location allows us to offer fast response times and reliable service to our Ohio neighbors.</p>
+            <p className="location-hero-description">Marfinetz Plumbing proudly serves Conneaut, Ohio with the same high-quality plumbing services we provide in Pennsylvania. Our strategic location allows us to offer fast response times and reliable service to our Ohio neighbors.</p>
             <div className="location-hero-cta">
               <a href="tel:8142736315" className="btn btn-primary">Call (814) 273-6315</a>
               <a href="/contact" className="btn btn-secondary">Request Service</a>
@@ -164,7 +164,7 @@ export default function ConneautOH() {
             {/* Testimonial 1 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"I was worried about hiring a company from across state lines, but MMW Contracting arrived quickly and solved our sewer backup problem. Their camera inspection found the exact location of the blockage."</p>
+              <p className="testimonial-text">"I was worried about hiring a company from across state lines, but Marfinetz Plumbing arrived quickly and solved our sewer backup problem. Their camera inspection found the exact location of the blockage."</p>
               <div className="testimonial-author">
                 <p className="author-name">Robert T.</p>
                 <p className="author-location">Conneaut, OH</p>
@@ -198,7 +198,7 @@ export default function ConneautOH() {
       <section className="why-choose-us">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose MMW Contracting in Conneaut</h2>
+            <h2>Why Choose Marfinetz Plumbing in Conneaut</h2>
             <p>The benefits of our cross-border service</p>
           </div>
           <div className="benefits-grid">
@@ -239,7 +239,7 @@ export default function ConneautOH() {
         <div className="container">
           <div className="cta-content">
             <h2>Need Plumbing Services in Conneaut?</h2>
-            <p>Contact MMW Contracting today for fast, reliable service across state lines.</p>
+            <p>Contact Marfinetz Plumbing today for fast, reliable service across state lines.</p>
             <div className="cta-buttons">
               <a href="tel:8142736315" className="btn btn-primary">Call (814) 273-6315</a>
               <a href="/contact" className="btn btn-secondary">Request Service Online</a>

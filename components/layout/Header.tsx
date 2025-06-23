@@ -17,7 +17,7 @@ export default function Header() {
           <div className="container">
             <div className="logo">
               <Link href="/">
-                <img src="/img/mmw-contracting-logo.png" alt="MMW Contracting Logo" />
+                <img src="/img/marfinetz-plumbing-logo.png" alt="Marfinetz Plumbing Logo" />
               </Link>
             </div>
             <ul className="nav-links">

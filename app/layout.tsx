@@ -4,7 +4,7 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 
 export const metadata: Metadata = {
-  title: 'MMW Contracting | Sewer Camera Inspection & Plumbing Services | Erie County, PA',
+  title: 'Marfinetz Plumbing | Sewer Camera Inspection & Plumbing Services | Erie County, PA',
   description: 'Professional sewer camera inspection and plumbing services in Erie County, Lake City PA, and Conneaut OH. 24/7 emergency service available. Call (814) 273-6315.',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 }

@@ -7,11 +7,11 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-about">
-            <img src="/img/mmw-contracting-logo.png" alt="MMW Contracting Logo" className="footer-logo" />
+            <img src="/img/marfinetz-plumbing-logo.png" alt="Marfinetz Plumbing Logo" className="footer-logo" />
             <p>Professional plumbing services including sewer camera inspection, drain cleaning, and emergency repairs across Pennsylvania and Ohio.</p>
             <div className="footer-contact">
               <p><strong>Phone:</strong> <a href="tel:8142736315">(814) 273-6315</a></p>
-              <p><strong>Email:</strong> <a href="mailto:info@mmwcontracting.org">info@mmwcontracting.org</a></p>
+              <p><strong>Email:</strong> <a href="mailto:info@marfinetzplumbing.org">info@marfinetzplumbing.org</a></p>
             </div>
           </div>
           <div className="footer-services">
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} MMW Contracting. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Marfinetz Plumbing. All Rights Reserved.</p>
           <div className="footer-links">
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-of-service">Terms of Service</Link>

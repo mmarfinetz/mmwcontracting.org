@@ -87,7 +87,7 @@ export default function Home() {
       <section className="why-choose-us">
         <div className="container">
           <div className="section-header">
-            <h2>Why Choose MMW Contracting</h2>
+            <h2>Why Choose Marfinetz Plumbing</h2>
             <p>Trusted plumbing professionals serving the tri-state area</p>
           </div>
           <div className="benefits-grid">
@@ -170,7 +170,7 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"MMW Contracting saved us thousands in unnecessary repairs. Their sewer camera inspection identified the exact location of our problem, and they fixed it the same day."</p>
+              <p className="testimonial-text">"Marfinetz Plumbing saved us thousands in unnecessary repairs. Their sewer camera inspection identified the exact location of our problem, and they fixed it the same day."</p>
               <div className="testimonial-author">
                 <p className="author-name">John D.</p>
                 <p className="author-location">Erie, PA</p>
@@ -208,7 +208,7 @@ export default function Home() {
         <div className="container">
           <div className="cta-content">
             <h2>Need Sewer Line Inspection or Plumbing Services?</h2>
-            <p>Contact MMW Contracting today for fast, reliable service across Erie County, Lake City, and Conneaut.</p>
+            <p>Contact Marfinetz Plumbing today for fast, reliable service across Erie County, Lake City, and Conneaut.</p>
             <div className="cta-buttons">
               <a href="tel:8142736315" className="btn btn-primary">Call (814) 273-6315</a>
               <a href="/contact" className="btn btn-secondary">Request Service Online</a>
