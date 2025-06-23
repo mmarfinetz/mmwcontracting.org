@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://mitchmarfinetz.app.n8n.cloud;">
+    <title>Test n8n Webhook Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background-color: #007cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005a87;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #e6ffe6;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        .error {
+            background-color: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test n8n Webhook Integration</h1>
+    <p>Click the button below to send a test lead to your n8n webhook:</p>
+    
+    <button onclick="testWebhook()">Send Test Lead</button>
+    
+    <div id="result" class="result"></div>
+    
+    <script>
+        async function testWebhook() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'none';
+            
+            const testData = {
+                name: "Test Customer",
+                phone: "555-123-4567",
+                email: "test@example.com",
+                property_type: "residential",
+                location: "123 Test Street, Erie, PA",
+                urgency: "this_week",
+                problem: "This is a test submission to verify the webhook is working correctly.",
+                preferred_contact: "phone",
+                submitted_at: new Date().toISOString(),
+                lead_source: "test_page",
+                page_url: window.location.href
+            };
+            
+            try {
+                console.log('Sending test data:', testData);
+                
+                const response = await fetch('https://mitchmarfinetz.app.n8n.cloud/webhook/plumbing-lead', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                console.log('Response status:', response.status);
+                const responseData = await response.text();
+                console.log('Response data:', responseData);
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>✅ Success!</h3>
+                        <p>The webhook received your test data successfully.</p>
+                        <p><strong>Response Status:</strong> ${response.status}</p>
+                        <p><strong>Response Data:</strong></p>
+                        <pre>${responseData || 'No response body'}</pre>
+                    `;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${responseData}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>❌ Error</h3>
+                    <p>There was an error sending the test data:</p>
+                    <pre>${error.message}</pre>
+                    <p>Check the browser console for more details.</p>
+                `;
+            }
+            
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
