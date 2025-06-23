@@ -1,0 +1,171 @@
+# MMW Contracting Website - Technology Stack
+
+## Overview
+This document outlines the current technology stack used in the MMW Contracting website and provides recommendations for future development. The website is a hybrid application combining static HTML pages with a Next.js React application.
+
+## Current Technology Stack
+
+### Frontend Technologies
+
+#### Core Technologies
+- **HTML5**: Structure for static pages
+- **CSS3**: Styling (including Windows 95 theme)
+- **JavaScript (ES6+)**: Client-side interactivity
+- **React (v18.2.0)**: UI library for calculator component
+- **Next.js (v14.1.0)**: React framework for calculator page
+- **TypeScript (v5.3.3)**: Type safety for Next.js/React components
+
+#### Frontend Libraries and Frameworks
+- **Tailwind CSS (v3.4.1)**: Utility-first CSS framework for React components
+- **Recharts (v2.12.0)**: React charting library for calculator visualizations
+- **clsx, tailwind-merge**: Utilities for CSS class management in React
+
+#### CSS Frameworks and Pre-processors
+- **PostCSS**: CSS transformation tool used with Tailwind
+- **win97.css**: Custom CSS for Windows 95 theme
+- **styles.css**: General styling for static pages
+
+### Backend and Infrastructure
+
+#### Hosting and Deployment
+- **GitHub Pages**: Static site hosting
+- **GitHub Actions**: CI/CD pipeline for automated deployment
+- **CNAME**: Custom domain configuration
+
+#### Server-side (Minimal/None)
+- **Google Forms**: For contact form submissions
+- **Google Reviews API**: For displaying customer reviews
+
+### Development Tools
+
+#### Build Tools
+- **esbuild**: JavaScript bundler (via build-calculator.js)
+- **npm**: Package manager
+- **Next.js build tools**: For building the React application
+
+#### Development Environment
+- **Visual Studio Code**: Recommended IDE
+- **Python HTTP Server**: For local development
+- **Local development scripts**: Specialized scripts for development workflow
+
+#### Version Control
+- **Git**: Version control system
+- **GitHub**: Repository hosting
+
+## Recommended Technology Stack Additions
+
+### Frontend Enhancements
+
+#### State Management
+- **React Context API**: For more complex state management
+- **Zustand**: Lightweight state management for React
+
+#### Form Handling
+- **React Hook Form**: For better form handling in React components
+- **Zod**: For schema validation
+
+#### UI Enhancements
+- **Framer Motion**: For animations in React components
+- **react-windows95**: For Windows 95 UI components in React
+
+#### Testing
+- **Jest**: JavaScript testing framework
+- **React Testing Library**: For testing React components
+- **Cypress**: For end-to-end testing
+
+### Backend Recommendations
+
+#### Serverless Functions
+- **Vercel Functions**: For API routes and server-side logic
+- **Netlify Functions**: Alternative to Vercel
+
+#### Database Options
+- **Firebase Firestore**: For document-based data storage
+- **MongoDB Atlas**: For more complex data relationships
+- **Supabase**: Open-source Firebase alternative
+
+#### Authentication
+- **Auth0**: For user authentication
+- **Firebase Authentication**: Simpler alternative
+- **NextAuth.js**: Authentication for Next.js applications
+
+### DevOps Enhancements
+
+#### Monitoring and Analytics
+- **Vercel Analytics**: For performance monitoring
+- **Google Analytics**: For user behavior tracking
+- **LogRocket**: For session replay and error tracking
+
+#### Performance Optimization
+- **next/image**: For image optimization in Next.js
+- **next/font**: For font optimization in Next.js
+- **Lighthouse CI**: For automated performance testing
+
+#### Security
+- **Content Security Policy**: For XSS protection
+- **Helmet.js**: For securing HTTP headers
+- **OWASP ZAP**: For security testing
+
+## Development Environment Setup
+
+### Local Development Requirements
+- Node.js (v18+)
+- npm (v8+) or yarn (v1.22+)
+- Git
+- Python 3.x (for serve.py)
+
+### Recommended VS Code Extensions
+- ESLint
+- Prettier
+- Tailwind CSS IntelliSense
+- TypeScript and JavaScript Language Features
+- Live Server (for static HTML development)
+
+### Development Workflow
+1. Clone repository from GitHub
+2. Install dependencies with `npm install`
+3. Start Next.js development server with `npm run dev`
+4. Use Python HTTP server for static pages
+5. Build for production with `npm run build`
+6. Test production build locally before deployment
+
+## Version Compatibility
+
+### Node.js Compatibility
+- Minimum required: Node.js v16.14.0
+- Recommended: Node.js v18.x or v20.x
+
+### Browser Compatibility
+- Chrome (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Edge (latest 2 versions)
+- iOS Safari (latest 2 versions)
+- Android Chrome (latest 2 versions)
+
+### Package Version Management
+- Use exact versions in package.json
+- Regular updates for security patches
+- Major version upgrades require thorough testing
+
+## Future Technology Considerations
+
+### Progressive Web App (PWA)
+- **Workbox**: For service worker management
+- **next-pwa**: For PWA features in Next.js
+
+### Advanced UI
+- **Three.js**: For 3D visualization capabilities
+- **WebGL**: For advanced graphics
+
+### Internationalization
+- **next-i18next**: For multi-language support
+- **react-intl**: Alternative for internationalization
+
+### Data Visualization
+- **D3.js**: For more advanced data visualizations
+- **Victory**: Alternative to Recharts
+
+### Mobile-specific
+- **React Native Web**: For potential native mobile apps
+- **Capacitor**: For wrapping web app as native app 

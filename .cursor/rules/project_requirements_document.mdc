@@ -1,0 +1,160 @@
+# MMW Contracting Website - Project Requirements
+
+## Overview
+This document outlines the functional and technical requirements for the MMW Contracting website. It serves as the authoritative source for what the website must accomplish and the constraints it must operate within.
+
+## Functional Requirements
+
+### Core Website Requirements
+
+#### F1: Windows 95/97 Theme
+- F1.1: The website must maintain a Windows 95/97 aesthetic throughout
+- F1.2: Desktop metaphor with icons, windows, and a start menu
+- F1.3: Windows must be draggable, resizable, minimizable, and closable
+- F1.4: Taskbar must show open windows and current time
+
+#### F2: Service Information
+- F2.1: Display comprehensive information about plumbing services
+- F2.2: Present company information and credentials
+- F2.3: Showcase previous work with images and descriptions
+- F2.4: Display customer testimonials and reviews
+
+#### F3: Contact Mechanisms
+- F3.1: Provide contact form for customer inquiries
+- F3.2: Display contact information (phone, email, address)
+- F3.3: Include business hours and service areas
+- F3.4: Implement Google Forms integration for contact submissions
+
+### Calculator Requirements
+
+#### F4: Revenue Calculator
+- F4.1: Allow input of hours, rates, and expense parameters
+- F4.2: Calculate revenue, expenses, and profit
+- F4.3: Display results in visual format (charts)
+- F4.4: Update calculations in real-time as inputs change
+- F4.5: Support preset configurations for common scenarios
+
+#### F5: Quote Generators
+- F5.1: Provide power washing quote generator
+- F5.2: Implement project quote generator for custom work
+- F5.3: Calculate accurate estimates based on user inputs
+- F5.4: Allow users to submit quote requests via contact form
+- F5.5: Support for saving and retrieving quotes (future)
+
+### User Experience Requirements
+
+#### F6: Navigation
+- F6.1: Intuitive navigation using desktop metaphor
+- F6.2: Start menu for accessing all major sections
+- F6.3: Desktop icons for key features
+- F6.4: Window management system for multiple open sections
+
+#### F7: Responsive Design
+- F7.1: Support for desktop, tablet, and mobile devices
+- F7.2: Adapt Windows 95 theme for touch interfaces
+- F7.3: Ensure calculator and forms work on all screen sizes
+- F7.4: Maintain usability on smaller screens
+
+## Technical Requirements
+
+### T1: Platform Compatibility
+- T1.1: Must work on modern browsers (Chrome, Firefox, Safari, Edge)
+- T1.2: Support for iOS and Android mobile browsers
+- T1.3: Graceful degradation for older browsers
+- T1.4: No dependency on browser plugins or extensions
+
+### T2: Performance
+- T2.1: Initial page load under 3 seconds on broadband
+- T2.2: Smooth window dragging and UI interactions
+- T2.3: Calculator must update instantly with input changes
+- T2.4: Optimize for low resource usage on mobile devices
+
+### T3: Architecture
+- T3.1: Hybrid of static HTML and Next.js React application
+- T3.2: Static export for Next.js components
+- T3.3: Client-side only operation (no server-side processing)
+- T3.4: Integration between static pages and React components via iframe
+
+### T4: Deployment
+- T4.1: Deployable to GitHub Pages
+- T4.2: Automated deployment via GitHub Actions
+- T4.3: Custom domain support (mmwcontracting.org)
+- T4.4: Build process that combines static and Next.js content
+
+### T5: Maintainability
+- T5.1: Well-organized codebase with clear structure
+- T5.2: Comprehensive documentation
+- T5.3: Coding standards and consistent style
+- T5.4: Version control with descriptive commits
+
+### T6: Security
+- T6.1: No exposure of sensitive data in client-side code
+- T6.2: Secure handling of form submissions
+- T6.3: Protection against common web vulnerabilities
+- T6.4: Regular security updates and audits
+
+## Non-Functional Requirements
+
+### N1: Accessibility
+- N1.1: Compliance with WCAG 2.1 Level AA
+- N1.2: Keyboard navigation support
+- N1.3: Screen reader compatibility
+- N1.4: Sufficient color contrast and text size
+
+### N2: Performance
+- N2.1: Google PageSpeed Insights score of 80+ on mobile
+- N2.2: Core Web Vitals within "Good" range
+- N2.3: Smooth animations and transitions (60fps)
+- N2.4: Resource-efficient JavaScript execution
+
+### N3: SEO
+- N3.1: Proper meta tags and structured data
+- N3.2: Semantic HTML structure
+- N3.3: Mobile-friendly design (Google mobile-friendly test)
+- N3.4: Sitemap and proper indexing directives
+
+### N4: Compliance
+- N4.1: GDPR compliance for user data
+- N4.2: Cookie consent where required
+- N4.3: Accessibility statement
+- N4.4: Terms of service and privacy policy
+
+## Constraints
+
+### C1: Development Constraints
+- C1.1: Must maintain Windows 95/97 aesthetic while being modern
+- C1.2: Limited backend capabilities (GitHub Pages hosting)
+- C1.3: Must work without requiring user login
+- C1.4: Development timeline and resource limitations
+
+### C2: Technical Constraints
+- C2.1: Static site hosting limitations
+- C2.2: No server-side processing (unless using serverless functions)
+- C2.3: Browser compatibility requirements
+- C2.4: Limited ability to store user data
+
+### C3: Design Constraints
+- C3.1: Must balance authentic Windows 95 look with usability
+- C3.2: Limited screen real estate on mobile devices
+- C3.3: Must accommodate varying screen sizes and resolutions
+- C3.4: Touch interface considerations for desktop metaphor
+
+## Future Requirements (Planned)
+
+### FR1: Backend Integration
+- FR1.1: Server-side processing for forms and quotes
+- FR1.2: Database for storing quotes and customer information
+- FR1.3: User accounts for saving calculations and quotes
+- FR1.4: Admin dashboard for managing content and quotes
+
+### FR2: Enhanced Features
+- FR2.1: PDF generation for quotes and estimates
+- FR2.2: Email notifications for form submissions
+- FR2.3: Calendar integration for scheduling
+- FR2.4: Additional calculators and estimation tools
+
+### FR3: Analytics and Reporting
+- FR3.1: User interaction tracking
+- FR3.2: Business intelligence dashboards
+- FR3.3: Conversion tracking and optimization
+- FR3.4: Performance monitoring and reporting 

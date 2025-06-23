@@ -1,5 +1,5 @@
 #!/bin/bash
-# Modified build script for SEO-optimized version
+# Modified build script to use original Windows 95 theme with Marfinetz Plumbing branding
 
 # Clean up previous builds
 rm -rf .next out public
@@ -7,26 +7,25 @@ rm -rf .next out public
 # Ensure the public directory exists
 mkdir -p public
 
-# Copy essential static assets but NOT the old index.html
+# Copy essential static assets INCLUDING the original index.html
 cp -r img public/ 2>/dev/null || true
-mkdir -p public/css
-mkdir -p public/js
+cp -r css public/ 2>/dev/null || true
+cp -r js public/ 2>/dev/null || true
+cp index.html public/ 2>/dev/null || true
 
-# Run the Next.js build
+# Run the Next.js build for the calculator and other Next.js features
 npm run build
 
-# Copy the Next.js output to the public directory
-cp -r out/* public/
+# Copy the Next.js output to the public directory, but DON'T overwrite index.html
+mkdir -p public/calculator
+cp -r out/calculator/* public/calculator/ 2>/dev/null || true
 
 # Copy any remaining assets that might be needed
 cp -r assets/* public/ 2>/dev/null || true
 
-# Make sure we're using the Next.js version of index.html
-if [ -f out/index.html ]; then
-  echo "Using Next.js SEO-optimized index.html"
-  cp out/index.html public/
-fi
+# Make sure we're using the original Windows 95 theme index.html
+echo "Using original Windows 95 theme index.html with Marfinetz Plumbing branding"
 
 echo "Files in public directory:"
 ls -la public/
-echo "Build completed successfully with SEO-optimized interface!"
+echo "Build completed successfully with Windows 95 theme interface!"

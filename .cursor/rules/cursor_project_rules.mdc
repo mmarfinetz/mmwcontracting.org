@@ -1,0 +1,84 @@
+# MMW Contracting Website - Cursor Project Rules
+
+## Project Overview
+This document outlines the rules and guidelines for developing the MMW Contracting website using Cursor AI. The website is a hybrid of a Next.js application (for the revenue calculator) and static HTML pages with vanilla JavaScript (for quote generators and main site content), featuring a Windows 95/97 aesthetic.
+
+## Directory Structure Guidelines
+
+- `/app`: Next.js application files and components
+- `/components`: Shared React components
+- `/css`: CSS files for styling (Windows 95 theme and general styles)
+- `/js`: JavaScript files for static pages functionality
+- `/lib`: Utility functions
+- `/public`: Static assets for Next.js
+- `/img`: Images for static HTML pages
+- `/.github`: CI/CD workflows for deployment
+
+## Coding Standards
+
+### General
+- Follow consistent indentation (2 spaces)
+- Use meaningful variable and function names
+- Keep functions small and focused on a single task
+- Add appropriate comments for complex logic
+- Ensure all files have proper imports and exports
+
+### Next.js/React
+- Use functional components with hooks
+- Follow React best practices for state management
+- Use TypeScript for type safety
+- Utilize Tailwind CSS for styling within the React components
+- Keep components modular and reusable
+
+### JavaScript (Static Pages)
+- Use modern JavaScript features (ES6+)
+- Organize code into logical functions
+- Avoid global variables when possible
+- Implement proper error handling
+
+### CSS
+- Maintain separate concerns between win97.css and styles.css
+- Follow the established Windows 95 styling guidelines
+- Ensure responsive design works on all devices
+- Use consistent naming conventions for classes
+
+### HTML
+- Maintain semantic HTML structure
+- Ensure accessibility standards are met
+- Optimize for performance and loading speed
+
+## Git Workflow
+- Create feature branches for new features
+- Use descriptive commit messages
+- Review code before merging to main
+- Ensure tests pass before merging
+
+## Testing Guidelines
+- Test all features on multiple browsers
+- Ensure responsive design works on all screen sizes
+- Validate form inputs and error handling
+- Test calculator functionality with different input values
+
+## Performance Considerations
+- Optimize images and assets
+- Minimize JavaScript bundle size
+- Use code-splitting where appropriate
+- Implement lazy loading for components
+
+## Accessibility Requirements
+- Ensure proper contrast ratios
+- Include alt text for images
+- Make sure all interactive elements are keyboard accessible
+- Support screen readers with proper ARIA attributes
+
+## Deployment Process
+- Build and test locally before deployment
+- Use GitHub Actions for automated deployment
+- Verify site functionality after deployment
+- Monitor for any post-deployment issues
+
+## Documentation Standards
+- Keep docs.md updated with new features
+- Document any complex algorithms or calculations
+- Include comments for future developers
+- Maintain a changelog for significant updates 

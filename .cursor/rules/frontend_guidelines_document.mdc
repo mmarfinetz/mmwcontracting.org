@@ -1,0 +1,165 @@
+# MMW Contracting Website - Frontend Guidelines
+
+## Overview
+This document outlines the frontend development guidelines for the MMW Contracting website, focusing on maintaining consistency between the Windows 95/97 themed static HTML pages and the Next.js React application.
+
+## Design System
+
+### Windows 95/97 Theme
+- Follow the established Windows 95/97 aesthetic throughout the site
+- Reference `win97.css` for styling elements consistent with the theme
+- Use appropriate colors, borders, and shadow effects
+- Maintain the "pixel-perfect" appearance of UI elements
+
+### Color Palette
+- Primary UI colors:
+  - Window background: `#c0c0c0`
+  - Window border (outer): `#ffffff` / `#808080`
+  - Window border (inner): `#dfdfdf` / `#000000`
+  - Button face: `#c0c0c0`
+  - Button highlight: `#ffffff`
+  - Button shadow: `#808080`
+  - Text color: `#000000`
+- Accent colors:
+  - Title bar active: `#000080` (navy blue)
+  - Title bar text: `#ffffff`
+  - Hyperlink: `#0000ff`
+  - Visited link: `#800080`
+
+### Typography
+- Primary font: 'MS Sans Serif', 'Segoe UI', sans-serif
+- System font stack used for authenticity
+- Font sizes:
+  - Window title: 12px
+  - Menu text: 11px
+  - Body text: 12px
+  - Form elements: 12px
+
+### Iconography
+- Use Windows 95/97 style icons
+- 16x16 pixels for small icons (toolbar, menu)
+- 32x32 pixels for desktop icons
+- Maintain pixel-perfect appearance
+- Generated via `create_icons.py` script
+
+## Component Patterns
+
+### Windows
+- Window container with title bar, content area
+- Title bar with icon, title text, minimize/maximize/close buttons
+- Draggable behavior
+- Proper stacking (z-index management)
+- Minimize/maximize states
+
+### Buttons
+- Standard button with 3D appearance
+- Hover and active states
+- Disabled state styling
+- Primary and secondary button variations
+
+### Form Elements
+- Text inputs with inset appearance
+- Checkboxes and radio buttons with Windows 95 styling
+- Select dropdowns with appropriate styling
+- Form layout with proper spacing
+
+### Dialogs and Alerts
+- Modal dialog appearance
+- OK/Cancel button patterns
+- Alert icons (error, warning, information)
+- Proper backdrop and focus management
+
+## React Component Guidelines
+
+### Component Structure
+- Use functional components with hooks
+- Break down complex UI into smaller components
+- Keep components focused on a single responsibility
+- Use TypeScript interfaces for component props
+
+### State Management
+- Use React hooks (useState, useEffect) for local state
+- Consider context API for shared state
+- Avoid prop drilling through multiple component levels
+- Keep state logic simple and understandable
+
+### Styling in React
+- Use Tailwind CSS for React components
+- Use the `cn` utility for conditional classes
+- Follow consistent className patterns
+- Maintain responsive design principles
+
+### Accessibility
+- Use semantic HTML elements
+- Implement proper ARIA attributes
+- Ensure keyboard navigation works
+- Maintain sufficient color contrast
+- Test with screen readers
+
+## JavaScript Guidelines
+
+### Static Pages
+- Organize code by functionality
+- Use ES6+ features appropriately
+- Implement proper error handling
+- Document complex functions
+- Avoid global namespace pollution
+
+### React/Next.js
+- Follow React best practices
+- Implement proper effect dependencies
+- Use React.memo for performance optimization
+- Lazy load components where appropriate
+- Optimize rendering cycles
+
+## Responsive Design
+
+### Breakpoints
+- Mobile: < 640px
+- Tablet: 640px - 1024px
+- Desktop: > 1024px
+
+### Mobile Considerations
+- Adapt Windows 95 theme for touch interfaces
+- Increase tap target sizes
+- Adjust window dragging for touch
+- Consider alternative layouts for small screens
+
+### Desktop Optimization
+- Take advantage of larger screen real estate
+- Consider multi-window layouts
+- Optimize calculator visualization for larger screens
+
+## Performance Guidelines
+
+### JavaScript Optimization
+- Minimize DOM manipulations
+- Use event delegation where appropriate
+- Debounce or throttle expensive operations
+- Optimize loops and array operations
+
+### Asset Optimization
+- Optimize images (compression, correct dimensions)
+- Use appropriate image formats
+- Consider lazy loading for non-critical images
+- Implement proper caching strategy
+
+### React Performance
+- Memoize expensive calculations
+- Use React.memo and useMemo appropriately
+- Implement virtualization for long lists
+- Avoid unnecessary re-renders
+
+## Testing Strategy
+
+### Manual Testing
+- Test across browsers (Chrome, Firefox, Safari, Edge)
+- Test responsive layouts on various devices
+- Validate form functionality with different inputs
+- Verify calculator results with known test cases
+
+### Automated Testing (Future)
+- Implement component tests with React Testing Library
+- Create end-to-end tests with Cypress
+- Set up visual regression testing
+- Incorporate tests in CI/CD pipeline 

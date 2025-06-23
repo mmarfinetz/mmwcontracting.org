@@ -1,0 +1,128 @@
+# MMW Contracting Website - Application Flow
+
+## Overview
+This document outlines the application flow and component interactions for the MMW Contracting website. The application consists of both a Next.js application (calculator) and static HTML pages with vanilla JavaScript.
+
+## User Entry Points
+
+1. **Main Landing Page** (index.html)
+   - Windows 95/97 themed desktop
+   - Desktop icons for navigation
+   - Start menu for navigation
+   - Window management system
+
+2. **Calculator Page** (/calculator)
+   - Next.js app for revenue calculations
+   - Can be accessed through:
+     - Desktop icon on index.html
+     - Direct URL navigation
+     - Start menu on index.html
+
+3. **Quote Generators**
+   - Power Washing Quote Generator
+   - Project Quote Generator
+   - Accessed through desktop icons or start menu
+
+## Application Flow Diagram
+
+```
+                                 +-------------------+
+                                 |                   |
+                                 |    index.html     |<----------+
+                                 |  (Desktop Theme)  |           |
+                                 |                   |           |
+                                 +--------+----------+           |
+                                          |                      |
+                                          v                      |
+            +----------------------+-------------------------+   |
+            |                      |                         |   |
+            v                      v                         v   |
++-------------------------+ +----------------+ +---------------------+
+|                         | |                | |                     |
+| Quote Generators (HTML) | | Contact Form   | | Calculator (Next.js)|
+|                         | |                | |                     |
++-------------+-----------+ +--------+-------+ +---------+-----------+
+              |                      |                   |
+              v                      v                   v
+    +-------------------+    +--------------------+    +------------------------+
+    |                   |    |                    |    |                        |
+    | Generate Estimate |    | Submit Form Data   |    | Calculate Revenue      |
+    |                   |    | (Google Forms)     |    | Display Visualizations |
+    +--------+----------+    +--------------------+    +------------------------+
+             |
+             v
+    +-------------------+
+    |                   |
+    | Contact Form Link |
+    |                   |
+    +--------+----------+
+             |
+             +-------------------------------------------+
+```
+
+## Component Interactions
+
+### Static HTML Pages Flow
+
+1. **index.html → Window Management**
+   - User interacts with desktop icons
+   - Clicks open windows, minimize, maximize
+   - Windows create taskbar entries
+   - Start menu provides navigation
+
+2. **index.html → Quote Generator**
+   - User clicks quote generator icon
+   - Opens quote generator window
+   - Form inputs trigger JavaScript calculations
+   - Results displayed to user
+   - Contact form link provided
+
+3. **index.html → Calculator**
+   - User clicks calculator icon
+   - Opens calculator window with iframe
+   - iframe loads Next.js calculator app
+   - Calculator functions independently
+
+### Next.js Calculator Flow
+
+1. **Calculator Page → Input Handling**
+   - User enters values
+   - handleInputChange updates state
+   - useEffect triggers recalculation
+
+2. **Calculator Page → Calculation Logic**
+   - calculateRevenue processes inputs
+   - Updates calculations state
+   - Rerenders components with new values
+
+3. **Calculator Page → Visualization**
+   - Chart data updated based on calculations
+   - Recharts components render visualizations
+   - Summary displays updated figures
+
+## Data Flow
+
+1. **User Input → Processing → Output**
+   - Form inputs collected
+   - JavaScript functions process data
+   - Results displayed to user
+
+2. **Calculator Input → State Update → Recalculation → Rendering**
+   - Input changes trigger state updates
+   - useEffect runs calculations
+   - Components rerender with new data
+   - Charts update with new visualizations
+
+## Integration Points
+
+1. **iframe Integration**
+   - index.html embeds calculator via iframe
+   - Styling maintained across contexts
+
+2. **Shared Visual Elements**
+   - Windows 95 theme consistent across site
+   - Navigation patterns consistent
+
+3. **Contact Form**
+   - Common endpoint for all quote generators
+   - Google Forms integration 

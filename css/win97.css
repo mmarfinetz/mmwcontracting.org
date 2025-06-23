@@ -176,6 +176,27 @@ body::after {
   min-height: 300px;
   resize: both;
   overflow: auto;
+  transition: all 0.15s ease-out;
+}
+
+/* Maximized window styling */
+.window.maximized {
+  width: 100% !important;
+  height: calc(100vh - 30px) !important; /* Leave space for taskbar */
+  left: 0 !important;
+  top: 0 !important;
+  border-width: 0 0 2px 0 !important;
+  border-radius: 0 !important;
+  resize: none !important;
+}
+
+/* Animation for minimize/maximize */
+.window.minimized {
+  transform: scale(0.01);
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: bottom left;
+  transition: all 0.2s ease-in;
 }
 
 .window.active {
@@ -294,6 +315,34 @@ body::after {
   height: 22px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.taskbar-program {
+  display: flex;
+  align-items: center;
+  background-color: var(--win97-gray);
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  padding: 0 8px;
+  height: 22px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.taskbar-program.active {
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
+  background-color: var(--win97-gray);
+}
+
+.taskbar-program.minimized {
+  background-color: var(--win97-darker);
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
 }
 
 .taskbar-entry {
