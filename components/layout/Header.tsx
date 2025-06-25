@@ -17,7 +17,9 @@ export default function Header() {
           <div className="container">
             <div className="logo">
               <Link href="/">
-                <img src="/logo.svg" alt="Marfinetz Plumbing Logo" />
+                <img src="/logo.svg" alt="Marfinetz Plumbing Logo" /
+                
+
               </Link>
             </div>
             <ul className="nav-links">
