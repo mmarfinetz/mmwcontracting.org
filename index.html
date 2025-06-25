@@ -11,14 +11,14 @@
   <meta property="og:description" content="Reliable plumbing services for residential and commercial properties in Pennsylvania.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://marfinetzplumbing.org">
-  <link rel="icon" type="image/png" href="img/marfinetz-plumbing-logo.png">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
   
   <!-- Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
   <!-- Preload critical assets -->
-  <link rel="preload" href="img/marfinetz-plumbing-logo.png" as="image">
+  <link rel="preload" href="logo.svg" as="image">
   <link rel="preload" href="img/mycomputer.png" as="image">
   <link rel="preload" href="img/services.png" as="image">
   <link rel="preload" href="img/phone.png" as="image">
@@ -45,6 +45,10 @@
   <!-- <script src="js/google-reviews.js" defer></script> -->
   <script src="js/slideshow.js" defer></script>
   <script src="js/main.js" defer></script>
+  <script src="js/lead-capture.js" defer></script>
+  
+  <!-- Lead Tracking System -->
+  <script src="js/lead-tracker.js" async></script>
 </head>
 <body>
   <!-- Mobile Navigation -->
@@ -76,7 +80,7 @@
         <img src="img/wxp_244.png" alt="Reviews" width="24" height="24">
         <span>Customer Reviews</span>
       </a>
-      <a href="https://forms.gle/J4mLnQM8o7ECakD28" class="mobile-menu-item" target="_blank">
+      <a href="#" class="mobile-menu-item" data-window="contact-window">
         <img src="img/phone.png" alt="Contact" width="24" height="24">
         <span>Contact Us</span>
       </a>
@@ -401,17 +405,84 @@
   </div>
   
   <!-- Contact Window Template -->
-  <div class="window" id="contact-window" data-window="contact" style="display: none; left: 250px; top: 100px; width: 680px; height: 650px;">
+  <div class="window" id="contact-window" data-window="contact" style="display: none; left: 250px; top: 100px; width: 500px; min-height: 600px;">
     <div class="title-bar">
-      <div class="title-bar-text">Contact Us</div>
+      <div class="title-bar-text">Contact Us - Request Service</div>
       <div class="title-bar-controls">
         <button class="title-bar-button minimize-button">_</button>
         <button class="title-bar-button maximize-button">□</button>
         <button class="title-bar-button close-button">×</button>
       </div>
     </div>
-    <div class="window-content" style="padding: 0; height: calc(100% - 20px);">
-      <iframe src="https://forms.gle/J4mLnQM8o7ECakD28" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <div class="window-content" style="padding: 20px;">
+      <form id="lead-capture-form" class="win95-form">
+        <h3 style="margin-top: 0;">Get Your Plumbing Problem Fixed Today!</h3>
+        
+        <div class="form-message" id="form-message" style="display: none; align-items: center; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc;"></div>
+        
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="property_type">Property Type *</label>
+          <select id="property_type" name="property_type" required class="win95-select">
+            <option value="">Select Property Type</option>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="location">Service Address *</label>
+          <input type="text" id="location" name="location" required class="win95-input" placeholder="Street address, City, PA">
+        </div>
+        
+        <div class="form-group">
+          <label for="urgency">How urgent is this? *</label>
+          <select id="urgency" name="urgency" required class="win95-select">
+            <option value="">Select Urgency</option>
+            <option value="emergency">Emergency - Need help NOW!</option>
+            <option value="same_day">Same day service needed</option>
+            <option value="this_week">This week is fine</option>
+            <option value="flexible">I'm flexible on timing</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="problem">Describe your plumbing problem *</label>
+          <textarea id="problem" name="problem" required class="win95-textarea" rows="4" placeholder="Please describe the issue you're experiencing..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="preferred_contact">Preferred Contact Method</label>
+          <select id="preferred_contact" name="preferred_contact" class="win95-select">
+            <option value="phone">Call me</option>
+            <option value="email">Email me</option>
+            <option value="text">Text me</option>
+          </select>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="win95-button primary" id="lead-submit-button">Submit Request</button>
+          <button type="button" class="win95-button" onclick="document.getElementById('lead-capture-form').reset()">Clear Form</button>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; color: #666;">
+          Or call us directly at <a href="tel:814-273-6315" style="color: #0000FF;">814-273-6315</a>
+        </p>
+      </form>
     </div>
   </div>
   
