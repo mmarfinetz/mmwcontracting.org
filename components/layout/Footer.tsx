@@ -7,6 +7,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-about">
+
             <img src="/img/marfinetz-plumbing-logo.png" alt="Marfinetz Plumbing Logo" className="footer-logo" />
             <p>Professional plumbing services including sewer camera inspection, drain cleaning, and emergency repairs across Pennsylvania and Ohio.</p>
             <div className="footer-contact">
