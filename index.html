@@ -25,28 +25,16 @@
   <link rel="preload" href="img/services.png" as="image">
   <link rel="preload" href="img/phone.png" as="image">
   
-  <!-- Critical CSS inlined -->
-  <style>
-    /* Critical CSS */
-    @import url('css/critical.css');
-  </style>
-  
-  <!-- Non-critical CSS loaded asynchronously -->
-  <link rel="preload" href="css/win97.css" as="style" data-onload-rel="stylesheet">
-  <noscript><link rel="stylesheet" href="css/win97.css"></noscript>
-  
-  <!-- Mobile CSS -->
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/win97.css">
   <link rel="stylesheet" href="css/mobile.css">
   
-  <!-- Google Fonts loaded asynchronously -->
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet" media="print" data-onload-media="all">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Deferred JavaScript -->
-  <script src="js/css-loader.js" defer></script>
-  <script src="js/browser-warning.js" defer></script>
   <!-- Google Reviews JS is no longer needed since we're using a third-party widget -->
   <!-- <script src="js/google-reviews.js" defer></script> -->
-  <script src="js/slideshow.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/lead-capture.js" defer></script>
   
