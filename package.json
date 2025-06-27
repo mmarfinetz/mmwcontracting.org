@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development next dev",
+    "dev-windows": "./dev-windows.sh",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

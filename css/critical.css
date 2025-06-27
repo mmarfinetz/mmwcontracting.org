@@ -1,3 +1,6 @@
+@import url('mobile.css');
+/* Ensure mobile CSS is loaded */
+
 /* Critical CSS for above-the-fold content */
 html, body {
   width: 100%;
@@ -6,7 +9,7 @@ html, body {
   padding: 0;
   font-family: 'SF Pro Display', sans-serif;
   overflow: hidden;
-  background-color: #008080;
+  background-color: #c0c0c0;
 }
 
 .desktop-icons {
@@ -124,6 +127,3 @@ html, body {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* Ensure mobile CSS is loaded */
-@import url('mobile.css');
