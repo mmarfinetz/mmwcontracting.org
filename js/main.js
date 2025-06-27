@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (targetId === 'services') {
       openWindow('services-window');
     } else if (targetId === 'contact') {
-      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
+      openWindow('contact-window');
     } else if (targetId === 'testimonials') {
       openWindow('testimonials-window');
     } else if (targetId === 'emergency') {
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // CTA Button Click Handler
   if (ctaButton) {
     ctaButton.addEventListener('click', function() {
-      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
+      openWindow('contact-window');
     });
   }
   
@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const startContact = document.getElementById('start-contact');
   if (startContact) {
     startContact.addEventListener('click', () => {
-      window.open('https://forms.gle/J4mLnQM8o7ECakD28', '_blank');
+      openWindow('contact-window');
       startMenu.style.display = 'none';
       isStartMenuOpen = false;
     });
