@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway API Diagnostics</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .test-controls {
+            margin: 20px 0;
+        }
+        #results {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .test-data {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Railway API Diagnostics Tool</h1>
+        <p>This tool tests various scenarios for the lead capture API hosted on Railway.</p>
+        
+        <div class="test-controls">
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="clearResults()">Clear Results</button>
+            <button onclick="testEnvironmentInfo()">Check Environment</button>
+        </div>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_URL = 'https://mmwcontracting-production.up.railway.app/api/leads';
+        
+        // Test Data Sets
+        const testData = {
+            valid: {
+                name: 'Test User',
+                email: 'test@example.com',
+                phone: '(555) 123-4567',
+                message: 'This is a test message from the diagnostics tool',
+                urgency: 'normal',
+                service: 'Plumbing'
+            },
+            minimal: {
+                name: 'Minimal Test',
+                email: 'minimal@test.com',
+                phone: '5551234567',
+                message: 'Minimal test'
+            },
+            urgent: {
+                name: 'Urgent Test',
+                email: 'urgent@test.com',
+                phone: '555-999-8888',
+                message: 'Emergency plumbing issue!',
+                urgency: 'urgent',
+                service: 'Emergency Service'
+            },
+            missingFields: {
+                name: 'Missing Fields Test',
+                // Missing email
+                phone: '555-777-6666',
+                message: 'Testing missing fields'
+            },
+            invalidEmail: {
+                name: 'Invalid Email Test',
+                email: 'not-an-email',
+                phone: '555-444-3333',
+                message: 'Testing invalid email'
+            },
+            longMessage: {
+                name: 'Long Message Test',
+                email: 'long@test.com',
+                phone: '555-222-1111',
+                message: 'A'.repeat(1000), // 1000 character message
+                urgency: 'normal'
+            },
+            specialChars: {
+                name: 'Special Chars & "Quotes" Test',
+                email: 'special+test@example.com',
+                phone: '+1 (555) 321-4567',
+                message: 'Message with special chars: & < > " \' / \\ and émojis 😊',
+                urgency: 'normal'
+            }
+        };
+
+        // Results container
+        const resultsDiv = document.getElementById('results');
+
+        // Helper function to log results
+        function logResult(title, content, type = 'info') {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `<strong>${title}</strong>\n${content}`;
+            resultsDiv.appendChild(resultDiv);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        // Helper function to format JSON
+        function formatJSON(obj) {
+            return JSON.stringify(obj, null, 2);
+        }
+
+        // Test environment information
+        async function testEnvironmentInfo() {
+            logResult('Environment Information', `
+User Agent: ${navigator.userAgent}
+Current Origin: ${window.location.origin}
+API URL: ${API_URL}
+Timestamp: ${new Date().toISOString()}
+`, 'info');
+        }
+
+        // Test with Fetch API
+        async function testWithFetch(testName, data) {
+            const testSection = document.createElement('div');
+            testSection.className = 'test-section';
+            testSection.innerHTML = `<h3>Test: ${testName} (Fetch API)</h3>`;
+            resultsDiv.appendChild(testSection);
+
+            try {
+                logResult('Request Data', formatJSON(data), 'info');
+                
+                const startTime = performance.now();
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const endTime = performance.now();
+                const duration = (endTime - startTime).toFixed(2);
+
+                const responseData = await response.text();
+                let parsedResponse;
+                
+                try {
+                    parsedResponse = JSON.parse(responseData);
+                } catch (e) {
+                    parsedResponse = responseData;
+                }
+
+                logResult('Response Details', `
+Status: ${response.status} ${response.statusText}
+Duration: ${duration}ms
+Headers: ${formatJSON(Object.fromEntries(response.headers.entries()))}
+Body: ${typeof parsedResponse === 'string' ? parsedResponse : formatJSON(parsedResponse)}
+`, response.ok ? 'success' : 'error');
+
+            } catch (error) {
+                logResult('Fetch Error', `
+Error Type: ${error.name}
+Message: ${error.message}
+Stack: ${error.stack}
+`, 'error');
+            }
+        }
+
+        // Test with XMLHttpRequest
+        async function testWithXHR(testName, data) {
+            return new Promise((resolve) => {
+                const testSection = document.createElement('div');
+                testSection.className = 'test-section';
+                testSection.innerHTML = `<h3>Test: ${testName} (XMLHttpRequest)</h3>`;
+                resultsDiv.appendChild(testSection);
+
+                logResult('Request Data', formatJSON(data), 'info');
+                
+                const xhr = new XMLHttpRequest();
+                const startTime = performance.now();
+                
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        const endTime = performance.now();
+                        const duration = (endTime - startTime).toFixed(2);
+                        
+                        let responseData;
+                        try {
+                            responseData = JSON.parse(xhr.responseText);
+                        } catch (e) {
+                            responseData = xhr.responseText;
+                        }
+
+                        const headers = xhr.getAllResponseHeaders()
+                            .split('\r\n')
+                            .filter(line => line)
+                            .reduce((acc, line) => {
+                                const [key, value] = line.split(': ');
+                                acc[key] = value;
+                                return acc;
+                            }, {});
+
+                        logResult('XHR Response Details', `
+Status: ${xhr.status} ${xhr.statusText}
+Duration: ${duration}ms
+Ready State: ${xhr.readyState}
+Response Headers: ${formatJSON(headers)}
+Response Body: ${typeof responseData === 'string' ? responseData : formatJSON(responseData)}
+`, xhr.status >= 200 && xhr.status < 300 ? 'success' : 'error');
+                        
+                        resolve();
+                    }
+                };
+
+                xhr.onerror = function() {
+                    logResult('XHR Network Error', 'Failed to complete request - possible CORS or network issue', 'error');
+                    resolve();
+                };
+
+                xhr.ontimeout = function() {
+                    logResult('XHR Timeout', 'Request timed out', 'error');
+                    resolve();
+                };
+
+                try {
+                    xhr.open('POST', API_URL, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.timeout = 30000; // 30 second timeout
+                    xhr.send(JSON.stringify(data));
+                } catch (error) {
+                    logResult('XHR Setup Error', `${error.name}: ${error.message}`, 'error');
+                    resolve();
+                }
+            });
+        }
+
+        // Test CORS preflight
+        async function testCORSPreflight() {
+            const testSection = document.createElement('div');
+            testSection.className = 'test-section';
+            testSection.innerHTML = '<h3>CORS Preflight Test</h3>';
+            resultsDiv.appendChild(testSection);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Access-Control-Request-Method': 'POST',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+
+                const headers = Object.fromEntries(response.headers.entries());
+                
+                logResult('CORS Preflight Response', `
+Status: ${response.status}
+Access-Control-Allow-Origin: ${headers['access-control-allow-origin'] || 'Not set'}
+Access-Control-Allow-Methods: ${headers['access-control-allow-methods'] || 'Not set'}
+Access-Control-Allow-Headers: ${headers['access-control-allow-headers'] || 'Not set'}
+All Headers: ${formatJSON(headers)}
+`, response.ok ? 'success' : 'warning');
+
+            } catch (error) {
+                logResult('CORS Preflight Error', `${error.name}: ${error.message}`, 'error');
+            }
+        }
+
+        // Test direct GET request
+        async function testGETRequest() {
+            const testSection = document.createElement('div');
+            testSection.className = 'test-section';
+            testSection.innerHTML = '<h3>GET Request Test</h3>';
+            resultsDiv.appendChild(testSection);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET'
+                });
+
+                const text = await response.text();
+                
+                logResult('GET Response', `
+Status: ${response.status}
+Body: ${text}
+`, response.ok ? 'info' : 'warning');
+
+            } catch (error) {
+                logResult('GET Error', `${error.name}: ${error.message}`, 'error');
+            }
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            clearResults();
+            
+            logResult('Starting Comprehensive API Tests', `Testing API at: ${API_URL}`, 'info');
+            
+            // Environment check
+            await testEnvironmentInfo();
+            
+            // CORS preflight
+            await testCORSPreflight();
+            
+            // GET request test
+            await testGETRequest();
+            
+            // Run each test scenario with both Fetch and XHR
+            for (const [testName, data] of Object.entries(testData)) {
+                await testWithFetch(testName, data);
+                await testWithXHR(testName, data);
+                
+                // Small delay between tests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            logResult('All Tests Complete', 'Check the results above for any issues', 'success');
+        }
+
+        // Clear results
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+        }
+
+        // Initial message
+        logResult('API Diagnostics Tool Ready', 'Click "Run All Tests" to begin comprehensive testing', 'info');
+    </script>
+</body>
+</html>
