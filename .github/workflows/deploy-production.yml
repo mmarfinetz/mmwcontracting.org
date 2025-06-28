@@ -45,7 +45,13 @@ jobs:
         npm run build-for-vercel
         # Create _site directory for GitHub Pages
         mkdir -p _site
-        cp -r index.html css js img public/* _site/
+        # Copy everything from public directory (which already has index.html)
+        cp -r public/* _site/
+        # Copy any additional static assets not in public
+        [ -d "css" ] && [ ! -d "_site/css" ] && cp -r css _site/
+        [ -d "js" ] && [ ! -d "_site/js" ] && cp -r js _site/
+        [ -d "img" ] && [ ! -d "_site/img" ] && cp -r img _site/
+        # Copy Next.js output if it exists
         if [ -d "out" ]; then
           cp -r out/* _site/
         fi
