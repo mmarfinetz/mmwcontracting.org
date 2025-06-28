@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Lead Submission</title>
+  <script src="/js/lead-capture.js"></script>
+</head>
+<body>
+  <h1>Test Lead Submission</h1>
+  
+  <form id="lead-capture-form">
+    <div id="form-message" style="display: none; padding: 10px; margin: 10px 0; background: #eee;"></div>
+    
+    <div>
+      <label>Name: <input type="text" name="name" value="Test Customer" required></label>
+    </div>
+    
+    <div>
+      <label>Email: <input type="email" name="email" value="test@example.com" required></label>
+    </div>
+    
+    <div>
+      <label>Phone: <input type="tel" name="phone" value="814-555-1234" required></label>
+    </div>
+    
+    <div>
+      <label>Urgency: 
+        <select name="urgency">
+          <option value="emergency">Emergency</option>
+          <option value="same_day">Same Day</option>
+          <option value="this_week">This Week</option>
+        </select>
+      </label>
+    </div>
+    
+    <div>
+      <label>Property Type: 
+        <select name="property_type">
+          <option value="residential">Residential</option>
+          <option value="commercial">Commercial</option>
+        </select>
+      </label>
+    </div>
+    
+    <div>
+      <label>Problem: <textarea name="problem">Burst pipe in basement</textarea></label>
+    </div>
+    
+    <button type="submit" id="lead-submit-button">Submit Request</button>
+  </form>
+  
+  <div id="console" style="margin-top: 20px; padding: 10px; background: #f0f0f0; font-family: monospace;">
+    <h3>Console Output:</h3>
+    <pre id="console-output"></pre>
+  </div>
+  
+  <script>
+    // Capture console logs
+    const output = document.getElementById('console-output');
+    const originalLog = console.log;
+    const originalError = console.error;
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      output.textContent += 'LOG: ' + args.join(' ') + '\n';
+    };
+    
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      output.textContent += 'ERROR: ' + args.join(' ') + '\n';
+    };
+    
+    // Log when form is found
+    setTimeout(() => {
+      const form = document.getElementById('lead-capture-form');
+      if (form) {
+        console.log('Form found:', form);
+      } else {
+        console.error('Form not found!');
+      }
+    }, 100);
+  </script>
+</body>
+</html>

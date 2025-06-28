@@ -1,0 +1,450 @@
+/* Mobile-specific styles for MMW Contracting website */
+
+/* Mobile Navigation */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: var(--win97-gray);
+  border-bottom: 1px solid var(--win97-darker);
+  z-index: 1000;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.mobile-nav-toggle {
+  width: 40px;
+  height: 40px;
+  background-color: var(--win97-gray);
+  border: 1px solid;
+  border-color: var(--win97-light) var(--win97-darker) var(--win97-darker) var(--win97-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mobile-nav-toggle.active {
+  border-color: var(--win97-darker) var(--win97-light) var(--win97-light) var(--win97-darker);
+  background-color: var(--win97-gray);
+}
+
+.mobile-nav-icon {
+  width: 20px;
+  height: 2px;
+  background-color: var(--win97-dark);
+  position: relative;
+}
+
+.mobile-nav-icon::before,
+.mobile-nav-icon::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background-color: var(--win97-dark);
+  left: 0;
+}
+
+.mobile-nav-icon::before {
+  top: -6px;
+}
+
+.mobile-nav-icon::after {
+  bottom: -6px;
+}
+
+.mobile-nav-toggle.active .mobile-nav-icon {
+  background-color: transparent;
+}
+
+.mobile-nav-toggle.active .mobile-nav-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.mobile-nav-toggle.active .mobile-nav-icon::after {
+  transform: rotate(-45deg);
+  bottom: 0;
+}
+
+.mobile-nav-logo {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.mobile-nav-call {
+  width: 40px;
+  height: 40px;
+  background-color: var(--win97-gray);
+  border: 1px solid;
+  border-color: var(--win97-light) var(--win97-darker) var(--win97-darker) var(--win97-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 80%;
+  max-width: 300px;
+  background-color: var(--win97-gray);
+  border-right: 1px solid var(--win97-darker);
+  border-bottom: 1px solid var(--win97-darker);
+  z-index: 999;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu.active {
+  display: block;
+}
+
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--win97-blue);
+  color: white;
+}
+
+.mobile-menu-header img {
+  margin-right: 10px;
+}
+
+.mobile-menu-items {
+  padding: 10px 0;
+}
+
+.mobile-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: black;
+}
+
+.mobile-menu-item:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu-item img {
+  margin-right: 10px;
+}
+
+/* Updated mobile adjustments */
+@media screen and (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    padding: 60px 10px 10px 10px; /* Add top padding for mobile nav */
+    background-size: 200% 200%;
+  }
+  
+  body::before {
+    background-size: 300px 300px;
+  }
+  
+  /* Show mobile navigation */
+  .mobile-nav {
+    display: flex;
+  }
+  
+  /* Mobile-friendly desktop icons */
+  .desktop-icons {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 10px 0;
+    height: auto;
+    top: 0;
+    left: 0;
+  }
+  
+  .desktop-icon {
+    position: static;
+    width: auto;
+    margin: 5px;
+    padding: 10px 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .desktop-icon img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .desktop-icon span {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Mobile-friendly windows */
+  .window {
+    position: fixed !important;
+    width: 94% !important;
+    height: auto !important;
+    max-height: 80vh !important;
+    left: 3% !important;
+    top: 60px !important; /* Adjusted for mobile nav */
+    transform: none !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: none; /* Hide all windows by default on mobile */
+  }
+  
+  .window.active-window {
+    display: block !important; /* Only show active window */
+    z-index: 100 !important;
+  }
+  
+  .window-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  /* Improved emergency section for mobile */
+  .emergency-content {
+    padding: 15px;
+  }
+  
+  .emergency-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+  
+  .emergency-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .emergency-phone {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .emergency-services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  /* Enhanced CTA button */
+  .cta-button-container {
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+  }
+  
+  .cta-button {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #b71c1c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Mobile-friendly taskbar */
+  .taskbar {
+    height: 40px;
+    padding: 0 5px;
+  }
+  
+  .start-button {
+    height: 36px;
+    padding: 0 10px;
+  }
+  
+  .start-button span {
+    display: none;
+  }
+  
+  .taskbar-entries {
+    display: none;
+  }
+  
+  .emergency-taskbar {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+  }
+  
+  .taskbar-time {
+    font-size: 12px;
+    padding: 5px;
+  }
+  
+  /* Mobile-friendly start menu */
+  .start-menu {
+    width: 80%;
+    max-width: 250px;
+    left: 0;
+    bottom: 40px;
+  }
+  
+  .start-menu-item {
+    padding: 12px 10px;
+  }
+  
+  /* Emergency window adjustments */
+  .emergency-window {
+    max-height: 85vh !important;
+  }
+  
+  .nav-buttons {
+    margin-top: 10px;
+  }
+  
+  .win95-button {
+    padding: 5px 10px;
+  }
+  
+  /* Services grid adjustments */
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .service-category {
+    margin-bottom: 15px;
+  }
+  
+  .service-item {
+    padding: 10px;
+  }
+  
+  /* Testimonial adjustments */
+  .testimonial {
+    padding: 10px;
+  }
+  
+  .testimonial-header {
+    flex-direction: column;
+  }
+}
+
+/* Even smaller mobile screens */
+@media screen and (max-width: 480px) {
+  .desktop-icons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .emergency-services-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .emergency-title {
+    font-size: 18px;
+  }
+  
+  .title-bar {
+    height: auto;
+    min-height: 28px;
+    padding: 5px;
+  }
+  
+  .title-bar-text {
+    font-size: 14px;
+  }
+  
+  .title-bar-button {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+    margin-left: 3px;
+  }
+  
+  .window-content {
+    padding: 8px;
+  }
+  
+  /* Fix overflow issues */
+  .service-item span {
+    font-size: 12px;
+    word-break: break-word;
+  }
+  
+  /* Improve navigation */
+  .mobile-nav {
+    height: 56px;
+  }
+  
+  .mobile-menu {
+    top: 56px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase tap targets */
+  .desktop-icon, 
+  .mobile-menu-item,
+  .title-bar-button,
+  .win95-button,
+  .emergency-call-button,
+  .cta-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .desktop-icon:hover,
+  .mobile-menu-item:hover,
+  .title-bar-button:hover,
+  .win95-button:hover,
+  .emergency-call-button:hover,
+  .cta-button:hover {
+    /* Remove hover effects on touch devices */
+    transform: none;
+    filter: none;
+  }
+  
+  .desktop-icon:active,
+  .mobile-menu-item:active,
+  .title-bar-button:active,
+  .win95-button:active,
+  .emergency-call-button:active,
+  .cta-button:active {
+    /* Add active state for touch */
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+  
+  .window {
+    /* Prevent accidental touches from moving windows too much */
+    transition: transform 0.1s ease;
+  }
+  
+  .window-content {
+    /* Ensure content is scrollable on touch */
+    -webkit-overflow-scrolling: touch;
+  }
+} 

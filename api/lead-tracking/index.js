@@ -21,15 +21,26 @@ if (process.env.NOTIFICATION_ENABLED === 'true') {
 // CORS configuration
 const allowedOrigins = [
   'https://marfinetzplumbing.org',
+  'https://www.marfinetzplumbing.org',
+  'https://mmwcontractingorg-production.up.railway.app',
+  'https://mmwcontracting.org',
+  'https://www.mmwcontracting.org',
   'http://localhost:8000',
   'http://localhost:3000',
+  'http://localhost:3001',
   'http://127.0.0.1:8000',
-  'http://127.0.0.1:3000'
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:3001'
 ];
 
 // Add additional origins from environment variable
 if (process.env.FRONTEND_URL) {
   allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
+// Additional Vercel deployment URLs if provided
+if (process.env.VERCEL_URL) {
+  allowedOrigins.push(`https://${process.env.VERCEL_URL}`);
 }
 
 // Middleware
@@ -45,10 +56,19 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id'],
+  maxAge: 86400 // 24 hours
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Handle preflight requests
+app.options('*', (req, res) => {
+  res.sendStatus(200);
+});
 
 // Health check endpoint
 app.get('/', (req, res) => {

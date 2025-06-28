@@ -5,6 +5,7 @@ const nextConfig = isDev ? {
   // Development configuration
   reactStrictMode: true,
   swcMinify: false,
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'], // Only process these as pages
   env: {
     BUILD_ID: new Date().getTime().toString(),
     IS_NEXT_APP: 'true',
@@ -13,6 +14,7 @@ const nextConfig = isDev ? {
   // Production configuration
   output: 'export',  // This will generate static HTML/CSS/JS
   distDir: 'out',    // Explicitly set the output directory
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'], // Only process these as pages
   images: {
     unoptimized: true // Required for static export
   },

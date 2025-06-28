@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <title>Marfinetz Plumbing - Professional Plumbing Services in Pennsylvania</title>
+  <meta name="description" content="Marfinetz Plumbing offers professional plumbing services including fixture replacements, drain services, water heater installation, and bathroom upgrades in Pennsylvania.">
+  <meta name="keywords" content="plumbing, contractor, Pennsylvania, fixture replacement, drain services, water heater, bathroom remodeling, Marfinetz Plumbing">
+  <meta name="author" content="Marfinetz Plumbing">
+  <meta property="og:title" content="Marfinetz Plumbing - Professional Plumbing Services">
+  <meta property="og:description" content="Reliable plumbing services for residential and commercial properties in Pennsylvania.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://marfinetzplumbing.org">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+
+
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" href="logo.svg" as="image">
+  <link rel="preload" href="img/mycomputer.png" as="image">
+  <link rel="preload" href="img/services.png" as="image">
+  <link rel="preload" href="img/phone.png" as="image">
+  
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/win97.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Deferred JavaScript -->
+  <!-- Google Reviews JS is no longer needed since we're using a third-party widget -->
+  <!-- <script src="js/google-reviews.js" defer></script> -->
+  <script src="js/main.js" defer></script>
+  <script src="js/lead-capture.js" defer></script>
+  
+  <!-- Lead Tracking System -->
+  <script src="js/lead-tracker.js" async></script>
+</head>
+<body>
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-toggle" id="mobile-menu-toggle">
+      <div class="mobile-nav-icon"></div>
+    </div>
+    <div class="mobile-nav-logo">Marfinetz Plumbing</div>
+    <a href="tel:814-279-6315" class="mobile-nav-call">
+      <img src="img/phone.png" alt="Call" width="24" height="24">
+    </a>
+  </div>
+  
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <img src="img/marfinetz-plumbing-logo.png" alt="Marfinetz Plumbing" width="24" height="24">
+      <span>Marfinetz Plumbing</span>
+    </div>
+    <div class="mobile-menu-items">
+      <a href="#" class="mobile-menu-item" data-window="emergency-window">
+        <img src="img/msg_warning-0.png" alt="Emergency" width="24" height="24">
+        <span>Emergency Services</span>
+      </a>
+      <a href="#" class="mobile-menu-item" data-window="services-window">
+        <img src="img/services.png" alt="Services" width="24" height="24">
+        <span>Services</span>
+      </a>
+      <a href="#" class="mobile-menu-item" data-window="testimonials-window">
+        <img src="img/wxp_244.png" alt="Reviews" width="24" height="24">
+        <span>Customer Reviews</span>
+      </a>
+      <a href="#" class="mobile-menu-item" data-window="contact-window">
+        <img src="img/phone.png" alt="Contact" width="24" height="24">
+        <span>Contact Us</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="desktop-icons">
+    <a href="#" class="desktop-icon" id="my-computer">
+      <img src="img/mycomputer.png" alt="My Computer" loading="lazy" srcset="img/mycomputer.png 48w" sizes="(max-width: 768px) 24px, 48px">
+      <span>My Computer</span>
+    </a>
+    <a href="#" class="desktop-icon" id="services">
+      <img src="img/services.png" alt="Services" loading="lazy" srcset="img/services.png 48w" sizes="(max-width: 768px) 24px, 48px">
+      <span>Services</span>
+    </a>
+    <a href="#" class="desktop-icon" id="contact">
+      <img src="img/phone.png" alt="Contact Us" loading="lazy" srcset="img/phone.png 48w" sizes="(max-width: 768px) 24px, 48px">
+      <span>Contact Us</span>
+    </a>
+    <a href="#" class="desktop-icon" id="testimonials">
+      <img src="img/wxp_244.png" alt="Reviews" loading="lazy" srcset="img/wxp_244.png 48w" sizes="(max-width: 768px) 24px, 48px">
+      <span>Customer Reviews</span>
+    </a>
+    <a href="#" class="desktop-icon" id="emergency">
+      <img src="img/msg_warning-0.png" alt="Emergency Services" loading="lazy" srcset="img/msg_warning-0.png 48w" sizes="(max-width: 768px) 24px, 48px">
+      <span>Emergency Services</span>
+    </a>
+  </div>
+  
+  <div class="cta-button-container">
+    <button class="cta-button" id="cta-button">Request Plumbing Service</button>
+  </div>
+  
+  <div class="taskbar">
+    <button class="start-button">
+      <img src="img/w98_start.png" alt="" loading="lazy">
+      Start
+    </button>
+    <div class="taskbar-entries"></div>
+    <div class="taskbar-time"></div>
+  </div>
+  
+  <div class="start-menu">
+    <div class="start-menu-header">
+      <div class="start-menu-header-text">Marfinetz Plumbing</div>
+    </div>
+    <div class="start-menu-items">
+      <div class="start-menu-item" id="start-emergency">
+        <img src="img/msg_warning-0.png" alt="Emergency" loading="lazy">
+        <span>Emergency Services</span>
+      </div>
+      <div class="start-menu-item" id="start-services">
+        <img src="img/services.png" alt="Services" loading="lazy">
+        <span>Services</span>
+      </div>
+      <div class="start-menu-item" id="start-testimonials">
+        <img src="img/wxp_244.png" alt="Testimonials" loading="lazy">
+        <span>Customer Reviews</span>
+      </div>
+      <div class="start-menu-item" id="start-contact">
+        <img src="img/phone.png" alt="Contact" loading="lazy">
+        <span>Contact Us</span>
+      </div>
+      <div class="start-menu-separator"></div>
+      <div class="start-menu-item" id="start-help">
+        <img src="img/help.png" alt="Help" loading="lazy">
+        <span>Help</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Windows from the original HTML -->
+  <!-- Services Window -->
+  <div class="window" id="services-window" data-window="services" style="left: 200px; top: 50px; display: none;">
+    <div class="title-bar">
+      <div class="title-bar-text">Marfinetz Plumbing - Plumbing Services</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content">
+      <div class="services-grid">
+        <!-- Fixture Replacements -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Fixture Replacements</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_186.png" alt="Faucet" class="service-icon">
+              <span>Faucets & Sinks Installation</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_220.png" alt="Shower" class="service-icon">
+              <span>Showerheads & Toilets</span>
+            </div>
+            <div class="service-item">
+              <img src="img/w2k_old_dustbin.png" alt="Disposal" class="service-icon">
+              <span>Garbage Disposals</span>
+            </div>
+            <div class="service-item">
+              <img src="img/w2k_search.png" alt="Filter" class="service-icon">
+              <span>Water Filters & Hot Water Dispensers</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drain & Sewer -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Drain & Sewer Services</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_317.png" alt="Drain" class="service-icon">
+              <span>Drain Snaking & Sewer Cabling</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_180.png" alt="Pipe" class="service-icon">
+              <span>P-traps & Pop-up Assemblies</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_154.png" alt="Leak" class="service-icon">
+              <span>Minor Leak Repairs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Water Heaters -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Water Heater Services</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_244.png" alt="Heater" class="service-icon">
+              <span>Electric Water Heater Replacement</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_167.png" alt="Tankless" class="service-icon">
+              <span>Tankless Water Heater Installation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Remodeling -->
+        <div class="service-category">
+          <div class="title-bar">
+            <div class="title-bar-text">Bathroom Upgrades</div>
+          </div>
+          <div class="window-content">
+            <div class="service-item">
+              <img src="img/wxp_237.png" alt="Vanity" class="service-icon">
+              <span>Vanities & Countertops</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_299.png" alt="Shower Door" class="service-icon">
+              <span>Shower Doors & Grab Bars</span>
+            </div>
+            <div class="service-item">
+              <img src="img/wxp_267.png" alt="Tile" class="service-icon">
+              <span>Tile & Tub Enclosures</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Services Window -->
+  <div class="window emergency-window" id="emergency-window" data-window="emergency" style="left: 50%; top: 50%; transform: translate(-50%, -50%); width: 500px; min-height: 300px; z-index: 999;">
+    <div class="title-bar" style="background-color: #cc0000;">
+      <div class="title-bar-text">EMERGENCY PLUMBING SERVICES</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content emergency-content">
+      <div class="emergency-header">
+        <img src="img/msg_warning-0.png" alt="Emergency" class="emergency-icon">
+        <h2 class="emergency-title">EMERGENCY 24/7 PLUMBING SERVICES</h2>
+      </div>
+      <div class="emergency-info">
+        <p class="emergency-text" style="font-weight: bold; font-size: 1.5em;">Serving Erie County, Pennsylvania</p>
+        <p class="emergency-phone">Call Now: <a href="tel:8142736315" class="emergency-phone-link">814-273-6315</a></p>
+        <div class="emergency-services-list">
+          <div class="emergency-service-item">
+            <img src="img/tools_gear-0.png" alt="Pipe" class="service-icon">
+            <span>Burst Pipes</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/faucet.png" alt="Leak" class="service-icon">
+            <span>Major Leaks</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/heater.png" alt="Heater" class="service-icon">
+            <span>No Hot Water</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_hardware.png" alt="Toilet" class="service-icon">
+            <span>Toilet Issues</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/w98_gps.png" alt="Drain" class="service-icon">
+            <span>Sewer Backup</span>
+          </div>
+          <div class="emergency-service-item">
+            <img src="img/msg_warning-0.png" alt="Flood" class="service-icon">
+            <span>Flooding</span>
+          </div>
+        </div>
+        <button class="emergency-call-button" onclick="window.location.href='tel:8142736315'">
+          <img src="img/phone.png" alt="Call" style="width: 24px; height: 24px; margin-right: 10px;">
+          CALL NOW
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Window Template -->
+  <div class="window" id="help-window" data-window="help" style="display: none; left: 250px; top: 100px; width: 400px; min-height: 200px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Help - Contact Information</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content" style="font-family: 'Courier New', monospace; white-space: pre-line;">
+      Marfinetz Plumbing Contact Information:
+
+      Email: admin@marfinetzplumbing.org
+      Phone: 814-273-6315
+      PA HIC #: PA198563
+    </div>
+  </div>
+
+  <!-- Testimonials Window Template -->
+  <div class="window" id="testimonials-window" data-window="testimonials" style="display: none; left: 300px; top: 100px; width: 500px; height: 400px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Customer Reviews</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content testimonials-content">
+      <!-- Static testimonials (displayed as fallback) -->
+      <div class="testimonial-static" style="display: none;">
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+            <div class="testimonial-user">
+              <div class="testimonial-name">John D.</div>
+              <div class="testimonial-rating">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-text">
+            "Excellent service! Fixed my leaky faucet quickly and professionally. Would recommend to anyone needing plumbing work done."
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+            <div class="testimonial-user">
+              <div class="testimonial-name">Sarah M.</div>
+              <div class="testimonial-rating">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-text">
+            "Marfinetz Plumbing installed a new bathroom vanity for us. The work was done perfectly and they cleaned up everything afterward. Very satisfied!"
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="img/wxp_186.png" alt="User" class="testimonial-icon">
+            <div class="testimonial-user">
+              <div class="testimonial-name">Robert T.</div>
+              <div class="testimonial-rating">★★★★☆</div>
+            </div>
+          </div>
+          <div class="testimonial-text">
+            "Needed emergency plumbing repair and they responded quickly. Fair pricing and good workmanship. Would use again."
+          </div>
+        </div>
+      </div>
+      
+      <!-- Google Reviews Container -->
+      <div id="google-reviews" class="iframe-container">
+        <!-- Google Reviews direct link instead of widget -->
+        <div class="google-reviews-direct-link">
+          <div class="reviews-header">
+            <img src="img/wxp_244.png" alt="Google Reviews" class="reviews-icon">
+            <h3>Google Reviews for Marfinetz Plumbing</h3>
+          </div>
+          <p class="reviews-message">We value your feedback! Check out our reviews or leave a review by clicking the buttons below.</p>
+          <div class="reviews-buttons">
+            <a href="https://www.google.com/maps/place/Marfinetz+Plumbing/@42.022753,-80.480254,11z/data=!4m8!3m7!1s0x60cc771ea7d823a5:0x137357c8a06739a3!8m2!3d42.0228709!4d-80.315449!9m1!1b1!16s%2Fg%2F11w8jtnvvw" target="_blank" class="win95-button view-button">
+              <img src="img/wxp_244.png" alt="View" style="width: 16px; height: 16px; margin-right: 5px;">
+              View Google Reviews
+            </a>
+            <a href="https://g.page/r/CaM5Z6DIV3MTEAE/review" target="_blank" class="win95-button" id="leave-review">
+              <img src="img/wxp_167.png" alt="Write" style="width: 16px; height: 16px; margin-right: 5px;">  
+              Write a Review
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-buttons">
+        <button class="win95-button" id="testimonial-prev">◄ Previous</button>
+        <button class="win95-button" id="testimonial-next">Next ►</button>
+        <!-- Leave a Review button is now in the google-reviews-direct-link div above -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact Window Template -->
+  <div class="window" id="contact-window" data-window="contact" style="display: none; left: 250px; top: 100px; width: 500px; min-height: 600px;">
+    <div class="title-bar">
+      <div class="title-bar-text">Contact Us - Request Service</div>
+      <div class="title-bar-controls">
+        <button class="title-bar-button minimize-button">_</button>
+        <button class="title-bar-button maximize-button">□</button>
+        <button class="title-bar-button close-button">×</button>
+      </div>
+    </div>
+    <div class="window-content" style="padding: 20px;">
+      <form id="lead-capture-form" class="win95-form">
+        <h3 style="margin-top: 0;">Get Your Plumbing Problem Fixed Today!</h3>
+        
+        <div class="form-message" id="form-message" style="display: none; align-items: center; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc;"></div>
+        
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required class="win95-input">
+        </div>
+        
+        <div class="form-group">
+          <label for="property_type">Property Type *</label>
+          <select id="property_type" name="property_type" required class="win95-select">
+            <option value="">Select Property Type</option>
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="location">Service Address *</label>
+          <input type="text" id="location" name="location" required class="win95-input" placeholder="Street address, City, PA">
+        </div>
+        
+        <div class="form-group">
+          <label for="urgency">How urgent is this? *</label>
+          <select id="urgency" name="urgency" required class="win95-select">
+            <option value="">Select Urgency</option>
+            <option value="emergency">Emergency - Need help NOW!</option>
+            <option value="same_day">Same day service needed</option>
+            <option value="this_week">This week is fine</option>
+            <option value="flexible">I'm flexible on timing</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="problem">Describe your plumbing problem *</label>
+          <textarea id="problem" name="problem" required class="win95-textarea" rows="4" placeholder="Please describe the issue you're experiencing..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="preferred_contact">Preferred Contact Method</label>
+          <select id="preferred_contact" name="preferred_contact" class="win95-select">
+            <option value="phone">Call me</option>
+            <option value="email">Email me</option>
+            <option value="text">Text me</option>
+          </select>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="win95-button primary" id="lead-submit-button">Submit Request</button>
+          <button type="button" class="win95-button" onclick="document.getElementById('lead-capture-form').reset()">Clear Form</button>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; color: #666;">
+          Or call us directly at <a href="tel:814-273-6315" style="color: #0000FF;">814-273-6315</a>
+        </p>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Main JavaScript is now loaded from external file js/main.js -->
+</body>
+</html>
