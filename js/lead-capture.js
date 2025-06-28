@@ -3,25 +3,40 @@ document.addEventListener('DOMContentLoaded', function() {
   // Local API endpoint
   const WEBHOOK_URL = '/api/lead-submission';
   
-  // Get form element
-  const leadForm = document.getElementById('lead-capture-form');
-  const submitButton = document.getElementById('lead-submit-button');
-  const formMessage = document.getElementById('form-message');
-  
-  if (leadForm) {
-    leadForm.addEventListener('submit', async function(e) {
+  // Function to initialize the form when it becomes visible
+  function initializeLeadForm() {
+    const leadForm = document.getElementById('lead-capture-form');
+    const submitButton = document.getElementById('lead-submit-button');
+    const formMessage = document.getElementById('form-message');
+    
+    if (!leadForm) {
+      console.log('Lead form not found, will retry when contact window opens');
+      return false;
+    }
+    
+    // Remove any existing event listeners to prevent duplicates
+    const newForm = leadForm.cloneNode(true);
+    leadForm.parentNode.replaceChild(newForm, leadForm);
+    
+    // Re-get the form and button elements after cloning
+    const form = document.getElementById('lead-capture-form');
+    const button = document.getElementById('lead-submit-button');
+    const message = document.getElementById('form-message');
+    
+    if (form) {
+      form.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       // Disable submit button and show loading state
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<img src="img/w98_hourglass.png" alt="Loading" style="width: 16px; height: 16px; margin-right: 5px;"> Submitting...';
+      if (button) {
+        button.disabled = true;
+        button.innerHTML = '<img src="img/w98_hourglass.png" alt="Loading" style="width: 16px; height: 16px; margin-right: 5px;"> Submitting...';
       }
       
       // Clear any previous messages
-      if (formMessage) {
-        formMessage.style.display = 'none';
-        formMessage.className = 'form-message';
+      if (message) {
+        message.style.display = 'none';
+        message.className = 'form-message';
       }
       
       try {
@@ -48,17 +63,17 @@ document.addEventListener('DOMContentLoaded', function() {
           const result = await response.json();
           
           // Show success message
-          if (formMessage) {
-            formMessage.className = 'form-message success';
-            formMessage.innerHTML = `
+          if (message) {
+            message.className = 'form-message success';
+            message.innerHTML = `
               <img src="img/w98_info.png" alt="Success" style="width: 16px; height: 16px; margin-right: 5px;">
               <span>Thank you! We'll contact you within ${result.emergency ? '15 minutes' : '24 hours'}.</span>
             `;
-            formMessage.style.display = 'flex';
+            message.style.display = 'flex';
           }
           
           // Reset form
-          leadForm.reset();
+          form.reset();
           
           // Optionally close the window after a delay
           setTimeout(() => {
@@ -84,21 +99,62 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Form submission error:', error);
         
         // Show error message
-        if (formMessage) {
-          formMessage.className = 'form-message error';
-          formMessage.innerHTML = `
+        if (message) {
+          message.className = 'form-message error';
+          message.innerHTML = `
             <img src="img/msg_error-0.png" alt="Error" style="width: 16px; height: 16px; margin-right: 5px;">
             <span>Error submitting form. Please call us at <a href="tel:814-273-6315">814-273-6315</a></span>
           `;
-          formMessage.style.display = 'flex';
+          message.style.display = 'flex';
         }
       } finally {
         // Re-enable submit button
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.innerHTML = 'Submit Request';
+        if (button) {
+          button.disabled = false;
+          button.innerHTML = 'Submit Request';
         }
       }
     });
+    
+    console.log('Lead capture form initialized successfully');
+    return true;
+    }
+    
+    return false;
   }
+  
+  // Try to initialize on page load
+  initializeLeadForm();
+  
+  // Watch for when the contact window becomes visible
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.target.id === 'contact-window' && 
+          mutation.type === 'attributes' && 
+          mutation.attributeName === 'style') {
+        const contactWindow = document.getElementById('contact-window');
+        if (contactWindow && contactWindow.style.display !== 'none') {
+          console.log('Contact window opened, initializing form...');
+          setTimeout(() => initializeLeadForm(), 100); // Small delay to ensure DOM is ready
+        }
+      }
+    });
+  });
+  
+  // Start observing the contact window
+  const contactWindow = document.getElementById('contact-window');
+  if (contactWindow) {
+    observer.observe(contactWindow, { 
+      attributes: true, 
+      attributeFilter: ['style'] 
+    });
+  }
+  
+  // Also watch for window open events from main.js
+  window.addEventListener('windowOpened', function(e) {
+    if (e.detail && e.detail.windowId === 'contact-window') {
+      console.log('Contact window opened via event, initializing form...');
+      setTimeout(() => initializeLeadForm(), 100);
+    }
+  });
 });

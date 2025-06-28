@@ -260,6 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (windowId === 'testimonials-window' && typeof loadGoogleReviews === 'function') {
       loadGoogleReviews();
     }
+    
+    // Dispatch custom event for other scripts to listen to
+    window.dispatchEvent(new CustomEvent('windowOpened', { 
+      detail: { windowId: windowId } 
+    }));
   }
   
   function handleWindowDragStart(event) {
