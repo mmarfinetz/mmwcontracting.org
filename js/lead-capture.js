@@ -1,7 +1,7 @@
-// Lead capture form functionality with n8n webhook integration
+// Lead capture form functionality with direct API integration
 document.addEventListener('DOMContentLoaded', function() {
-  // Local API endpoint
-  const WEBHOOK_URL = '/api/lead-submission';
+  // Use the Railway tracking API directly
+  const API_URL = 'https://mmwcontractingorg-production.up.railway.app/track';
   
   // Function to initialize the form when it becomes visible
   function initializeLeadForm() {
@@ -44,30 +44,50 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const leadData = Object.fromEntries(formData.entries());
         
-        // Add additional metadata
-        leadData.submitted_at = new Date().toISOString();
-        leadData.lead_source = 'website_form';
-        leadData.page_url = window.location.href;
+        // Format data for the tracking API
+        const trackingData = {
+          pageUrl: '/contact-form',
+          referrer: document.referrer || 'direct',
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          screenResolution: `${window.screen.width}x${window.screen.height}`,
+          language: navigator.language,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          sessionData: {
+            formSubmission: true,
+            leadSource: 'contact_form',
+            ...leadData,
+            events: [
+              { type: 'form_submission', timestamp: Date.now() }
+            ],
+            duration: 0,
+            pageViews: 1
+          }
+        };
         
-        // Send to n8n webhook
-        const response = await fetch(WEBHOOK_URL, {
+        // Send to tracking API
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(leadData)
+          body: JSON.stringify(trackingData)
         });
         
         // Check if request was successful
         if (response.ok) {
           const result = await response.json();
           
+          // Determine response time based on urgency
+          const responseTime = leadData.urgency === 'emergency' ? '15 minutes' : 
+                             leadData.urgency === 'same_day' ? '2 hours' : '24 hours';
+          
           // Show success message
           if (message) {
             message.className = 'form-message success';
             message.innerHTML = `
               <img src="img/w98_info.png" alt="Success" style="width: 16px; height: 16px; margin-right: 5px;">
-              <span>Thank you! We'll contact you within ${result.emergency ? '15 minutes' : '24 hours'}.</span>
+              <span>Thank you! We'll contact you within ${responseTime}.</span>
             `;
             message.style.display = 'flex';
           }

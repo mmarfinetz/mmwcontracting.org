@@ -1,11 +1,22 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-
 export async function analyzeLeadWithClaude(leadData: any) {
   try {
+    // Check if API key is available
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.log('Anthropic API key not configured, using fallback analysis');
+      return {
+        leadScore: calculateFallbackScore(leadData),
+        urgencyAssessment: leadData.urgency || 'normal',
+        responseTime: getResponseTime(leadData.urgency),
+        talkingPoints: generateFallbackTalkingPoints(leadData)
+      };
+    }
+
+    const anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
+
     const prompt = `Analyze this plumbing service lead and provide:
 1. Lead quality score (0-100)
 2. Urgency assessment
