@@ -4,11 +4,11 @@ const path = require('path');
 // Email template configurations
 const EMAIL_TEMPLATES = {
   'immediate-alert-email': {
-    subject: '🚨 URGENT: Emergency Lead - Immediate Action Required',
+    subject: 'Emergency Service Request - Immediate Action Required',
     template: 'immediate-alert.html'
   },
   'high-priority-email': {
-    subject: '⚡ High-Priority Lead Detected - Score: {{score}}/100',
+    subject: 'High Priority Lead - Score: {{score}}/100',
     template: 'high-priority.html'
   },
   'standard-alert-email': {
@@ -126,7 +126,7 @@ function getInlineTemplate(templateName, data) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚨 EMERGENCY LEAD ALERT</h1>
+            <h1>EMERGENCY LEAD ALERT</h1>
             <p>Immediate Action Required</p>
         </div>
         <div class="content">
@@ -209,7 +209,7 @@ function getInlineTemplate(templateName, data) {
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚡ HIGH-PRIORITY LEAD</h1>
+            <h1>HIGH-PRIORITY LEAD</h1>
             <p>Quick Follow-up Recommended</p>
         </div>
         <div class="content">
