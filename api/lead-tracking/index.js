@@ -259,18 +259,9 @@ app.get('/notifications/retry-queue', async (req, res) => {
   }
 });
 
-// Test notification endpoint (protected)
+// Test notification endpoint
 app.post('/notifications/test', async (req, res) => {
   try {
-    // Simple auth check (in production, use proper authentication)
-    const authToken = req.headers.authorization;
-    if (authToken !== `Bearer ${process.env.API_TEST_TOKEN}`) {
-      return res.status(401).json({
-        success: false,
-        error: 'Unauthorized'
-      });
-    }
-
     const { score = 85, channel = 'email' } = req.body;
     
     // Create test lead data

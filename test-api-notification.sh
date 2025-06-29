@@ -12,7 +12,6 @@ NC='\033[0m' # No Color
 
 # API Configuration
 API_URL="${API_URL:-https://mmwcontractingorg-production.up.railway.app}"
-API_TEST_TOKEN="${API_TEST_TOKEN:-your-test-token-here}"
 
 # Function to print colored output
 print_info() {
@@ -117,15 +116,8 @@ test_notification_endpoint() {
     local score="${1:-85}"
     print_info "Testing notification endpoint with score: $score"
     
-    if [ "$API_TEST_TOKEN" = "your-test-token-here" ]; then
-        print_warning "API_TEST_TOKEN not set. Skipping notification test endpoint."
-        print_info "Set API_TEST_TOKEN environment variable to test this endpoint."
-        return
-    fi
-    
     response=$(curl -s -w "\n%{http_code}" -X POST \
         -H "Content-Type: application/json" \
-        -H "Authorization: Bearer ${API_TEST_TOKEN}" \
         -d "{\"score\": $score}" \
         "${API_URL}/notifications/test")
     
@@ -190,7 +182,7 @@ show_menu() {
     echo "1. Test Emergency Lead (High Score)"
     echo "2. Test Same-Day Lead (Medium Score)"
     echo "3. Test Regular Lead (Low Score)"
-    echo "4. Test Notification Endpoint (requires token)"
+    echo "4. Test Notification Endpoint"
     echo "5. Check API Health"
     echo "6. Get Notification Stats"
     echo "7. Run All Tests"
@@ -303,7 +295,6 @@ main() {
                 echo ""
                 echo "Environment variables:"
                 echo "  API_URL      - API base URL (default: https://mmwcontractingorg-production.up.railway.app)"
-                echo "  API_TEST_TOKEN - Token for notification test endpoint"
                 exit 1
                 ;;
         esac
