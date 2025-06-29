@@ -76,6 +76,7 @@ class NotificationService {
                   score,
                   sessionData,
                   pageUrl,
+                  pageName: this.extractPageName(pageUrl),
                   timestamp: new Date().toISOString(),
                   dashboardUrl: process.env.DASHBOARD_URL || 'https://marfinetzplumbing.org/dashboard'
                 }

@@ -21,6 +21,59 @@ const EMAIL_TEMPLATES = {
   }
 };
 
+// Helper function to get nested property value
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((curr, prop) => {
+    return curr && curr[prop] !== undefined ? curr[prop] : '';
+  }, obj);
+}
+
+// Helper function to format urgency values
+function formatUrgency(urgency) {
+  const urgencyMap = {
+    'emergency': 'EMERGENCY - Need help NOW!',
+    'same_day': 'Same day service needed',
+    'this_week': 'This week is fine',
+    'flexible': 'Flexible on timing'
+  };
+  return urgencyMap[urgency] || urgency;
+}
+
+// Helper function to format property type
+function formatPropertyType(type) {
+  const typeMap = {
+    'residential': 'Residential',
+    'commercial': 'Commercial'
+  };
+  return typeMap[type] || type;
+}
+
+// Helper function to replace all placeholders including nested ones
+function replacePlaceholders(template, data) {
+  // First, find all placeholders in the template
+  const placeholderRegex = /{{([^}]+)}}/g;
+  
+  return template.replace(placeholderRegex, (match, path) => {
+    let value = getNestedValue(data, path);
+    
+    // Format specific fields
+    if (path === 'sessionData.urgency') {
+      value = formatUrgency(value);
+    } else if (path === 'sessionData.property_type') {
+      value = formatPropertyType(value);
+    } else if (path === 'sessionData.preferred_contact') {
+      const contactMap = {
+        'phone': 'Call me',
+        'email': 'Email me',
+        'text': 'Text me'
+      };
+      value = contactMap[value] || value;
+    }
+    
+    return value !== undefined && value !== null ? value : match;
+  });
+}
+
 async function getEmailTemplate(templateName, data) {
   const config = EMAIL_TEMPLATES[templateName];
   if (!config) {
@@ -28,10 +81,7 @@ async function getEmailTemplate(templateName, data) {
   }
 
   // Process subject line
-  let subject = config.subject;
-  Object.keys(data).forEach(key => {
-    subject = subject.replace(new RegExp(`{{${key}}}`, 'g'), data[key]);
-  });
+  let subject = replacePlaceholders(config.subject, data);
 
   // Load HTML template
   let html;
@@ -43,10 +93,8 @@ async function getEmailTemplate(templateName, data) {
     html = getInlineTemplate(templateName, data);
   }
 
-  // Replace placeholders in HTML
-  Object.keys(data).forEach(key => {
-    html = html.replace(new RegExp(`{{${key}}}`, 'g'), data[key]);
-  });
+  // Replace placeholders in HTML including nested properties
+  html = replacePlaceholders(html, data);
 
   // Generate plain text version
   const text = generatePlainText(html, data);
@@ -89,9 +137,23 @@ function getInlineTemplate(templateName, data) {
             
             <div class="details">
                 <h3>Lead Score: <span class="score">{{score}}/100</span></h3>
-                <p><strong>Page Visited:</strong> {{pageName}}</p>
-                <p><strong>Time:</strong> {{timestamp}}</p>
                 <p><strong>Lead ID:</strong> {{leadId}}</p>
+                <p><strong>Time:</strong> {{timestamp}}</p>
+                <p><strong>Page Visited:</strong> {{pageName}}</p>
+                
+                <h4>Contact Information:</h4>
+                <ul>
+                    <li><strong>Name:</strong> {{sessionData.name}}</li>
+                    <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Property Type:</strong> {{sessionData.property_type}}</li>
+                    <li><strong>Service Address:</strong> {{sessionData.location}}</li>
+                    <li><strong>Urgency:</strong> <span style="color: #d32f2f; font-weight: bold;">{{sessionData.urgency}}</span></li>
+                    <li><strong>Preferred Contact:</strong> {{sessionData.preferred_contact}}</li>
+                </ul>
+                
+                <h4>Problem Description:</h4>
+                <p style="background-color: #ffebee; padding: 10px; border-left: 3px solid #d32f2f; margin: 10px 0;">{{sessionData.problem}}</p>
                 
                 <h4>Scoring Factors:</h4>
                 <ul>
@@ -108,17 +170,13 @@ function getInlineTemplate(templateName, data) {
                 </ul>
             </div>
             
-            <center>
-                <a href="{{dashboardUrl}}" class="cta-button">View Full Details in Dashboard</a>
-            </center>
-            
             <div class="alert-box">
                 <strong>Recommended Actions:</strong>
                 <ol>
                     <li>Call the customer immediately if phone number is available</li>
-                    <li>Check the dashboard for complete session details</li>
-                    <li>Prepare emergency service options</li>
-                    <li>Follow up within 15 minutes</li>
+                    <li>Review the session details above to understand customer behavior</li>
+                    <li>Prepare emergency service options based on the page they visited</li>
+                    <li>Follow up within 15 minutes for best conversion rates</li>
                 </ol>
             </div>
         </div>
@@ -162,9 +220,23 @@ function getInlineTemplate(templateName, data) {
             
             <div class="details">
                 <h3>Lead Score: <span class="score">{{score}}/100</span></h3>
-                <p><strong>Page Visited:</strong> {{pageName}}</p>
-                <p><strong>Time:</strong> {{timestamp}}</p>
                 <p><strong>Lead ID:</strong> {{leadId}}</p>
+                <p><strong>Time:</strong> {{timestamp}}</p>
+                <p><strong>Page Visited:</strong> {{pageName}}</p>
+                
+                <h4>Contact Information:</h4>
+                <ul>
+                    <li><strong>Name:</strong> {{sessionData.name}}</li>
+                    <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Property Type:</strong> {{sessionData.property_type}}</li>
+                    <li><strong>Service Address:</strong> {{sessionData.location}}</li>
+                    <li><strong>Urgency:</strong> <span style="color: #f57c00; font-weight: bold;">{{sessionData.urgency}}</span></li>
+                    <li><strong>Preferred Contact:</strong> {{sessionData.preferred_contact}}</li>
+                </ul>
+                
+                <h4>Problem Description:</h4>
+                <p style="background-color: #fff3e0; padding: 10px; border-left: 3px solid #f57c00; margin: 10px 0;">{{sessionData.problem}}</p>
                 
                 <h4>Key Behaviors:</h4>
                 <ul>
@@ -174,16 +246,12 @@ function getInlineTemplate(templateName, data) {
                 </ul>
             </div>
             
-            <center>
-                <a href="{{dashboardUrl}}" class="cta-button">View Lead Details</a>
-            </center>
-            
             <div class="alert-box">
                 <strong>Recommended Actions:</strong>
                 <ol>
-                    <li>Review lead details in the dashboard</li>
+                    <li>Review the lead details above to understand customer intent</li>
                     <li>Contact within 1 hour for best conversion rates</li>
-                    <li>Prepare relevant service information</li>
+                    <li>Prepare relevant service information based on pages viewed</li>
                 </ol>
             </div>
         </div>
@@ -219,15 +287,24 @@ function getInlineTemplate(templateName, data) {
         <div class="content">
             <div class="details">
                 <h3>Lead Score: <span class="score">{{score}}/100</span></h3>
-                <p><strong>Page:</strong> {{pageName}}</p>
-                <p><strong>Time:</strong> {{timestamp}}</p>
                 <p><strong>Lead ID:</strong> {{leadId}}</p>
+                <p><strong>Time:</strong> {{timestamp}}</p>
+                <p><strong>Page:</strong> {{pageName}}</p>
+                
+                <h4>Contact Information:</h4>
+                <ul>
+                    <li><strong>Name:</strong> {{sessionData.name}}</li>
+                    <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Service Address:</strong> {{sessionData.location}}</li>
+                </ul>
+                
+                <h4>Problem Summary:</h4>
+                <p style="background-color: #f0f8ff; padding: 10px; border-left: 3px solid #4caf50;">{{sessionData.problem}}</p>
+                
+                <h4>Session Info:</h4>
                 <p><strong>Duration:</strong> {{sessionData.duration}} seconds</p>
             </div>
-            
-            <center>
-                <a href="{{dashboardUrl}}" class="cta-button">View Details</a>
-            </center>
         </div>
         <div class="footer">
             <p>Marfinetz Plumbing Lead Tracking</p>
@@ -253,11 +330,31 @@ function generatePlainText(html, data) {
   return `
 Lead Alert - Score: ${data.score}/100
 
-Page Visited: ${data.pageName}
-Time: ${data.timestamp}
 Lead ID: ${data.leadId}
+Time: ${data.timestamp}
+Page Visited: ${data.pageName}
 
-View full details: ${data.dashboardUrl}
+CONTACT INFORMATION:
+- Name: ${data.sessionData?.name || 'N/A'}
+- Phone: ${data.sessionData?.phone || 'N/A'}
+- Email: ${data.sessionData?.email || 'N/A'}
+- Property Type: ${formatPropertyType(data.sessionData?.property_type) || 'N/A'}
+- Service Address: ${data.sessionData?.location || 'N/A'}
+- Urgency: ${formatUrgency(data.sessionData?.urgency) || 'N/A'}
+- Preferred Contact: ${data.sessionData?.preferred_contact === 'phone' ? 'Call me' : data.sessionData?.preferred_contact === 'email' ? 'Email me' : data.sessionData?.preferred_contact === 'text' ? 'Text me' : data.sessionData?.preferred_contact || 'N/A'}
+
+PROBLEM DESCRIPTION:
+${data.sessionData?.problem || 'N/A'}
+
+Session Details:
+- Duration: ${data.sessionData?.duration || 'N/A'} seconds
+- Pages Viewed: ${data.sessionData?.pageViews || 'N/A'}
+- Device: ${data.sessionData?.deviceType || 'N/A'}
+
+Scoring Breakdown:
+- Behavior Score: ${data.sessionData?.scoreBreakdown?.behavior || 'N/A'}
+- Timing Score: ${data.sessionData?.scoreBreakdown?.time || 'N/A'}
+- Intent Score: ${data.sessionData?.scoreBreakdown?.intent || 'N/A'}
 
 This is an automated alert from Marfinetz Plumbing Lead Tracking System.
   `.trim();
