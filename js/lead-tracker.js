@@ -340,8 +340,14 @@
             if (!immediate && this.session.events.length < 2) return;
 
             const payload = {
-                session: this.session,
-                timestamp: Date.now()
+                pageUrl: window.location.href,
+                referrer: document.referrer,
+                timestamp: Date.now(),
+                sessionData: this.session,
+                userAgent: navigator.userAgent,
+                screenResolution: `${window.screen.width}x${window.screen.height}`,
+                language: navigator.language,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
             };
 
             try {
