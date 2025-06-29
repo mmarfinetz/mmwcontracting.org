@@ -49,7 +49,7 @@ export default function SewerCameraInspection() {
               <div className="step-number">2</div>
               <div className="step-content">
                 <h3>Real-Time Video</h3>
-                <p>As the camera moves through the pipe, it transmits real-time video to a monitor, allowing our technicians to see exactly what's happening inside your pipes.</p>
+                <p>As the camera moves through the pipe, it transmits real-time video to a monitor, allowing our technicians to see exactly what&apos;s happening inside your pipes.</p>
               </div>
               <div className="step-image">
                 <img src="/img/real-time-video.jpg" alt="Real-Time Sewer Video" />
@@ -92,7 +92,7 @@ export default function SewerCameraInspection() {
                 <img src="/img/accurate-icon.png" alt="Accurate Diagnosis Icon" />
               </div>
               <h3>Accurate Diagnosis</h3>
-              <p>See exactly what's causing your plumbing issues with high-definition video evidence.</p>
+              <p>See exactly what&apos;s causing your plumbing issues with high-definition video evidence.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">
@@ -127,7 +127,7 @@ export default function SewerCameraInspection() {
                 <img src="/img/peace-of-mind-icon.png" alt="Peace of Mind Icon" />
               </div>
               <h3>Peace of Mind</h3>
-              <p>Know exactly what's happening in your plumbing system with visual confirmation.</p>
+              <p>Know exactly what&apos;s happening in your plumbing system with visual confirmation.</p>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function SewerCameraInspection() {
         <div className="container">
           <div className="section-header">
             <h2>When to Get a Sewer Camera Inspection</h2>
-            <p>Don't wait until it's too late</p>
+            <p>Don&apos;t wait until it&apos;s too late</p>
           </div>
           <div className="reasons-grid">
             <div className="reason-card">
@@ -296,7 +296,7 @@ export default function SewerCameraInspection() {
                 <span className="faq-toggle">+</span>
               </div>
               <div className="faq-answer">
-                <p>Most inspections take 30-60 minutes to complete, depending on the length and condition of your pipes. We'll provide a more specific timeframe when you schedule your appointment.</p>
+                <p>Most inspections take 30-60 minutes to complete, depending on the length and condition of your pipes. We&apos;ll provide a more specific timeframe when you schedule your appointment.</p>
               </div>
             </div>
             <div className="faq-item">
@@ -314,7 +314,7 @@ export default function SewerCameraInspection() {
                 <span className="faq-toggle">+</span>
               </div>
               <div className="faq-answer">
-                <p>We'll need access to your main cleanout or an appropriate access point to your sewer system. Our technician will advise you on specific requirements when you schedule your appointment.</p>
+                <p>We&apos;ll need access to your main cleanout or an appropriate access point to your sewer system. Our technician will advise you on specific requirements when you schedule your appointment.</p>
               </div>
             </div>
             <div className="faq-item">

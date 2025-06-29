@@ -170,7 +170,7 @@ export default function Home() {
             {/* Testimonial 1 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"Marfinetz Plumbing saved us thousands in unnecessary repairs. Their sewer camera inspection identified the exact location of our problem, and they fixed it the same day."</p>
+              <p className="testimonial-text">&ldquo;Marfinetz Plumbing saved us thousands in unnecessary repairs. Their sewer camera inspection identified the exact location of our problem, and they fixed it the same day.&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">John D.</p>
                 <p className="author-location">Erie, PA</p>
@@ -180,7 +180,7 @@ export default function Home() {
             {/* Testimonial 2 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"Fast response time and professional service. They used their camera to find a toy my child flushed down the toilet and retrieved it without damaging our pipes."</p>
+              <p className="testimonial-text">&ldquo;Fast response time and professional service. They used their camera to find a toy my child flushed down the toilet and retrieved it without damaging our pipes.&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">Sarah M.</p>
                 <p className="author-location">Lake City, PA</p>
@@ -190,7 +190,7 @@ export default function Home() {
             {/* Testimonial 3 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"Even though I'm in Ohio, MMW Contracting came out quickly when I had a sewer backup. Their camera inspection found tree roots, and they cleared them completely."</p>
+              <p className="testimonial-text">&ldquo;Even though I&apos;m in Ohio, MMW Contracting came out quickly when I had a sewer backup. Their camera inspection found tree roots, and they cleared them completely.&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">Robert T.</p>
                 <p className="author-location">Conneaut, OH</p>

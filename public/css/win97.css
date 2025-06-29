@@ -51,7 +51,7 @@ body::before {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../img/logo_local.jpeg');
+  background-image: url('../logo.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: 600px 600px;
@@ -82,7 +82,7 @@ body::after {
   display: inline-block;
   width: 18px;
   height: 18px;
-  background-image: url('../img/logo_local.jpeg');
+  background-image: url('../logo.svg');
   background-size: contain;
   background-repeat: no-repeat;
   margin-right: 6px;
@@ -176,6 +176,27 @@ body::after {
   min-height: 300px;
   resize: both;
   overflow: auto;
+  transition: all 0.15s ease-out;
+}
+
+/* Maximized window styling */
+.window.maximized {
+  width: 100% !important;
+  height: calc(100vh - 30px) !important; /* Leave space for taskbar */
+  left: 0 !important;
+  top: 0 !important;
+  border-width: 0 0 2px 0 !important;
+  border-radius: 0 !important;
+  resize: none !important;
+}
+
+/* Animation for minimize/maximize */
+.window.minimized {
+  transform: scale(0.01);
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: bottom left;
+  transition: all 0.2s ease-in;
 }
 
 .window.active {
@@ -294,6 +315,34 @@ body::after {
   height: 22px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.taskbar-program {
+  display: flex;
+  align-items: center;
+  background-color: var(--win97-gray);
+  border: 2px solid;
+  border-color: var(--win97-light) var(--win97-dark) var(--win97-dark) var(--win97-light);
+  padding: 0 8px;
+  height: 22px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  min-width: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.taskbar-program.active {
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
+  background-color: var(--win97-gray);
+}
+
+.taskbar-program.minimized {
+  background-color: var(--win97-darker);
+  border-color: var(--win97-dark) var(--win97-light) var(--win97-light) var(--win97-dark);
 }
 
 .taskbar-entry {
@@ -415,7 +464,7 @@ body::after {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-image: url('../img/logo_local.jpeg');
+    background-image: url('../logo.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 300px auto;
@@ -1109,4 +1158,78 @@ body::after {
 
 .error-message ol li {
   margin-bottom: 5px;
+}
+
+/* Lead Capture Form Styles */
+.win95-form {
+  max-width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: normal;
+  font-size: 11px;
+}
+
+.win95-input,
+.win95-select,
+.win95-textarea {
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #c0c0c0;
+  background-color: white;
+  font-family: 'MS Sans Serif', Geneva, sans-serif;
+  font-size: 11px;
+}
+
+.win95-select {
+  padding: 3px;
+}
+
+.win95-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.win95-button.primary {
+  background-color: #000080;
+  color: white;
+  font-weight: bold;
+}
+
+.win95-button.primary:active {
+  background-color: #000060;
+}
+
+.form-message {
+  border-radius: 0;
+  font-size: 11px;
+}
+
+.form-message.success {
+  background-color: #e6ffe6;
+  border-color: #4caf50;
+  color: #2e7d32;
+}
+
+.form-message.error {
+  background-color: #ffebee;
+  border-color: #f44336;
+  color: #c62828;
+}
+
+.form-message.error a {
+  color: #0000ff;
 } 

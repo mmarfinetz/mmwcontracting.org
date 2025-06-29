@@ -3,16 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // DOM Elements
   const desktopIcons = document.querySelectorAll('.desktop-icon');
   const startButton = document.querySelector('.start-button');
-  const startMenu = document.getElementById('start-menu');
+  const startMenu = document.querySelector('.start-menu');
   const windows = document.querySelectorAll('.window');
   const taskbar = document.querySelector('.taskbar');
-  const taskbarPrograms = document.querySelector('.taskbar-programs');
-  const closeButtons = document.querySelectorAll('.close-button');
-  const minimizeButtons = document.querySelectorAll('.minimize-button');
+  const taskbarEntries = document.querySelector('.taskbar-entries');
+  const closeButtons = document.querySelectorAll('.title-bar-button.close-button');
+  const minimizeButtons = document.querySelectorAll('.title-bar-button.minimize-button');
   const timeDisplay = document.querySelector('.taskbar-time');
   const testimonialWindows = document.querySelectorAll('.testimonial');
   const testimonialNextBtn = document.getElementById('testimonial-next');
   const testimonialPrevBtn = document.getElementById('testimonial-prev');
+  const ctaButton = document.getElementById('cta-button');
   
   // State
   let activeWindow = null;
@@ -21,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let dragOffsetY = 0;
   let currentTestimonialIndex = 0;
   let isStartMenuOpen = false;
+  // Store original window positions and sizes for restore after maximize
+  let windowStates = {};
   
   // Utility Functions
   function updateTime() {
@@ -52,6 +55,75 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Save the current window state (for restore after maximize)
+  function saveWindowState(window) {
+    if (!windowStates[window.id]) {
+      windowStates[window.id] = {
+        width: window.style.width,
+        height: window.style.height,
+        left: window.style.left,
+        top: window.style.top
+      };
+    }
+  }
+  
+  // Maximize a window to fill the screen (except for taskbar)
+  function maximizeWindow(window) {
+    // Save current state for later restore
+    saveWindowState(window);
+    
+    // Remove any existing maximized window
+    document.querySelectorAll('.window.maximized').forEach(win => {
+      if (win !== window) {
+        restoreWindow(win);
+      }
+    });
+    
+    // Apply maximized styles
+    window.classList.add('maximized');
+    window.style.width = '100%';
+    window.style.height = 'calc(100vh - 30px)'; // Leave space for taskbar
+    window.style.left = '0';
+    window.style.top = '0';
+    
+    // Update button appearance
+    const maximizeButton = window.querySelector('.maximize-button');
+    if (maximizeButton) {
+      maximizeButton.innerHTML = '❐'; // Different symbol for restore
+      maximizeButton.title = 'Restore';
+    }
+  }
+  
+  // Restore a window to its original size
+  function restoreWindow(window) {
+    // Only proceed if we have saved state
+    if (windowStates[window.id]) {
+      window.classList.remove('maximized');
+      window.style.width = windowStates[window.id].width;
+      window.style.height = windowStates[window.id].height;
+      window.style.left = windowStates[window.id].left;
+      window.style.top = windowStates[window.id].top;
+      
+      // Reset the maximize button
+      const maximizeButton = window.querySelector('.maximize-button');
+      if (maximizeButton) {
+        maximizeButton.innerHTML = '□';
+        maximizeButton.title = 'Maximize';
+      }
+    }
+  }
+  
+  // Minimize a window to the taskbar
+  function minimizeWindow(window) {
+    window.classList.add('minimized');
+    
+    // Highlight the taskbar entry
+    const taskbarEntry = document.querySelector(`.taskbar-program[data-window-id="${window.id}"]`);
+    if (taskbarEntry) {
+      taskbarEntry.classList.add('minimized');
+    }
+  }
+  
   function createTaskbarEntry(window) {
     const windowTitle = window.querySelector('.title-bar-text').textContent;
     const iconSrc = window.dataset.icon || 'img/wxp_186.png';
@@ -66,16 +138,20 @@ document.addEventListener('DOMContentLoaded', function() {
     
     taskbarEntry.addEventListener('click', () => {
       if (window.classList.contains('minimized')) {
+        // Restore minimized window
         window.classList.remove('minimized');
+        taskbarEntry.classList.remove('minimized');
         makeWindowActive(window);
       } else if (window === activeWindow) {
-        window.classList.add('minimized');
+        // Minimize active window
+        minimizeWindow(window);
       } else {
+        // Activate window
         makeWindowActive(window);
       }
     });
     
-    taskbarPrograms.appendChild(taskbarEntry);
+    document.querySelector('.taskbar-entries').appendChild(taskbarEntry);
   }
   
   // Initialize UI
@@ -88,6 +164,29 @@ document.addEventListener('DOMContentLoaded', function() {
     windows.forEach(window => {
       if (window.id !== 'emergency-window') {
         window.style.display = 'none';
+      }
+      
+      // Add double-click handler to each window's title bar
+      const titleBar = window.querySelector('.title-bar');
+      if (titleBar) {
+        titleBar.addEventListener('dblclick', handleTitleBarDoubleClick);
+      }
+      
+      // Add maximize button handler
+      const maximizeBtn = window.querySelector('.maximize-button');
+      if (maximizeBtn) {
+        maximizeBtn.addEventListener('click', (event) => {
+          event.stopPropagation();
+          const win = event.target.closest('.window');
+          
+          if (win.classList.contains('maximized')) {
+            restoreWindow(win);
+          } else {
+            maximizeWindow(win);
+          }
+          
+          makeWindowActive(win);
+        });
       }
     });
     
@@ -104,6 +203,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up testimonials
     if (testimonialWindows.length > 0) {
       showTestimonial(0);
+    }
+    
+    // Check for direct Google Reviews link (new approach)
+    const googleReviewsDirectLink = document.querySelector('.google-reviews-direct-link');
+    
+    // Handle testimonials display
+    const staticElement = document.querySelector('.testimonial-static');
+    if (staticElement) {
+      // Always hide static testimonials initially
+      staticElement.style.display = 'none';
+      
+      // If there's a Google Reviews direct link section, show it
+      if (googleReviewsDirectLink) {
+        googleReviewsDirectLink.style.display = 'block';
+      } else {
+        // Otherwise, fall back to static testimonials
+        staticElement.style.display = 'block';
+      }
     }
   }
   
@@ -143,6 +260,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (windowId === 'testimonials-window' && typeof loadGoogleReviews === 'function') {
       loadGoogleReviews();
     }
+    
+    // Dispatch custom event for other scripts to listen to
+    window.dispatchEvent(new CustomEvent('windowOpened', { 
+      detail: { windowId: windowId } 
+    }));
   }
   
   function handleWindowDragStart(event) {
@@ -159,17 +281,46 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Handle double-click on title bar to maximize/restore
+  function handleTitleBarDoubleClick(event) {
+    if (event.target.classList.contains('title-bar') || 
+        event.target.classList.contains('title-bar-text')) {
+      event.stopPropagation();
+      const window = event.target.closest('.window');
+      
+      if (window.classList.contains('maximized')) {
+        restoreWindow(window);
+      } else {
+        maximizeWindow(window);
+      }
+    }
+  }
+  
   function handleWindowDrag(event) {
     if (draggedWindow) {
-      const newX = Math.max(0, event.clientX - dragOffsetX);
-      const newY = Math.max(0, event.clientY - dragOffsetY);
+      // Auto-restore if dragging a maximized window
+      if (draggedWindow.classList.contains('maximized')) {
+        // First restore the window
+        restoreWindow(draggedWindow);
+        
+        // Then recalculate drag offsets for smooth transition
+        const rect = draggedWindow.getBoundingClientRect();
+        dragOffsetX = event.clientX - rect.left;
+        dragOffsetY = event.clientY - rect.top;
+      }
       
-      // Prevent the window from being dragged too far right or bottom
-      const maxX = window.innerWidth - draggedWindow.offsetWidth;
-      const maxY = window.innerHeight - draggedWindow.offsetHeight;
-      
-      draggedWindow.style.left = Math.min(newX, maxX) + 'px';
-      draggedWindow.style.top = Math.min(newY, maxY) + 'px';
+      // Now move the window (only if not maximized)
+      if (!draggedWindow.classList.contains('maximized')) {
+        const newX = Math.max(0, event.clientX - dragOffsetX);
+        const newY = Math.max(0, event.clientY - dragOffsetY);
+        
+        // Prevent the window from being dragged too far right or bottom
+        const maxX = window.innerWidth - draggedWindow.offsetWidth;
+        const maxY = window.innerHeight - draggedWindow.offsetHeight;
+        
+        draggedWindow.style.left = Math.min(newX, maxX) + 'px';
+        draggedWindow.style.top = Math.min(newY, maxY) + 'px';
+      }
     }
   }
   
@@ -234,6 +385,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('mousemove', handleWindowDrag);
   document.addEventListener('mouseup', handleWindowDragEnd);
   
+  // Add double-click handlers for title bars
+  document.querySelectorAll('.title-bar').forEach(titleBar => {
+    titleBar.addEventListener('dblclick', handleTitleBarDoubleClick);
+  });
+  
   closeButtons.forEach(button => {
     button.addEventListener('click', (event) => {
       const window = event.target.closest('.window');
@@ -252,9 +408,30 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   minimizeButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent window drag
       const window = button.closest('.window');
-      window.classList.add('minimized');
+      minimizeWindow(window);
+    });
+  });
+  
+  // Add event handlers for maximize buttons
+  const maximizeButtons = document.querySelectorAll('.title-bar-button.maximize-button');
+  maximizeButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent window drag
+      const window = button.closest('.window');
+      
+      if (window.classList.contains('maximized')) {
+        // If already maximized, restore it
+        restoreWindow(window);
+      } else {
+        // Otherwise, maximize it
+        maximizeWindow(window);
+      }
+      
+      // Ensure window is active
+      makeWindowActive(window);
     });
   });
   
@@ -266,17 +443,130 @@ document.addEventListener('DOMContentLoaded', function() {
     testimonialPrevBtn.addEventListener('click', handlePrevTestimonial);
   }
   
+  // CTA Button Click Handler
+  if (ctaButton) {
+    ctaButton.addEventListener('click', function() {
+      openWindow('contact-window');
+    });
+  }
+  
+  // Start menu items click handlers
+  const startEmergency = document.getElementById('start-emergency');
+  if (startEmergency) {
+    startEmergency.addEventListener('click', () => {
+      openWindow('emergency-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startServices = document.getElementById('start-services');
+  if (startServices) {
+    startServices.addEventListener('click', () => {
+      openWindow('services-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startTestimonials = document.getElementById('start-testimonials');
+  if (startTestimonials) {
+    startTestimonials.addEventListener('click', () => {
+      openWindow('testimonials-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startContact = document.getElementById('start-contact');
+  if (startContact) {
+    startContact.addEventListener('click', () => {
+      openWindow('contact-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
+  const startHelp = document.getElementById('start-help');
+  if (startHelp) {
+    startHelp.addEventListener('click', () => {
+      openWindow('help-window');
+      startMenu.style.display = 'none';
+      isStartMenuOpen = false;
+    });
+  }
+  
   // Mobile-specific optimizations
   function initMobileOptimizations() {
-    if (window.innerWidth <= 768) {
-      // On mobile, show the emergency window in a modal
-      const emergencyWindow = document.getElementById('emergency-window');
-      if (emergencyWindow) {
-        emergencyWindow.classList.add('mobile-modal');
+    const isMobile = window.innerWidth <= 768;
+    
+    // Mobile navigation elements
+    const mobileNavToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+    
+    if (isMobile) {
+      // Show mobile nav
+      document.querySelector('.mobile-nav').style.display = 'flex';
+      
+      // Handle mobile menu toggle
+      if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', function() {
+          this.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+        });
       }
       
-      // Add touch event for window dragging
+      // Handle mobile menu item clicks
+      mobileMenuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+          // Only prevent default for internal windows, not for external links
+          if (this.getAttribute('data-window')) {
+            e.preventDefault();
+            
+            // Get the window ID from data attribute
+            const windowId = this.getAttribute('data-window');
+            if (windowId) {
+              // Hide all windows first
+              windows.forEach(window => {
+                window.style.display = 'none';
+                window.classList.remove('active-window');
+              });
+              
+              // Show the selected window
+              const targetWindow = document.getElementById(windowId);
+              if (targetWindow) {
+                targetWindow.style.display = 'block';
+                makeWindowActive(targetWindow);
+                
+                // Close the mobile menu
+                mobileMenu.classList.remove('active');
+                if (mobileNavToggle) {
+                  mobileNavToggle.classList.remove('active');
+                }
+              }
+            }
+          } else {
+            // For external links (like the Google Form), just close the menu
+            mobileMenu.classList.remove('active');
+            if (mobileNavToggle) {
+              mobileNavToggle.classList.remove('active');
+            }
+          }
+        });
+      });
+      
+      // On mobile, show only one window at a time
       windows.forEach(window => {
+        // Hide all windows initially except emergency
+        if (window.id !== 'emergency-window') {
+          window.style.display = 'none';
+        } else {
+          window.style.display = 'block';
+          makeWindowActive(window);
+        }
+        
+        // Add touch event for window dragging
         const titleBar = window.querySelector('.title-bar');
         if (titleBar) {
           titleBar.addEventListener('touchstart', (e) => {
@@ -285,24 +575,59 @@ document.addEventListener('DOMContentLoaded', function() {
             draggedWindow = window;
             dragOffsetX = touch.clientX - windowRect.left;
             dragOffsetY = touch.clientY - windowRect.top;
+            window.classList.add('dragging');
           });
           
           titleBar.addEventListener('touchmove', (e) => {
             if (draggedWindow) {
               e.preventDefault();
               const touch = e.touches[0];
-              const newX = touch.clientX - dragOffsetX;
-              const newY = touch.clientY - dragOffsetY;
+              const newX = Math.max(0, Math.min(window.innerWidth - draggedWindow.offsetWidth, touch.clientX - dragOffsetX));
+              const newY = Math.max(60, Math.min(window.innerHeight - draggedWindow.offsetHeight, touch.clientY - dragOffsetY));
               draggedWindow.style.left = newX + 'px';
               draggedWindow.style.top = newY + 'px';
             }
           });
           
           titleBar.addEventListener('touchend', () => {
-            draggedWindow = null;
+            if (draggedWindow) {
+              draggedWindow.classList.remove('dragging');
+              draggedWindow = null;
+            }
           });
         }
       });
+      
+      // Improve emergency content layout for mobile
+      const emergencyWindow = document.getElementById('emergency-window');
+      if (emergencyWindow) {
+        const emergencyContent = emergencyWindow.querySelector('.emergency-content');
+        if (emergencyContent) {
+          emergencyContent.style.flexDirection = 'column';
+        }
+      }
+      
+      // Handle clicks outside the mobile menu to close it
+      document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('active') && 
+            !mobileMenu.contains(e.target) && 
+            !mobileNavToggle.contains(e.target)) {
+          mobileMenu.classList.remove('active');
+          mobileNavToggle.classList.remove('active');
+        }
+      });
+      
+      // Adjust CTA button
+      const ctaButton = document.getElementById('cta-button');
+      if (ctaButton) {
+        ctaButton.style.fontSize = window.innerWidth <= 480 ? '14px' : '16px';
+      }
+    } else {
+      // Reset for desktop
+      document.querySelector('.mobile-nav').style.display = 'none';
+      if (mobileMenu) {
+        mobileMenu.classList.remove('active');
+      }
     }
   }
   
@@ -314,5 +639,25 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', () => {
     // Update UI based on new screen size
     initMobileOptimizations();
+  });
+  
+  // Add a delegated event listener for any close buttons that might be added dynamically
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('close-button')) {
+      const window = event.target.closest('.window');
+      if (window) {
+        window.style.display = 'none';
+        
+        // Remove from taskbar
+        const taskbarEntry = document.querySelector(`.taskbar-program[data-window-id="${window.id}"]`);
+        if (taskbarEntry) {
+          taskbarEntry.remove();
+        }
+        
+        if (activeWindow === window) {
+          activeWindow = null;
+        }
+      }
+    }
   });
 });

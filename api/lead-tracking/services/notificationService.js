@@ -185,6 +185,11 @@ class NotificationService {
 
   async sendEmail(emailAddress, template, data) {
     try {
+      // Debug logging for email address
+      console.log('Attempting to send email to:', JSON.stringify(emailAddress));
+      console.log('Email address type:', typeof emailAddress);
+      console.log('Email address length:', emailAddress?.length);
+      
       // Load email template
       const { getEmailTemplate } = require('../templates/email');
       const emailContent = await getEmailTemplate(template, data);

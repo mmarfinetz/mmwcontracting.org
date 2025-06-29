@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback, ReactNode } from 'react';
 
 // Define interfaces for component props
 interface ComponentProps {
@@ -24,18 +24,40 @@ try {
     CardTitle = ui.CardTitle;
   } else {
     // Create simple stub components for standalone mode
-    Card = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
-    CardContent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
-    CardHeader = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
-    CardTitle = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+    const CardComponent = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
+    CardComponent.displayName = 'Card';
+    Card = CardComponent;
+    
+    const CardContentComponent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
+    CardContentComponent.displayName = 'CardContent';
+    CardContent = CardContentComponent;
+    
+    const CardHeaderComponent = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
+    CardHeaderComponent.displayName = 'CardHeader';
+    CardHeader = CardHeaderComponent;
+    
+    const CardTitleComponent = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+    CardTitleComponent.displayName = 'CardTitle';
+    CardTitle = CardTitleComponent;
   }
 } catch (error) {
   console.error('Error loading UI components:', error);
   // Fallback components
-  Card = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
-  CardContent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
-  CardHeader = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
-  CardTitle = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+  const FallbackCard = ({ className, children }: ComponentProps) => <div className={`win95-card ${className || ''}`}>{children}</div>;
+  FallbackCard.displayName = 'Card';
+  Card = FallbackCard;
+  
+  const FallbackCardContent = ({ className, children }: ComponentProps) => <div className={`win95-card-content ${className || ''}`}>{children}</div>;
+  FallbackCardContent.displayName = 'CardContent';
+  CardContent = FallbackCardContent;
+  
+  const FallbackCardHeader = ({ className, children }: ComponentProps) => <div className={`win95-card-header ${className || ''}`}>{children}</div>;
+  FallbackCardHeader.displayName = 'CardHeader';
+  CardHeader = FallbackCardHeader;
+  
+  const FallbackCardTitle = ({ className, children }: ComponentProps) => <div className={`win95-card-title ${className || ''}`}>{children}</div>;
+  FallbackCardTitle.displayName = 'CardTitle';
+  CardTitle = FallbackCardTitle;
 }
 
 // Import chart components
@@ -82,7 +104,7 @@ const RevenueCalculator = () => {
     netProfit: 0,
   });
 
-  const calculateRevenue = () => {
+  const calculateRevenue = useCallback(() => {
     // Total hours calculation
     const totalHours = inputs.hoursPerWeek * inputs.weeksPerYear;
     const billableHours = totalHours * (inputs.billablePercent / 100);
@@ -129,11 +151,11 @@ const RevenueCalculator = () => {
       totalCosts,
       netProfit,
     });
-  };
+  }, [inputs]);
 
   useEffect(() => {
     calculateRevenue();
-  }, [inputs]);
+  }, [calculateRevenue]);
 
   const handleInputChange = (name: string, value: string) => {
     setInputs(prev => ({

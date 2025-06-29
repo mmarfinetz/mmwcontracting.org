@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Chart as ChartJS,
@@ -122,7 +122,7 @@ const RevenueCalculator = () => {
     netProfit: 0,
   });
 
-  const calculateRevenue = () => {
+  const calculateRevenue = useCallback(() => {
     // Total hours calculation
     const totalHours = inputs.hoursPerWeek * inputs.weeksPerYear;
     const billableHours = totalHours * (inputs.billablePercent / 100);
@@ -169,11 +169,11 @@ const RevenueCalculator = () => {
       totalCosts,
       netProfit,
     });
-  };
+  }, [inputs]);
 
   useEffect(() => {
     calculateRevenue();
-  }, [inputs]);
+  }, [calculateRevenue]);
 
   const handleInputChange = (name: keyof typeof inputs, value: string) => {
     setInputs(prev => ({

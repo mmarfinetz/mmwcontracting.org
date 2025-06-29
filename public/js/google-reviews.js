@@ -12,7 +12,7 @@ function loadGoogleReviews() {
   reviewsContainer.innerHTML = '<div class="loading-reviews">Loading reviews...</div>';
   
   // Server-side proxy instead of CORS Anywhere
-  const API_URL = '/api/google-reviews'; // Replace with your own server endpoint
+  const API_URL = '/api/google-reviews'; // Server endpoint
   
   // Use native fetch API with timeout
   const controller = new AbortController();
@@ -49,7 +49,7 @@ function loadGoogleReviews() {
       
       reviews.slice(0, 5).forEach(review => {
         const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
-        const timeAgo = formatTimeAgo(new Date(review.time * 1000));
+        const timeAgo = review.relative_time_description || formatTimeAgo(new Date(review.time * 1000));
         
         reviewsHTML += `
           <div class="google-review">
@@ -71,6 +71,7 @@ function loadGoogleReviews() {
       reviewsHTML += `
         <div class="reviews-footer">
           <a href="${data.result.url}" target="_blank" rel="noopener">View all reviews on Google</a>
+          <p class="reviews-rating">Overall rating: ${data.result.rating} ★</p>
         </div>
       `;
       
@@ -81,7 +82,7 @@ function loadGoogleReviews() {
       reviewsContainer.innerHTML = `
         <div class="review-error">
           <p>Unable to load reviews at this time.</p>
-          <p>Please check out our <a href="https://g.page/mmw-contracting/review" 
+          <p>Please check out our <a href="https://g.page/r/CaM5Z6DIV3MTEAE/review" 
              target="_blank" rel="noopener">Google Business Profile</a> to see customer reviews.</p>
         </div>
       `;

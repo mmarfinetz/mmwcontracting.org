@@ -133,7 +133,7 @@ export default function ConneautOH() {
                 <img src="/img/tree-roots-icon.png" alt="Tree Roots Icon" />
               </div>
               <h3>Tree Root Intrusion</h3>
-              <p>Conneaut's mature trees can cause significant damage to sewer lines. Our camera inspections can identify root intrusions and help target repairs precisely.</p>
+              <p>Conneaut&apos;s mature trees can cause significant damage to sewer lines. Our camera inspections can identify root intrusions and help target repairs precisely.</p>
             </div>
             <div className="issue-card">
               <div className="issue-icon">
@@ -147,7 +147,7 @@ export default function ConneautOH() {
                 <img src="/img/winter-icon.png" alt="Winter Icon" />
               </div>
               <h3>Winter Freezing</h3>
-              <p>Conneaut's cold winters can lead to frozen and burst pipes. We provide emergency services and preventative maintenance to protect your plumbing system.</p>
+              <p>Conneaut&apos;s cold winters can lead to frozen and burst pipes. We provide emergency services and preventative maintenance to protect your plumbing system.</p>
             </div>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function ConneautOH() {
             {/* Testimonial 1 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"I was worried about hiring a company from across state lines, but Marfinetz Plumbing arrived quickly and solved our sewer backup problem. Their camera inspection found the exact location of the blockage."</p>
+              <p className="testimonial-text">&ldquo;I was worried about hiring a company from across state lines, but Marfinetz Plumbing arrived quickly and solved our sewer backup problem. Their camera inspection found the exact location of the blockage.&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">Robert T.</p>
                 <p className="author-location">Conneaut, OH</p>
@@ -174,7 +174,7 @@ export default function ConneautOH() {
             {/* Testimonial 2 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"We had multiple plumbers look at our recurring drain problems without success. MMW's camera inspection found tree roots that other companies missed. Problem solved!"</p>
+              <p className="testimonial-text">&ldquo;We had multiple plumbers look at our recurring drain problems without success. MMW&apos;s camera inspection found tree roots that other companies missed. Problem solved!&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">Jennifer L.</p>
                 <p className="author-location">Conneaut Harbor, OH</p>
@@ -184,7 +184,7 @@ export default function ConneautOH() {
             {/* Testimonial 3 */}
             <div className="testimonial-card">
               <div className="testimonial-rating">★★★★★</div>
-              <p className="testimonial-text">"Fast response time even though we're in Ohio. Their sewer camera inspection saved us thousands in unnecessary repairs by pinpointing the exact problem area."</p>
+              <p className="testimonial-text">&ldquo;Fast response time even though we&apos;re in Ohio. Their sewer camera inspection saved us thousands in unnecessary repairs by pinpointing the exact problem area.&rdquo;</p>
               <div className="testimonial-author">
                 <p className="author-name">Michael D.</p>
                 <p className="author-location">North Kingsville, OH</p>
@@ -207,7 +207,7 @@ export default function ConneautOH() {
                 <img src="/img/cross-border-icon.png" alt="Cross-Border Icon" />
               </div>
               <h3>Cross-Border Expertise</h3>
-              <p>We're licensed and insured to work in both Pennsylvania and Ohio, providing seamless service across state lines.</p>
+              <p>We&apos;re licensed and insured to work in both Pennsylvania and Ohio, providing seamless service across state lines.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">
@@ -221,7 +221,7 @@ export default function ConneautOH() {
                 <img src="/img/local-knowledge-icon.png" alt="Local Knowledge Icon" />
               </div>
               <h3>Local Knowledge</h3>
-              <p>We understand Conneaut's unique plumbing challenges and infrastructure issues.</p>
+              <p>We understand Conneaut&apos;s unique plumbing challenges and infrastructure issues.</p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">
