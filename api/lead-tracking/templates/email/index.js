@@ -68,6 +68,11 @@ function replacePlaceholders(template, data) {
         'text': 'Text me'
       };
       value = contactMap[value] || value;
+    } else if (path === 'sessionData.email') {
+      // Ensure email is valid or provide a fallback
+      if (!value || !value.includes('@')) {
+        value = 'Not provided';
+      }
     }
     
     return value !== undefined && value !== null ? value : match;
@@ -145,7 +150,7 @@ function getInlineTemplate(templateName, data) {
                 <ul>
                     <li><strong>Name:</strong> {{sessionData.name}}</li>
                     <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
-                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Email:</strong> {{sessionData.email}}</li>
                     <li><strong>Property Type:</strong> {{sessionData.property_type}}</li>
                     <li><strong>Service Address:</strong> {{sessionData.location}}</li>
                     <li><strong>Urgency:</strong> <span style="color: #d32f2f; font-weight: bold;">{{sessionData.urgency}}</span></li>
@@ -228,7 +233,7 @@ function getInlineTemplate(templateName, data) {
                 <ul>
                     <li><strong>Name:</strong> {{sessionData.name}}</li>
                     <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
-                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Email:</strong> {{sessionData.email}}</li>
                     <li><strong>Property Type:</strong> {{sessionData.property_type}}</li>
                     <li><strong>Service Address:</strong> {{sessionData.location}}</li>
                     <li><strong>Urgency:</strong> <span style="color: #f57c00; font-weight: bold;">{{sessionData.urgency}}</span></li>
@@ -295,7 +300,7 @@ function getInlineTemplate(templateName, data) {
                 <ul>
                     <li><strong>Name:</strong> {{sessionData.name}}</li>
                     <li><strong>Phone:</strong> <a href="tel:{{sessionData.phone}}" style="color: #1976d2;">{{sessionData.phone}}</a></li>
-                    <li><strong>Email:</strong> <a href="mailto:{{sessionData.email}}" style="color: #1976d2;">{{sessionData.email}}</a></li>
+                    <li><strong>Email:</strong> {{sessionData.email}}</li>
                     <li><strong>Service Address:</strong> {{sessionData.location}}</li>
                 </ul>
                 
@@ -337,7 +342,7 @@ Page Visited: ${data.pageName}
 CONTACT INFORMATION:
 - Name: ${data.sessionData?.name || 'N/A'}
 - Phone: ${data.sessionData?.phone || 'N/A'}
-- Email: ${data.sessionData?.email || 'N/A'}
+- Email: ${data.sessionData?.email && data.sessionData.email.includes('@') ? data.sessionData.email : 'Not provided'}
 - Property Type: ${formatPropertyType(data.sessionData?.property_type) || 'N/A'}
 - Service Address: ${data.sessionData?.location || 'N/A'}
 - Urgency: ${formatUrgency(data.sessionData?.urgency) || 'N/A'}
