@@ -88,20 +88,45 @@ class NotificationService {
       // Execute all notifications in parallel
       const results = await Promise.allSettled(notificationPromises);
 
-      // Log results
+      // Process results
+      let successCount = 0;
+      let failureCount = 0;
+      const processedResults = [];
+
       results.forEach((result, index) => {
-        if (result.status === 'rejected') {
+        if (result.status === 'fulfilled') {
+          successCount++;
+          processedResults.push(result.value);
+        } else if (result.status === 'rejected') {
+          failureCount++;
           console.error('Notification failed:', result.reason);
-          // Add to retry queue
-          this.retryQueue.add({
-            ...data,
-            error: result.reason,
-            attempt: 1
-          });
+          
+          // Check if this is a result object with skipRetry flag
+          if (result.reason && result.reason.skipRetry) {
+            console.warn('Skipping retry for:', result.reason.error);
+          } else {
+            // Add to retry queue for other errors
+            this.retryQueue.add({
+              ...data,
+              error: result.reason,
+              attempt: 1
+            });
+          }
+          processedResults.push({ error: result.reason });
         }
       });
 
-      return { success: true, results };
+      console.log(`Notification summary - Success: ${successCount}, Failed: ${failureCount}`);
+
+      return { 
+        success: successCount > 0, 
+        results: processedResults,
+        summary: {
+          total: results.length,
+          successful: successCount,
+          failed: failureCount
+        }
+      };
     } catch (error) {
       console.error('Notification service error:', error);
       await this.auditLogger.log({
@@ -203,13 +228,45 @@ class NotificationService {
 
       return { success: true, messageId: result.MessageId };
     } catch (error) {
-      await this.auditLogger.log({
+      // Handle specific AWS SES errors
+      let errorDetails = {
         channel: 'email',
         recipient: emailAddress,
         status: 'failed',
         error: error.message,
-        leadId: data.leadId
-      });
+        leadId: data.leadId,
+        errorCode: error.code || 'Unknown'
+      };
+
+      // Check for email verification errors
+      if (error.code === 'MessageRejected' && error.message.includes('not verified')) {
+        errorDetails.error = `Email verification required: ${error.message}`;
+        errorDetails.actionRequired = 'Verify email addresses in AWS SES console';
+        console.error(`AWS SES Email Verification Error for ${emailAddress}:`, error.message);
+        console.error('Action required: Verify the following email addresses in AWS SES:');
+        console.error('- Sender:', process.env.AWS_SES_FROM_EMAIL);
+        console.error('- Recipient:', emailAddress);
+      } else if (error.code === 'InvalidParameterValue' && error.message.includes('address contains control or whitespace')) {
+        errorDetails.error = 'Email address format error - contains invalid characters';
+        errorDetails.actionRequired = 'Check environment variable formatting';
+        console.error(`Email format error for ${emailAddress}: Address may contain whitespace or control characters`);
+      } else if (error.code === 'Throttling') {
+        errorDetails.error = 'AWS SES rate limit exceeded';
+        errorDetails.shouldRetry = true;
+      }
+
+      await this.auditLogger.log(errorDetails);
+      
+      // Don't retry verification errors
+      if (errorDetails.actionRequired && !errorDetails.shouldRetry) {
+        return { 
+          success: false, 
+          error: errorDetails.error,
+          skipRetry: true,
+          actionRequired: errorDetails.actionRequired
+        };
+      }
+      
       throw error;
     }
   }

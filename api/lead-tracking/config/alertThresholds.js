@@ -6,8 +6,8 @@ const ALERT_THRESHOLDS = {
     smsTemplate: 'immediate-alert-sms',
     emailTemplate: 'immediate-alert-email',
     recipients: {
-      sms: process.env.EMERGENCY_PHONE_NUMBERS ? process.env.EMERGENCY_PHONE_NUMBERS.split(',') : [],
-      email: process.env.EMERGENCY_EMAILS ? process.env.EMERGENCY_EMAILS.split(',') : []
+      sms: process.env.EMERGENCY_PHONE_NUMBERS ? process.env.EMERGENCY_PHONE_NUMBERS.split(',').map(s => s.trim()).filter(s => s) : [],
+      email: process.env.EMERGENCY_EMAILS ? process.env.EMERGENCY_EMAILS.split(',').map(e => e.trim()).filter(e => e) : []
     },
     description: 'Emergency lead requiring immediate attention'
   },
@@ -18,7 +18,7 @@ const ALERT_THRESHOLDS = {
     priority: 'medium',
     emailTemplate: 'high-priority-email',
     recipients: {
-      email: process.env.HIGH_PRIORITY_EMAILS ? process.env.HIGH_PRIORITY_EMAILS.split(',') : []
+      email: process.env.HIGH_PRIORITY_EMAILS ? process.env.HIGH_PRIORITY_EMAILS.split(',').map(e => e.trim()).filter(e => e) : []
     },
     description: 'High-value lead requiring prompt follow-up'
   },
@@ -29,7 +29,7 @@ const ALERT_THRESHOLDS = {
     priority: 'low',
     emailTemplate: 'standard-alert-email',
     recipients: {
-      email: process.env.STANDARD_EMAILS ? process.env.STANDARD_EMAILS.split(',') : []
+      email: process.env.STANDARD_EMAILS ? process.env.STANDARD_EMAILS.split(',').map(e => e.trim()).filter(e => e) : []
     },
     description: 'Standard lead for regular follow-up'
   }

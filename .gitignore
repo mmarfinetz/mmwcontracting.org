@@ -40,3 +40,22 @@ __pycache__/
 venv/
 .env 
 .vercel
+
+# Local test scripts
+test-api-notification.sh
+verify-ses-emails.js
+verify-domain-ses.js
+test-ses-directly.js
+check-railway-vars.sh
+check-domain-status.sh
+temp-email-fix.sh
+restore-email-config.sh
+sync-env-to-railway.sh
+FIX_EMAIL_NOTIFICATIONS.md
+
+# Logs
+logs/
+*.log
+
+# Package manager files
+yarn.lock
