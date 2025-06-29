@@ -66,10 +66,17 @@ class NotificationService {
       // Send Email if configured
       if (alertConfig.channels.includes('email') && this.sesEnabled) {
         for (const emailAddress of alertConfig.recipients.email || []) {
-          if (await this.rateLimiter.canSend('email', emailAddress)) {
+          // Validate email before attempting to send
+          const sanitizedEmail = this.sanitizeEmail(emailAddress);
+          if (!sanitizedEmail) {
+            console.error(`Skipping invalid email address: "${emailAddress}"`);
+            continue;
+          }
+          
+          if (await this.rateLimiter.canSend('email', sanitizedEmail)) {
             notificationPromises.push(
               this.sendEmail(
-                emailAddress,
+                sanitizedEmail,
                 alertConfig.emailTemplate,
                 {
                   leadId,
@@ -185,19 +192,36 @@ class NotificationService {
 
   async sendEmail(emailAddress, template, data) {
     try {
+      // Validate and sanitize email address
+      const sanitizedEmail = this.sanitizeEmail(emailAddress);
+      if (!sanitizedEmail) {
+        throw new Error(`Invalid recipient email address: ${emailAddress}`);
+      }
+
       // Debug logging for email address
-      console.log('Attempting to send email to:', JSON.stringify(emailAddress));
-      console.log('Email address type:', typeof emailAddress);
-      console.log('Email address length:', emailAddress?.length);
+      console.log('Attempting to send email to:', JSON.stringify(sanitizedEmail));
+      console.log('Original email:', JSON.stringify(emailAddress));
       
+      // Validate sender email configuration
+      const senderEmail = this.sanitizeEmail(process.env.AWS_SES_FROM_EMAIL);
+      if (!senderEmail) {
+        throw new Error(`Invalid sender email configuration: AWS_SES_FROM_EMAIL=${process.env.AWS_SES_FROM_EMAIL}`);
+      }
+
       // Load email template
       const { getEmailTemplate } = require('../templates/email');
       const emailContent = await getEmailTemplate(template, data);
 
+      // Construct source email with proper formatting
+      const fromName = (process.env.AWS_SES_FROM_NAME || 'Notification System').trim();
+      const sourceEmail = `${fromName} <${senderEmail}>`;
+
+      console.log('Using source email:', sourceEmail);
+
       // Prepare email parameters
       const params = {
         Destination: {
-          ToAddresses: [emailAddress]
+          ToAddresses: [sanitizedEmail]
         },
         Message: {
           Body: {
@@ -215,8 +239,8 @@ class NotificationService {
             Data: emailContent.subject
           }
         },
-        Source: `${process.env.AWS_SES_FROM_NAME} <${process.env.AWS_SES_FROM_EMAIL}>`,
-        ReplyToAddresses: [process.env.AWS_SES_FROM_EMAIL]
+        Source: sourceEmail,
+        ReplyToAddresses: [senderEmail]
       };
 
       // Send email via AWS SES
@@ -294,6 +318,25 @@ class NotificationService {
     } catch (error) {
       return 'Unknown Page';
     }
+  }
+
+  sanitizeEmail(email) {
+    if (!email || typeof email !== 'string') {
+      return null;
+    }
+
+    // Trim whitespace and newlines
+    const trimmed = email.trim().replace(/\r|\n/g, '');
+    
+    // Basic email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!emailRegex.test(trimmed)) {
+      console.error(`Invalid email format: "${email}" (trimmed: "${trimmed}")`);
+      return null;
+    }
+
+    return trimmed;
   }
 }
 
