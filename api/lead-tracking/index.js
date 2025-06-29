@@ -112,19 +112,35 @@ app.post('/track', async (req, res) => {
     // Generate lead ID (in production, this would come from database)
     const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Log the tracking data
-    console.log('Lead tracking data received:', {
-      leadId,
-      pageUrl,
-      referrer,
-      timestamp: new Date(timestamp),
-      score: scoringResult.score,
-      scoreBreakdown: scoringResult.breakdown,
-      userAgent,
-      screenResolution,
-      language,
-      timezone
-    });
+    // Enhanced logging for form submissions
+    const isFormSubmission = sessionData.formSubmission === true || sessionData.leadSource === 'contact_form';
+    
+    if (isFormSubmission) {
+      console.log('🚨 FORM SUBMISSION RECEIVED:', {
+        leadId,
+        name: sessionData.name,
+        phone: sessionData.phone,
+        urgency: sessionData.urgency,
+        service: sessionData.service,
+        message: sessionData.message,
+        score: scoringResult.score,
+        scoreBreakdown: scoringResult.breakdown,
+        alertTriggered: alertType || 'none'
+      });
+    } else {
+      console.log('Lead tracking data received:', {
+        leadId,
+        pageUrl,
+        referrer,
+        timestamp: new Date(timestamp),
+        score: scoringResult.score,
+        scoreBreakdown: scoringResult.breakdown,
+        userAgent,
+        screenResolution,
+        language,
+        timezone
+      });
+    }
 
     // TODO: Save to database
     // const leadRecord = await leadStorageService.store({

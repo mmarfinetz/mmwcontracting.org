@@ -40,6 +40,45 @@ class LeadScoringService {
       bonuses: 0
     };
 
+    // PRIORITY: Check if this is a form submission first
+    if (sessionData.formSubmission === true || sessionData.leadSource === 'contact_form') {
+      // This is an actual lead submission - give it appropriate base score
+      score += 50; // Base score for any form submission
+      scoreBreakdown.bonuses += 50;
+      
+      // Add urgency-based scoring
+      if (sessionData.urgency) {
+        switch (sessionData.urgency) {
+          case 'emergency':
+            score += 40; // Total: 90 (triggers emergency notification)
+            scoreBreakdown.bonuses += 40;
+            break;
+          case 'same_day':
+            score += 20; // Total: 70 (triggers high priority notification)
+            scoreBreakdown.bonuses += 20;
+            break;
+          case 'this_week':
+            score += 0; // Total: 50 (triggers standard notification)
+            break;
+          case 'planning':
+            score -= 10; // Total: 40 (still triggers standard notification)
+            scoreBreakdown.bonuses -= 10;
+            break;
+        }
+      }
+      
+      // Additional scoring for service type if emergency-related
+      if (sessionData.service && (
+        sessionData.service.includes('emergency') ||
+        sessionData.service.includes('leak') ||
+        sessionData.service.includes('burst') ||
+        sessionData.service.includes('flood')
+      )) {
+        score += 10;
+        scoreBreakdown.bonuses += 10;
+      }
+    }
+
     // Behavior scoring
     if (sessionData.events) {
       sessionData.events.forEach(event => {
@@ -58,6 +97,14 @@ class LeadScoringService {
           case 'form_start':
             score += this.scoring.behavior.contactFormStart;
             scoreBreakdown.behavior += this.scoring.behavior.contactFormStart;
+            break;
+          
+          case 'form_submission':
+            // If we somehow missed the formSubmission flag, catch it here
+            if (!sessionData.formSubmission) {
+              score += 50;
+              scoreBreakdown.bonuses += 50;
+            }
             break;
           
           case 'page_view':
