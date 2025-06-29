@@ -88,5 +88,8 @@ function validateConfiguration() {
 module.exports = {
   ALERT_THRESHOLDS,
   getAlertType,
-  validateConfiguration
+  validateConfiguration,
+  IMMEDIATE: ALERT_THRESHOLDS.IMMEDIATE,
+  HIGH_PRIORITY: ALERT_THRESHOLDS.HIGH_PRIORITY,
+  STANDARD: ALERT_THRESHOLDS.STANDARD
 };

@@ -112,6 +112,9 @@ app.post('/track', async (req, res) => {
     // Generate lead ID (in production, this would come from database)
     const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
+    // Check if notification should be sent (moved up for logging purposes)
+    const alertType = getAlertType(scoringResult.score);
+    
     // Enhanced logging for form submissions
     const isFormSubmission = sessionData.formSubmission === true || sessionData.leadSource === 'contact_form';
     
@@ -156,9 +159,6 @@ app.post('/track', async (req, res) => {
     //   score: scoringResult.score,
     //   scoreBreakdown: scoringResult.breakdown
     // });
-
-    // Check if notification should be sent
-    const alertType = getAlertType(scoringResult.score);
     
     if (alertType && process.env.NOTIFICATION_ENABLED === 'true') {
       // Send notification asynchronously (don't wait for it)
