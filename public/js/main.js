@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (targetId === 'services') {
       openWindow('services-window');
     } else if (targetId === 'contact') {
-      openWindow('contact-window');
+      window.location.href = '/contact';
     } else if (targetId === 'testimonials') {
       openWindow('testimonials-window');
     } else if (targetId === 'emergency') {
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // CTA Button Click Handler
   if (ctaButton) {
     ctaButton.addEventListener('click', function() {
-      openWindow('contact-window');
+      window.location.href = '/contact';
     });
   }
   
@@ -481,9 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const startContact = document.getElementById('start-contact');
   if (startContact) {
     startContact.addEventListener('click', () => {
-      openWindow('contact-window');
-      startMenu.style.display = 'none';
-      isStartMenuOpen = false;
+      window.location.href = '/contact';
     });
   }
   
@@ -634,6 +632,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize everything
   initUI();
   initMobileOptimizations();
+  
+  // Check URL parameters for auto-opening windows
+  const urlParams = new URLSearchParams(window.location.search);
+  const windowParam = urlParams.get('window');
+  if (windowParam) {
+    // Map common window names to their IDs
+    const windowMappings = {
+      'contact': 'contact-window',
+      'services': 'services-window',
+      'emergency': 'emergency-window',
+      'testimonials': 'testimonials-window',
+      'about': 'about-window'
+    };
+    
+    const windowId = windowMappings[windowParam] || windowParam;
+    
+    // Small delay to ensure everything is loaded
+    setTimeout(() => {
+      openWindow(windowId);
+    }, 100);
+  }
   
   // Handle window resize
   window.addEventListener('resize', () => {

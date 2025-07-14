@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMW Contracting - Browser Test Suite</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: #1e40af;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .test-section {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            margin-top: 0;
+            color: #1f2937;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+        
+        .test-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .test-button:hover {
+            background: #2563eb;
+        }
+        
+        .test-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .test-button.secondary {
+            background: #6b7280;
+        }
+        
+        .test-button.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .test-button.danger {
+            background: #ef4444;
+        }
+        
+        .test-button.danger:hover {
+            background: #dc2626;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .log-output {
+            background: #1f2937;
+            color: #f3f4f6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .log-timestamp {
+            color: #9ca3af;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .log-success { color: #34d399; }
+        .log-error { color: #f87171; }
+        .log-warning { color: #fbbf24; }
+        .log-info { color: #60a5fa; }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .config-info {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .config-info h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MMW Contracting - Browser Test Suite</h1>
+        <p>Comprehensive testing for lead tracking, notifications, and API functionality</p>
+    </div>
+
+    <div class="config-info">
+        <h3>⚠️ Configuration Required</h3>
+        <p>This test suite requires a running API server. Default URL: <code>https://mmwcontractingorg-production.up.railway.app</code></p>
+        <p>You can change the API URL in the configuration section below.</p>
+    </div>
+
+    <!-- Configuration Section -->
+    <div class="test-section">
+        <h2>Configuration</h2>
+        <div class="form-group">
+            <label for="apiUrl">API URL:</label>
+            <input type="text" id="apiUrl" value="https://mmwcontractingorg-production.up.railway.app" />
+        </div>
+        <button class="test-button secondary" onclick="saveConfig()">Save Configuration</button>
+        <button class="test-button" onclick="testConnection()">Test Connection</button>
+        <div id="configLog" class="log-output" style="display: none;"></div>
+    </div>
+
+    <!-- Lead Tracking Tests -->
+    <div class="test-section">
+        <h2>Lead Tracking Tests</h2>
+        <div class="test-controls">
+            <button class="test-button" onclick="testBasicTracking()">Test Basic Tracking</button>
+            <button class="test-button" onclick="testEmergencyLead()">Test Emergency Lead</button>
+            <button class="test-button" onclick="testFormSubmission()">Test Form Submission</button>
+            <button class="test-button secondary" onclick="clearTrackingLog()">Clear Log</button>
+        </div>
+        <div id="trackingLog" class="log-output" style="display: none;"></div>
+    </div>
+
+    <!-- Interactive Lead Submission -->
+    <div class="test-section">
+        <h2>Interactive Lead Submission</h2>
+        <form id="leadForm" onsubmit="submitCustomLead(event)">
+            <div class="form-group">
+                <label for="leadName">Name:</label>
+                <input type="text" id="leadName" value="Test Customer" required />
+            </div>
+            <div class="form-group">
+                <label for="leadPhone">Phone:</label>
+                <input type="tel" id="leadPhone" value="814-555-0123" required />
+            </div>
+            <div class="form-group">
+                <label for="leadEmail">Email:</label>
+                <input type="email" id="leadEmail" value="test@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="leadUrgency">Urgency:</label>
+                <select id="leadUrgency" required>
+                    <option value="emergency">Emergency</option>
+                    <option value="same_day">Same Day</option>
+                    <option value="flexible" selected>Flexible</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="leadProblem">Problem Description:</label>
+                <textarea id="leadProblem" required>Testing lead submission from browser test suite</textarea>
+            </div>
+            <button type="submit" class="test-button">Submit Lead</button>
+        </form>
+        <div id="leadFormLog" class="log-output" style="display: none;"></div>
+    </div>
+
+    <!-- Performance Tests -->
+    <div class="test-section">
+        <h2>Performance Tests</h2>
+        <div class="test-controls">
+            <button class="test-button" onclick="runPerformanceTest()">Run Performance Test</button>
+            <button class="test-button secondary" onclick="clearPerformanceLog()">Clear Log</button>
+        </div>
+        <div class="stats-grid" id="performanceStats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-value" id="totalRequests">0</div>
+                <div class="stat-label">Total Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="successRate">0%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgResponseTime">0ms</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+        </div>
+        <div id="performanceLog" class="log-output" style="display: none;"></div>
+    </div>
+
+    <!-- Test Results Summary -->
+    <div class="test-section">
+        <h2>Test Results Summary</h2>
+        <div class="test-controls">
+            <button class="test-button" onclick="runAllTests()">Run All Tests</button>
+            <button class="test-button danger" onclick="clearAllLogs()">Clear All Logs</button>
+        </div>
+        <div class="test-results" id="testSummary" style="display: none;">
+            <div class="result-item">
+                <span>Total Tests Run:</span>
+                <span id="totalTests">0</span>
+            </div>
+            <div class="result-item">
+                <span>Tests Passed:</span>
+                <span id="testsPassed" class="log-success">0</span>
+            </div>
+            <div class="result-item">
+                <span>Tests Failed:</span>
+                <span id="testsFailed" class="log-error">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global configuration
+        let apiUrl = 'https://mmwcontractingorg-production.up.railway.app';
+        let testResults = { total: 0, passed: 0, failed: 0 };
+
+        // Utility functions
+        function getTimestamp() {
+            return new Date().toLocaleTimeString();
+        }
+
+        function log(containerId, message, type = 'info') {
+            const container = document.getElementById(containerId);
+            container.style.display = 'block';
+            
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            const timestamp = document.createElement('span');
+            timestamp.className = 'log-timestamp';
+            timestamp.textContent = getTimestamp();
+            
+            const content = document.createElement('span');
+            content.className = `log-${type}`;
+            content.textContent = message;
+            
+            entry.appendChild(timestamp);
+            entry.appendChild(content);
+            container.appendChild(entry);
+            
+            // Auto-scroll to bottom
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function clearLog(containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            container.style.display = 'none';
+        }
+
+        function updateTestSummary() {
+            document.getElementById('testSummary').style.display = 'block';
+            document.getElementById('totalTests').textContent = testResults.total;
+            document.getElementById('testsPassed').textContent = testResults.passed;
+            document.getElementById('testsFailed').textContent = testResults.failed;
+        }
+
+        function recordTest(passed, testName) {
+            testResults.total++;
+            if (passed) {
+                testResults.passed++;
+            } else {
+                testResults.failed++;
+            }
+            updateTestSummary();
+        }
+
+        // Configuration functions
+        function saveConfig() {
+            const urlInput = document.getElementById('apiUrl');
+            apiUrl = urlInput.value.trim();
+            if (!apiUrl.endsWith('/')) {
+                apiUrl = apiUrl.slice(0, -1);
+            }
+            log('configLog', `Configuration saved. API URL: ${apiUrl}`, 'success');
+        }
+
+        async function testConnection() {
+            log('configLog', 'Testing API connection...', 'info');
+            
+            try {
+                const response = await fetch(`${apiUrl}/`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('configLog', `✓ Connection successful! API: ${data.service} v${data.version}`, 'success');
+                    recordTest(true, 'API Connection');
+                } else {
+                    log('configLog', `✗ Connection failed: HTTP ${response.status}`, 'error');
+                    recordTest(false, 'API Connection');
+                }
+            } catch (error) {
+                log('configLog', `✗ Connection error: ${error.message}`, 'error');
+                recordTest(false, 'API Connection');
+            }
+        }
+
+        // Lead tracking tests
+        async function testBasicTracking() {
+            log('trackingLog', 'Testing basic tracking...', 'info');
+            
+            const payload = {
+                pageUrl: 'https://test.example.com',
+                timestamp: Date.now(),
+                sessionData: {
+                    id: `test-${Date.now()}`,
+                    score: 50,
+                    events: [{ type: 'pageView', timestamp: Date.now() }]
+                },
+                userAgent: navigator.userAgent,
+                screenResolution: `${window.screen.width}x${window.screen.height}`
+            };
+            
+            try {
+                const response = await fetch(`${apiUrl}/track`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Session-ID': payload.sessionData.id
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('trackingLog', `✓ Tracking successful! Lead ID: ${data.leadId}, Score: ${data.leadScore}`, 'success');
+                    recordTest(true, 'Basic Tracking');
+                } else {
+                    log('trackingLog', `✗ Tracking failed: ${data.error}`, 'error');
+                    recordTest(false, 'Basic Tracking');
+                }
+            } catch (error) {
+                log('trackingLog', `✗ Error: ${error.message}`, 'error');
+                recordTest(false, 'Basic Tracking');
+            }
+        }
+
+        async function testEmergencyLead() {
+            log('trackingLog', 'Testing emergency lead submission...', 'info');
+            
+            const payload = {
+                pageUrl: '/emergency',
+                referrer: 'https://google.com/search?q=emergency+plumber',
+                timestamp: new Date().toISOString(),
+                sessionData: {
+                    id: `emergency-${Date.now()}`,
+                    events: [
+                        { type: 'emergencyClick', data: { points: 30 } },
+                        { type: 'phoneClick', data: { points: 25 } },
+                        { type: 'timeOnSite2Min', data: { points: 15 } }
+                    ],
+                    duration: 120000,
+                    pageViews: 3
+                },
+                userAgent: navigator.userAgent,
+                screenResolution: `${window.screen.width}x${window.screen.height}`
+            };
+            
+            try {
+                const response = await fetch(`${apiUrl}/track`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Session-ID': payload.sessionData.id
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('trackingLog', `✓ Emergency lead submitted! Score: ${data.leadScore}`, 'success');
+                    if (data.leadScore >= 80) {
+                        log('trackingLog', '⚠️ High-priority notification should have been triggered!', 'warning');
+                    }
+                    recordTest(true, 'Emergency Lead');
+                } else {
+                    log('trackingLog', `✗ Submission failed: ${data.error}`, 'error');
+                    recordTest(false, 'Emergency Lead');
+                }
+            } catch (error) {
+                log('trackingLog', `✗ Error: ${error.message}`, 'error');
+                recordTest(false, 'Emergency Lead');
+            }
+        }
+
+        async function testFormSubmission() {
+            log('trackingLog', 'Testing form submission tracking...', 'info');
+            
+            const formData = {
+                pageUrl: '/contact-form',
+                referrer: document.referrer || 'direct',
+                timestamp: new Date().toISOString(),
+                sessionData: {
+                    formSubmission: true,
+                    leadSource: 'contact_form',
+                    name: 'Browser Test User',
+                    phone: '814-555-9999',
+                    email: 'browsertest@example.com',
+                    urgency: 'normal',
+                    problem: 'Testing form submission from browser',
+                    events: [{ type: 'form_submission', timestamp: Date.now() }]
+                }
+            };
+            
+            try {
+                const response = await fetch(`${apiUrl}/track`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('trackingLog', `✓ Form tracked! Lead score: ${data.leadScore}`, 'success');
+                    recordTest(true, 'Form Submission');
+                } else {
+                    log('trackingLog', `✗ Form tracking failed: ${data.error}`, 'error');
+                    recordTest(false, 'Form Submission');
+                }
+            } catch (error) {
+                log('trackingLog', `✗ Error: ${error.message}`, 'error');
+                recordTest(false, 'Form Submission');
+            }
+        }
+
+        function clearTrackingLog() {
+            clearLog('trackingLog');
+        }
+
+        // Interactive lead submission
+        async function submitCustomLead(event) {
+            event.preventDefault();
+            
+            const formData = {
+                pageUrl: '/contact-form',
+                referrer: 'browser-test-suite',
+                timestamp: new Date().toISOString(),
+                sessionData: {
+                    formSubmission: true,
+                    leadSource: 'contact_form',
+                    name: document.getElementById('leadName').value,
+                    phone: document.getElementById('leadPhone').value,
+                    email: document.getElementById('leadEmail').value,
+                    urgency: document.getElementById('leadUrgency').value,
+                    problem: document.getElementById('leadProblem').value,
+                    preferred_contact: 'phone',
+                    events: [
+                        { type: 'form_submission', timestamp: Date.now() }
+                    ]
+                }
+            };
+            
+            log('leadFormLog', 'Submitting custom lead...', 'info');
+            
+            try {
+                const response = await fetch(`${apiUrl}/track`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log('leadFormLog', `✓ Lead submitted successfully!`, 'success');
+                    log('leadFormLog', `Lead ID: ${data.leadId}`, 'info');
+                    log('leadFormLog', `Lead Score: ${data.leadScore}`, 'info');
+                    log('leadFormLog', `Score Factors: ${data.scoreFactors?.join(', ') || 'None'}`, 'info');
+                } else {
+                    log('leadFormLog', `✗ Submission failed: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                log('leadFormLog', `✗ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Performance tests
+        async function runPerformanceTest() {
+            log('performanceLog', 'Starting performance test...', 'info');
+            document.getElementById('performanceStats').style.display = 'grid';
+            
+            const requestCount = 20;
+            const startTime = Date.now();
+            const results = [];
+            
+            log('performanceLog', `Sending ${requestCount} concurrent requests...`, 'info');
+            
+            const promises = [];
+            for (let i = 0; i < requestCount; i++) {
+                const requestStartTime = Date.now();
+                const promise = fetch(`${apiUrl}/track`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        pageUrl: 'https://test.example.com',
+                        timestamp: Date.now(),
+                        sessionData: {
+                            id: `perf-test-${i}`,
+                            score: Math.floor(Math.random() * 100),
+                            events: []
+                        }
+                    })
+                }).then(response => {
+                    const responseTime = Date.now() - requestStartTime;
+                    results.push({
+                        success: response.ok,
+                        status: response.status,
+                        time: responseTime
+                    });
+                    return response;
+                }).catch(error => {
+                    results.push({
+                        success: false,
+                        error: error.message,
+                        time: Date.now() - requestStartTime
+                    });
+                });
+                
+                promises.push(promise);
+            }
+            
+            await Promise.allSettled(promises);
+            
+            const totalTime = Date.now() - startTime;
+            const successCount = results.filter(r => r.success).length;
+            const avgResponseTime = Math.round(results.reduce((sum, r) => sum + r.time, 0) / results.length);
+            
+            // Update stats display
+            document.getElementById('totalRequests').textContent = requestCount;
+            document.getElementById('successRate').textContent = `${Math.round(successCount / requestCount * 100)}%`;
+            document.getElementById('avgResponseTime').textContent = `${avgResponseTime}ms`;
+            
+            log('performanceLog', `✓ Performance test completed in ${totalTime}ms`, 'success');
+            log('performanceLog', `Success rate: ${successCount}/${requestCount} (${Math.round(successCount / requestCount * 100)}%)`, 'info');
+            log('performanceLog', `Average response time: ${avgResponseTime}ms`, 'info');
+            
+            if (successCount === requestCount) {
+                recordTest(true, 'Performance Test');
+            } else {
+                recordTest(false, 'Performance Test');
+            }
+        }
+
+        function clearPerformanceLog() {
+            clearLog('performanceLog');
+            document.getElementById('performanceStats').style.display = 'none';
+        }
+
+        // Run all tests
+        async function runAllTests() {
+            testResults = { total: 0, passed: 0, failed: 0 };
+            clearAllLogs();
+            
+            log('configLog', 'Running all tests...', 'info');
+            
+            await testConnection();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testBasicTracking();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testEmergencyLead();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await testFormSubmission();
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            await runPerformanceTest();
+            
+            log('configLog', '✓ All tests completed!', 'success');
+        }
+
+        function clearAllLogs() {
+            clearLog('configLog');
+            clearLog('trackingLog');
+            clearLog('leadFormLog');
+            clearLog('performanceLog');
+            document.getElementById('performanceStats').style.display = 'none';
+            document.getElementById('testSummary').style.display = 'none';
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            saveConfig();
+        };
+    </script>
+</body>
+</html>
