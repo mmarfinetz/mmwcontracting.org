@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (targetId === 'services') {
       openWindow('services-window');
     } else if (targetId === 'contact') {
-      window.location.href = '/contact';
+      openWindow('contact-window');
     } else if (targetId === 'testimonials') {
       openWindow('testimonials-window');
     } else if (targetId === 'emergency') {
