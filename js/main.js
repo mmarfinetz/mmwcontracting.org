@@ -679,4 +679,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
+
+  // Check for URL parameters to open specific windows
+  const urlParams = new URLSearchParams(window.location.search);
+  const windowParam = urlParams.get('window');
+  if (windowParam === 'contact') {
+    openWindow('contact-window');
+  }
 });
