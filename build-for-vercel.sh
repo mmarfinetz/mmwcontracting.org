@@ -20,6 +20,23 @@ npm run build
 mkdir -p public/calculator
 cp -r out/calculator/* public/calculator/ 2>/dev/null || true
 
+# Copy contact page and other Next.js pages
+mkdir -p public/contact
+cp -r out/contact/* public/contact/ 2>/dev/null || true
+
+# Copy dashboard if it exists
+mkdir -p public/dashboard
+cp -r out/dashboard/* public/dashboard/ 2>/dev/null || true
+
+# Copy any other Next.js generated directories (service-areas, services, etc.)
+for dir in out/*/; do
+  if [ -d "$dir" ] && [ "$(basename "$dir")" != "_next" ] && [ "$(basename "$dir")" != "api" ] && [ "$(basename "$dir")" != "calculator" ] && [ "$(basename "$dir")" != "contact" ] && [ "$(basename "$dir")" != "dashboard" ]; then
+    dirname=$(basename "$dir")
+    mkdir -p "public/$dirname"
+    cp -r "$dir"* "public/$dirname/" 2>/dev/null || true
+  fi
+done
+
 # Copy any remaining assets that might be needed
 cp -r assets/* public/ 2>/dev/null || true
 
